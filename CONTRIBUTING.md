@@ -3,13 +3,13 @@
 
 # Contributing to Multiplayer UNO Game
 
-Thank you for your interest in contributing to the Multiplayer UNO Game project! Contributions are currently limited to fixing existing issues. This helps us maintain a high quality and consistent codebase.
+Thank you for your interest in contributing to the Multiplayer UNO Game project! Contributions include bug reports, feature requests, and code changes. This document outlines the guidelines for contributing to the project.
 
 ## How to Contribute
 
 ### Reporting Bugs
 
-If you encounter a bug while playing the game, please open an issue on the GitHub repository. When reporting a bug, please include:
+If you encounter a bug in the codebase, please open an issue on the GitHub repository. When reporting a bug, please include:
 
 - A clear and descriptive title.
 - Steps to reproduce the bug.
@@ -17,10 +17,11 @@ If you encounter a bug while playing the game, please open an issue on the GitHu
 - Actual behavior.
 - Any error messages or screenshots, if applicable.
 
+Maintainers will approve the issue and add relevant labels to indicate that its ready to be worked on.
+
 ### Fixing Issues
 
 1. **Find an Issue to Work On**:
-   - Browse the [Issues](https://github.com/yourusername/multiplayer-uno/issues) section of the GitHub repository.
    - Look for issues labeled `help wanted` or `good first issue` if you are a first-time contributor.
 
 2. **Comment on the Issue**:
@@ -45,18 +46,13 @@ If you encounter a bug while playing the game, please open an issue on the GitHu
      ```
 
 6. **Implement Your Fix**:
-   - Make the necessary changes to fix the issue. Follow the existing code style and conventions.
+   - Make the necessary changes to fix the issue. Follow the existing code style and conventions. Please refer to the code style and conventions in [CONVENTIONS.md](CONVENTIONS.md).
 
 7. **Test Your Changes**:
    - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
 
 8. **Commit Your Changes**:
-   - Commit your changes with a clear and descriptive commit message:
-
-     ```bash
-     git add .
-     git commit -m "Fix issue #123: [Brief description of the fix]"
-     ```
+   - Please refer to the commit message guidelines in [CONVENTIONS.md](CONVENTIONS.md) for writing meaningful commit messages.
 
 9. **Push Your Changes**:
    - Push your branch to your forked repository:
@@ -66,11 +62,11 @@ If you encounter a bug while playing the game, please open an issue on the GitHu
      ```
 
 10. **Open a Pull Request**:
-    - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing.
+    - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist.
 
 ## Code Review
 
-All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates.
+All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.
 
 ## Code of Conduct
 
@@ -78,8 +74,6 @@ Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDU
 
 ## Questions
 
-If you have any questions about the project or how to contribute, feel free to reach out to us via GitHub issues.
-
-Thank you for your interest in contributing to the Multiplayer UNO Game project!
+If you have any questions about the project or how to contribute, feel free to reach out to us on discord or DM on whatsapp.
 
 ---

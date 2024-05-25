@@ -25,7 +25,9 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
    - Look for issues labeled `help wanted` or `good first issue` if you are a first-time contributor.
 
 2. **Comment on the Issue**:
-   - Before starting work on an issue, comment on the issue to let others know that you are working on it. This helps prevent duplicate work.
+   - Before starting work on an issue, comment on the issue to let others know that you are working on it. This helps prevent duplicate work. Once the issue is assigned to you, you can start working on it. 
+
+   If you are not able to make progress on an issue in 4 days, you will be unassigned from the issue and it will be available for others to work on.
 
 3. **Fork the Repository**:
    - Fork the repository to your own GitHub account by clicking the "Fork" button on the top right of the repository page.
@@ -65,7 +67,7 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
     - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist.
 
 11. **Address Review Comments**:
-      - If maintainers request changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. 
+      - If maintainers suggests changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. 
 
 <!-- todo: add details about modifying pull requests following a review.-->
 
@@ -73,6 +75,8 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 
 - Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
+- Addressing reviews on existing PRs is as important as creating new PRs. Please be responsive to the feedback and make the necessary updates.
+- Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
 
 ## Code Review
 

@@ -12,7 +12,7 @@
 
 
 ## For React Components
-- Use functional components with hooks insteaad of class based components.
+- Use functional components with hooks instead of class based components.
 - Avoid copy pasting code. If you find yourself copying and pasting code, consider refactoring it into a reusable component or function. Use array methods like `map`, `filter`, and `reduce` to avoid duplicating code.
 
 
@@ -26,14 +26,29 @@
     
     <detailed_description>
 
-    Fixes: #<issue_number>
+    Fixes: #<issue_number> (omit this if there is no issue associated with the commit)
+    ```
+    Some examples:
+    ```
+    server: Add endpoint to fetch user data.
+
+    This commit adds a new endpoint to the server that allows clients to fetch user data.
+
+    Fixes #28686
+    ```
+
+    ```
+    client: Refactor user profile component.
+
+    This commit refactors the user profile component to improve code readability and maintainability.
+
     ```
 
 ## Other Important Points
 - Use meaningful and descriptive names for variables, functions, and classes to enhance code readability.
-- Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint).
+- Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint and prettier).
 - Use proper spacing and line breaks to improve code readability.
 - Avoid unnecessary code duplication and strive for code reusability.
-- Write clear and concise documentation for public APIs and important functions.
+- Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

@@ -1,13 +1,13 @@
 import styles from './input.module.css';
 
-type InputComponentProps = {
+type InputProps = {
     placeholder?: string;
 };
 
-function Input({ placeholder }: InputComponentProps) {
+function Input({ placeholder }: InputProps) {
     return (
         <div>
-            <input style={styles} placeholder={placeholder}></input>
+            <input className={styles.input} placeholder={placeholder}></input>
         </div>
     );
 }

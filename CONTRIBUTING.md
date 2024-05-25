@@ -64,6 +64,8 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 10. **Open a Pull Request**:
     - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist.
 
+<!-- todo: add details about modifying pull requests following a review.-->
+
 ## Code Review
 
 All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.

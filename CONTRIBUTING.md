@@ -73,6 +73,7 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 
 - Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
+- Addressing reviews on existing PRs is as important as creating new PRs. Please be responsive to the feedback and make the necessary updates.
 
 ## Code Review
 

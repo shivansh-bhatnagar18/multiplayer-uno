@@ -1,26 +1,27 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "format": "prettier --check .",
-    "test": "jest"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "mongoose": "^8.4.0"
-  },
-  "devDependencies": {
-    "eslint": "^9.3.0",
-    "jest": "^29.7.0",
-    "prettier": "^3.2.5",
-    "supertest": "^7.0.0"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "lint": "eslint .",
+        "format": "prettier --check .",
+        "fix-format": "prettier --write .",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "mongoose": "^8.4.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.2.5",
+        "supertest": "^7.0.0"
+    }
 }

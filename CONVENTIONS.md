@@ -26,7 +26,13 @@
     
     <detailed_description>
 
-    Fixes: #<issue_number>
+    Fixes: #<issue_number> (omit this if there is no issue associated with the commit)
+    ```
+    Some examples:
+    ```
+    server: Add endpoint to fetch user data.
+
+    This commit adds a new endpoint to the server that allows clients to fetch user data.
     ```
 
 ## Other Important Points

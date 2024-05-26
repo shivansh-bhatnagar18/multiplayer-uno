@@ -64,7 +64,15 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 10. **Open a Pull Request**:
     - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist.
 
+11. **Address Review Comments**:
+      - If maintainers request changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. 
+
 <!-- todo: add details about modifying pull requests following a review.-->
+
+## Points to remember during contribution
+
+- Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
+- Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
 
 ## Code Review
 
@@ -77,5 +85,9 @@ Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDU
 ## Questions
 
 If you have any questions about the project or how to contribute, feel free to reach out to us on discord or DM on whatsapp.
+
+## Judgement Criteria
+
+Do not worry about the points scored during contributing. Feel free to make mistakes, but be open to acknowledge and fix them. The main goal is to learn and grow together. Depending on your enthusiasm, dedication and contribution, you will be judged in the end of CSOC.
 
 ---

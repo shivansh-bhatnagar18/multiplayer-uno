@@ -68,7 +68,17 @@ function makeCard(type, color, value) {
  * Time complexity: O(n)
  * @param {Array} deck 
  */
-function shuffle(deck) {
-    //todo: Implement a generic shuffling algorithm
+
+function swap(i,j,desk) {
+    let tmp = desk[i];
+    desk[i] = desk[j];
+    desk[j] = tmp;
+}
+
+export default function shuffle(deck) {
+    for(let t=desk.length -1;t>0;t--){
+        const k = Math.floor(Math.random()*(t));
+        swap(t,k,desk);
+    }
     [deck[0], deck[1]] = [deck[1], deck[0]];
 }

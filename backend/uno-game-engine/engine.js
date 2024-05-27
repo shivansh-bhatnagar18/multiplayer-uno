@@ -1,5 +1,5 @@
 import getShuffledCardDeck from "./deck";
-import suffle from "./desk";
+import shuffle from "./desk";
 const NUM_CARDS_PER_PLAYER = 7;
 export class GameEngine{
     constructor(){
@@ -37,7 +37,7 @@ export class GameEngine{
             const thrown = this.thrownCards.pop();
             this.cardDeck = this.thrownCards;
             this.thrownCards = [thrown];
-            suffle(this.cardDeck);
+            shuffle(this.cardDeck);
         }
         this.players.find(p => p.id === player.id).cards.push(this.cardDeck.pop());
     }

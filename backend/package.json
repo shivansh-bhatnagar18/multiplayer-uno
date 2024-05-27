@@ -2,11 +2,13 @@
     "name": "backend",
     "version": "1.0.0",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "lint": "eslint .",
         "format": "prettier --check .",
         "fix-format": "prettier --write .",
-        "test": "jest"
+        "test": "jest",
+        "start": "node src/index.js"
     },
     "keywords": [],
     "author": "",

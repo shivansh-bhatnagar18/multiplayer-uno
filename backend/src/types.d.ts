@@ -11,7 +11,7 @@ type UNOCard = {
     type: CardType;
     color: CardColor;
     value: CardValue;
-    id: undefined;
+    id: string;
 };
 
 type Player = {

@@ -21,6 +21,8 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 
 ### Fixing Issues
 
+Given that you have already forked the repository and set it up locally:
+
 1. **Find an Issue to Work On**:
    - Look for issues labeled `help wanted` or `good first issue` if you are a first-time contributor.
 
@@ -29,22 +31,13 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 
    If you are not able to make progress on an issue in 4 days, you will be unassigned from the issue and it will be available for others to work on.
 
-3. **Fork the Repository**:
-   - Fork the repository to your own GitHub account by clicking the "Fork" button on the top right of the repository page.
-
-4. **Clone Your Fork**:
-   - Clone your fork to your local machine:
-
-     ```bash
-     git clone https://github.com/yourusername/multiplayer-uno.git
-     cd multiplayer-uno
-     ```
-
 5. **Create a Branch**:
    - Create a new branch for your fix from the `main` branch. Use a descriptive name for your branch:
+   It is crucial to fetch from upstream before creating a branch. This ensures that your branch is created from the latest changes in the main branch.
 
      ```bash
-     git checkout -b fix/issue-#123
+     git fetch upstream
+     git checkout -b <your branch name> upstream/main
      ```
 
 6. **Implement Your Fix**:
@@ -54,7 +47,7 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
    - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
 
 8. **Commit Your Changes**:
-   - Please refer to the commit message guidelines in [CONVENTIONS.md](CONVENTIONS.md) for writing meaningful commit messages.
+   - Please refer to the commit message guidelines in [CONVENTIONS.md](CONVENTIONS.md#commit-message-guidelines) for writing meaningful commit messages.
 
 9. **Push Your Changes**:
    - Push your branch to your forked repository:
@@ -64,10 +57,10 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
      ```
 
 10. **Open a Pull Request**:
-    - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist.
+    - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist. You should only solve one issue in one PR.
 
 11. **Address Review Comments**:
-      - If maintainers suggests changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. 
+      - If maintainers suggests changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. See the section on [editing commit history](#editing-commit-history) for more details.
 
 <!-- todo: add details about modifying pull requests following a review.-->
 
@@ -77,6 +70,81 @@ Maintainers will approve the issue and add relevant labels to indicate that its 
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
 - Addressing reviews on existing PRs is as important as creating new PRs. Please be responsive to the feedback and make the necessary updates.
 - Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
+
+## Common Git Operations you may need to perform
+
+During contribution, you will often need to rewrite commit history or sync your branch with the main branch. 
+Here is how you should do it:
+
+### Syncing your branch with the main branch
+If there have been updates to the upstream/master branch after you created your branch, you should sync your branch with the main branch. This will help you avoid merge conflicts and keep your branch up-to-date.
+
+```bash
+git fetch upstream
+git rebase upstream/main
+```
+Rebasing your branch on top of the main branch will apply your changes on top of the latest changes in the main branch.
+It would be equivalent to merging the main branch into your branch, but it keeps the commit history clean. The commit history will reflect that your changes were made on top of the latest changes in the main branch.
+
+If any merge conflicts occur, you will need to resolve them manually. Code editors (like VSCode) have built-in tools to help you resolve merge conflicts. After resolving the conflicts, you can continue the rebase process by running `git rebase --continue`. 
+
+Now the local copy of the branch is synced with upstream/main. You need to force push these changes to origin, since the commit history has been rewritten.
+
+```bash
+git push origin <branch-name> --force
+```
+
+### Editing commit history
+A maintainer might ask you to edit your commit history, for example, change the variable name, add/remove lines, change commit message, drop commits etc. The changes should not be made as a separate commit, rather you should edit the original commit with the changes. You can do this using an interactive rebase.
+
+Lets take the case where I want to merge 4 commits through a PR. The maintainer has asked me to change some variable names I had made through the 2nd commit. I am also asked to rename the commit message of the 3rd commit. 
+
+```bash
+git rebase -i HEAD~4
+```
+
+The `-i` represents interactive mode, i.e, after each commit, git will pause and ask you what you want to do with the commit. `HEAD~4` means that I want to rebase the last 4 commits.
+
+After running the command, you will see a list of commits in your default text editor. It will look something like this:
+
+```bash
+
+pick 1a2b3c4d This is the commit message of Commit 1
+pick 5e6f7g8h Added variables in index.js.
+pick 9i0j1k2l Updeted README.md
+pick 3m4n5o6p Commit msg 4
+
+```
+To drop a commit, you can simply delete the line corresponding to that commit. To edit a commit, you can replace `pick` with `edit` in front of the commit you want to edit.
+
+Since we wish to edit the 2nd and 3rd commit, we will change the file to look like this:
+
+```bash
+
+pick 1a2b3c4d This is the commit message of Commit 1
+edit 5e6f7g8h Added variables in index.js.
+edit 9i0j1k2l Updeted README.md
+pick 3m4n5o6p Commit msg 4
+
+```
+Save the changes and exit.
+
+After saving the changes, git will then apply the 2nd commit and pause. You can now make the necessary changes to the code, and then stage the changes (Using `git add .`). You then incorporate the changes to the 2nd commit using `git commit --amend`. You can also change the commit message using this command.
+
+After making the changes, you can continue the rebase process by running `git rebase --continue`. Git will then apply the 3rd commit and pause again. You can then change the commit message using `git commit --amend`. After making the changes, you can continue the rebase process by running `git rebase --continue`.
+
+When there are no more commits left, the rebase process will be complete.
+
+After all the commits have been applied, you can push the changes to your branch using `git push origin <branch-name> --force`. This will overwrite the commits in the remote branch in your forked repository with the changes you just made locally.
+
+#### Tip
+VSCode provides a helpful UI to perform these operations. You can set the default text editor for Git to VSCode by running the following command:
+
+```bash
+git config --global core.editor "code --wait"
+```
+This will open VSCode whenever you run a command that requires a text editor, like `git rebase -i HEAD~4`, `git commit --amend`, etc.
+
 
 ## Code Review
 
@@ -93,5 +161,7 @@ If you have any questions about the project or how to contribute, feel free to r
 ## Judgement Criteria
 
 Do not worry about the points scored during contributing. Feel free to make mistakes, but be open to acknowledge and fix them. The main goal is to learn and grow together. Depending on your enthusiasm, dedication and contribution, you will be judged in the end of CSOC.
+
+The main purpose for this whole activity is to get you acquainted with the open source contribution workflow. We cannot replicate the exact workflow of a real open source project due to the time constraints, but we have tried to cover the most important aspects of it (related to git, code review, etc.).
 
 ---

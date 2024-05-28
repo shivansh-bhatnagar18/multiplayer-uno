@@ -33,14 +33,15 @@
     server: Add endpoint to fetch user data.
 
     This commit adds a new endpoint to the server that allows clients to fetch user data.
+    We fetch the user data from MongoDB and return it as a JSON response, filtering out sensitive information.
 
-    Fixes #28686
+    Fixes #28626
     ```
 
     ```
     client: Refactor user profile component.
 
-    This commit refactors the user profile component to improve code readability and maintainability.
+    This commit refactors the user profile component to improve code readability and maintainability. 
 
     ```
 
@@ -50,5 +51,6 @@
 - Use proper spacing and line breaks to improve code readability.
 - Avoid unnecessary code duplication and strive for code reusability.
 - Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
+- We decided not to use typescript in the backend to accomodate more contributors, but we do use JSDocs for documentation. Please document your code using JSDocs.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

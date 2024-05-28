@@ -69,6 +69,16 @@ function makeCard(type, color, value) {
  * @param {Array} deck 
  */
 function shuffle(deck) {
-    //todo: Implement a generic shuffling algorithm
-    [deck[0], deck[1]] = [deck[1], deck[0]];
+    let n = deck.length;
+  
+    for (let i = n - 1; i > 0; i--) {
+      // Pick a random index from 0 to i (inclusive)
+      let j = Math.floor(Math.random() * (i + 1));
+      
+      // Swap the elements at indices i and j
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    
+    return deck;
+  
 }

@@ -129,7 +129,11 @@ pick 3m4n5o6p Commit msg 4
 ```
 Save the changes and exit.
 
-After saving the changes, git will then apply the 2nd commit and pause. You can now make the necessary changes to the code, and then stage the changes (Using `git add .`). You then incorporate the changes to the 2nd commit using `git commit --amend`. You can also change the commit message using this command.
+After saving the changes, git will then apply the 2nd commit and pause. You can now make the necessary changes to the code, and then stage the changes (Using `git add .`). You then incorporate the changes to the 2nd commit using `git commit --amend`. The editor opens, asking for commit meessage. You can change the commit message if needed at this needed.
+
+
+#### "Uncommitting" a commit
+When you choose to edit the 2nd commit, git pauses **after** applying the second commit. You might wish to uncommit all the changes made in the 2nd commit. In that case, you run `git reset HEAD~1`. This will uncommit the changes made in the 2nd commit, but keep the changes in the working directory. You can then make the necessary changes and commit them again. The `git reset` command can be used to uncommit any number of commits. For example, `git reset HEAD~2` will uncommit the last 2 commits. Note that after doing this operation, there would be no way to distinguish the changes made in the two commits. This command can be used outside of an interactive rebase as well.
 
 After making the changes, you can continue the rebase process by running `git rebase --continue`. Git will then apply the 3rd commit and pause again. You can then change the commit message using `git commit --amend`. After making the changes, you can continue the rebase process by running `git rebase --continue`.
 

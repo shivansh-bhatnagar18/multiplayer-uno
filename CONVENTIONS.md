@@ -12,7 +12,7 @@
 
 
 ## For React Components
-- Use functional components with hooks insteaad of class based components.
+- Use functional components with hooks instead of class based components.
 - Avoid copy pasting code. If you find yourself copying and pasting code, consider refactoring it into a reusable component or function. Use array methods like `map`, `filter`, and `reduce` to avoid duplicating code.
 
 
@@ -20,6 +20,7 @@
 - Use meaningful commit messages that describe the changes made in the commit.
 - Please do only one thing in a single commit. If you are fixing a bug and refactoring some code, make two separate commits.
 - If you make tweaks to existing code to fit your implementation, do it in a separate commit.
+- Your commits would be more readable if each line is limited to around 72 characters. Break long lines into multiple lines if necessary.
 - Commit messages should be of the format:
     ```
     <area_of_code>: <short_description>
@@ -33,13 +34,27 @@
     server: Add endpoint to fetch user data.
 
     This commit adds a new endpoint to the server that allows clients to fetch user data.
+<<<<<<< HEAD
+=======
+    We fetch the user data from MongoDB and return it as a JSON response, filtering out sensitive information.
+
+    Fixes #28626
+    ```
+
+    ```
+    client: Refactor user profile component.
+
+    This commit refactors the user profile component to improve code readability and maintainability. 
+
+>>>>>>> upstream/master
     ```
 
 ## Other Important Points
 - Use meaningful and descriptive names for variables, functions, and classes to enhance code readability.
-- Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint).
+- Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint and prettier).
 - Use proper spacing and line breaks to improve code readability.
 - Avoid unnecessary code duplication and strive for code reusability.
-- Write clear and concise documentation for public APIs and important functions.
+- Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
+- We decided not to use typescript in the backend to accomodate more contributors, but we do use JSDocs for documentation. Please document your code using JSDocs.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

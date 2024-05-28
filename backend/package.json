@@ -2,11 +2,20 @@
     "name": "backend",
     "version": "1.0.0",
     "main": "index.js",
+<<<<<<< HEAD
+=======
+    "type": "module",
+>>>>>>> upstream/master
     "scripts": {
         "lint": "eslint .",
         "format": "prettier --check .",
         "fix-format": "prettier --write .",
+<<<<<<< HEAD
         "test": "jest"
+=======
+        "test": "jest",
+        "start": "node src/index.js"
+>>>>>>> upstream/master
     },
     "keywords": [],
     "author": "",

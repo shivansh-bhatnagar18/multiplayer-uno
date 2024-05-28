@@ -1,19 +1,34 @@
 // backend/index.js
+<<<<<<< HEAD
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
+=======
+import express, { json } from 'express';
+import { connect } from 'mongoose';
+import cors from 'cors';
+import { config } from 'dotenv';
+
+config();
+>>>>>>> upstream/master
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+<<<<<<< HEAD
 app.use(express.json());
 
 mongoose
     .connect(process.env.MONGO_URI, {
+=======
+app.use(json());
+
+connect(process.env.MONGO_URI, {
+>>>>>>> upstream/master
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

@@ -16,6 +16,7 @@ const values = [
 ];
 const specialCards = ['wild', 'draw4'];
 const deck = [];
+const sameCardCount = []; // to keep track of same cards in assigning unique id to each card
 
 /**    
  * In a standard UNO deck, there are 108 cards. Here's the breakdown:
@@ -60,8 +61,13 @@ export function makeCard(
     color: CardColor,
     value: CardValue
 ): UNOCard {
-    //todo: Implement unique identification of cards by assigning an id to each card
-    return { type, color, value, id: undefined };
+    const id = `card-${type}-${color}-${value}`;
+
+    if (!sameCardCount[id]) sameCardCount[id] = 0;
+    sameCardCount[id]++; // increment the count of same cards to assign unique id
+
+    const uid = `${id}-${sameCardCount[id]}`;
+    return { type, color, value, id: uid };
 }
 
 /**

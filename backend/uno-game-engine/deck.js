@@ -59,8 +59,15 @@ export default function getShuffledCardDeck() {
  * @returns {{type: string, color: string, value: string, id: unknown}} card - An object representing an UNO card.
  */
 function makeCard(type, color, value) {
-    //todo: Implement unique identification of cards by assigning an id to each card
-    return { type, color, value };
+    let card={
+        id:uuidv4(),
+        type:type,
+        color:color,
+        value:value,
+    };
+    deck.push(card);
+
+    return card;
 }
 
 /**

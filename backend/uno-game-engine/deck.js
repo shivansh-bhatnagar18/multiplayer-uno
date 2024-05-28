@@ -47,8 +47,8 @@ export default function getShuffledCardDeck() {
     // deck.push(makeCard('special', 'wild', 'wild'))
     // deck.push(makeCard('number', 'red', '0'))
 
-    shuffle(deck)
-    return deck
+   const shuffledDeck=shuffle(deck)
+    return shuffledDeck;
 }
 
 /**

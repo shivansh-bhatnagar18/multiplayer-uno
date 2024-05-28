@@ -20,6 +20,7 @@
 - Use meaningful commit messages that describe the changes made in the commit.
 - Please do only one thing in a single commit. If you are fixing a bug and refactoring some code, make two separate commits.
 - If you make tweaks to existing code to fit your implementation, do it in a separate commit.
+- Your commits would be more readable if each line is limited to around 72 characters. Break long lines into multiple lines if necessary.
 - Commit messages should be of the format:
     ```
     <area_of_code>: <short_description>

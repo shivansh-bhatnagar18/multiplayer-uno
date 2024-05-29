@@ -75,14 +75,14 @@ cd multiplayer-uno
 4. Start the frontend development server:
 
     ```bash
-    npm start
+    npm run dev
     ```
 
-   The frontend application should now be running on `http://localhost:3000`.
+   The frontend application should now be running on `http://localhost:5173`.
 
 ## Running the Application
 
-With both the backend and frontend servers running, open your browser and navigate to `http://localhost:3000` to access the UNO game. You should be able to sign up, log in, create or join game rooms, and start playing.
+With both the backend and frontend servers running, open your browser and navigate to `http://localhost:5173` to access the UNO game. You should be able to sign up, log in, create or join game rooms, and start playing.
 
 ## Troubleshooting
 
@@ -91,7 +91,7 @@ If you encounter any issues during installation, consider the following steps:
 - **Check Dependencies**: Ensure that all dependencies are installed correctly by running `npm install` in both the `backend` and `frontend` directories.
 - **Environment Variables**: Ensure that your `.env` file contains the correct values for your MongoDB connection string and JWT secret.
 - **Server Logs**: Check the terminal output for any error messages from the backend or frontend servers.
-- **Port Conflicts**: Make sure that ports `5000` (backend) and `3000` (frontend) are not being used by other applications.
+- **Port Conflicts**: Make sure that ports `5000` (backend) and `5173` (frontend) are not being used by other applications.
 
 ## Contact
 

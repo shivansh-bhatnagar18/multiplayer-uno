@@ -52,6 +52,6 @@
 - Use proper spacing and line breaks to improve code readability.
 - Avoid unnecessary code duplication and strive for code reusability.
 - Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
-- We decided not to use typescript in the backend to accomodate more contributors, but we do use JSDocs for documentation. Please document your code using JSDocs.
+- We are using TypeScript in a very lenient and flexible setting. The project can have both JS and TS files, and one of the goals would be to convert all files to TS eventually. Where you are not using types.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

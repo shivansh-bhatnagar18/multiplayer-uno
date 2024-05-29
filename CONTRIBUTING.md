@@ -1,4 +1,3 @@
-
 ---
 
 # Contributing to Multiplayer UNO Game
@@ -91,7 +90,7 @@ If any merge conflicts occur, you will need to resolve them manually. Code edito
 Now the local copy of the branch is synced with upstream/main. You need to force push these changes to origin, since the commit history has been rewritten.
 
 ```bash
-git push origin <branch-name> --force
+git push --force
 ```
 
 ### Editing commit history
@@ -139,7 +138,7 @@ After making the changes, you can continue the rebase process by running `git re
 
 When there are no more commits left, the rebase process will be complete.
 
-After all the commits have been applied, you can push the changes to your branch using `git push origin <branch-name> --force`. This will overwrite the commits in the remote branch in your forked repository with the changes you just made locally.
+After all the commits have been applied, you can push the changes to your branch using `git push --force`. This will overwrite the commits in the remote branch in your forked repository with the changes you just made locally.
 
 #### Tip
 VSCode provides a helpful UI to perform these operations. You can set the default text editor for Git to VSCode by running the following command:

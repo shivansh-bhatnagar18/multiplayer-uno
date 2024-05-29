@@ -47,8 +47,8 @@ export default function getShuffledCardDeck() {
     // deck.push(makeCard('special', 'wild', 'wild'))
     // deck.push(makeCard('number', 'red', '0'))
 
-    shuffle(deck)
-    return deck
+    shuffle(deck);
+    return deck;
 }
 
 /**
@@ -66,7 +66,7 @@ function makeCard(type, color, value) {
 /**
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
- * @param {Array} deck 
+ * @param {Array} deck
  */
 function shuffle(deck) {
     //todo: Implement a generic shuffling algorithm

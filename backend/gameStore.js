@@ -8,7 +8,7 @@ export function createGame() {
 
 /**
  *  Retrieves a game from the store using its id.
- * 
+ *
  * @param {string} id Game id
  * @returns {GameEngine|null} GameEngine instance
  */

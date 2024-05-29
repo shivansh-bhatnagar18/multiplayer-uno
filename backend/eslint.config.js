@@ -1,14 +1,14 @@
-import jsdoc from "eslint-plugin-jsdoc";
+import jsdoc from 'eslint-plugin-jsdoc';
 
 export default [
     {
-        files: ["**/*.js"],
+        files: ['**/*.js'],
         plugins: {
-            jsdoc: jsdoc
+            jsdoc: jsdoc,
         },
         rules: {
-            "jsdoc/require-description": "error",
-            "jsdoc/check-values": "error"
-        }
-    }
+            'jsdoc/require-description': 'error',
+            'jsdoc/check-values': 'error',
+        },
+    },
 ];

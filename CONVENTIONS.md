@@ -14,6 +14,7 @@
 ## For React Components
 - Use functional components with hooks instead of class based components.
 - Avoid copy pasting code. If you find yourself copying and pasting code, consider refactoring it into a reusable component or function. Use array methods like `map`, `filter`, and `reduce` to avoid duplicating code.
+- Try to use tailwind for css styling as much as possible. If you need to write custom css, use CSS modules. Avoid using global styles, unless they actually need to be global. Take `input.tsx` as reference.
 
 
 ## Commit Message Guidelines
@@ -53,5 +54,6 @@
 - Avoid unnecessary code duplication and strive for code reusability.
 - Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
 - We are using TypeScript in a very lenient and flexible setting. The project can have both JS and TS files, and one of the goals would be to convert all files to TS eventually. Where you are not using types.
+- Try to keep the use of external dependencies to a minimum. This is because the purpose of project is first to learn and then to build. So, we will try to build as much as possible from scratch.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

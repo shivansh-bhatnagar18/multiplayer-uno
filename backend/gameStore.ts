@@ -7,7 +7,7 @@ const games: Map<string, GameEngine> = new Map();
 /**
  * Create a new game and store it in the games map
  * @returns {string} gameId
-*/
+ */
 export function createGame() {
     const gameId = uuid();
     const game = new GameEngine();

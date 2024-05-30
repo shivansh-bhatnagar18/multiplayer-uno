@@ -1,17 +1,25 @@
 // This module is responsible for setting and retrieving the game state.
-import { GameEngine } from './uno-game-engine/engine';
-const games = map();
+import { v4 as uuid } from 'uuid';
 
+import { GameEngine } from './uno-game-engine/engine';
+const games = new Map();
+
+/**
+ * Create a new game and store it in the games map
+ * @returns {string} gameId
+*/
 export function createGame() {
-    //todo: generate a unique game id and store
+    const gameId = uuid();
+    const game = new GameEngine();
+    games.set(gameId, game);
+    return gameId;
 }
 
 /**
- *  Retrieves a game from the store using its id.
- *
- * @param {string} id Game id
+ * Retrieve a game from the games map
+ * @param {string} id gameId
  * @returns {GameEngine|null} GameEngine instance
  */
 export function retrieveGame(id) {
-    //todo: Retrieve the game from the store
+    return games.get(id) || null;
 }

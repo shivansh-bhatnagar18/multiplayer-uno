@@ -47,8 +47,8 @@ export default function getShuffledCardDeck(): Array<UNOCard> {
     // deck.push(makeCard('special', 'wild', 'wild'))
     // deck.push(makeCard('number', 'red', '0'))
 
-    shuffle(deck);;
-    return deck;;
+    shuffle(deck);
+    return deck;
 }
 
 /**
@@ -68,4 +68,3 @@ function shuffle(deck: Array<any>) {
     //todo: Implement a generic shuffling algorithm
     [deck[0], deck[1]] = [deck[1], deck[0]];
 }
-

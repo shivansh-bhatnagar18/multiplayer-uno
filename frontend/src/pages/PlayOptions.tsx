@@ -5,7 +5,7 @@ import Button from '../library/button';
 function PlayOptions() {
     const navigate = useNavigate();
     function handleCreateGame() {
-        console.log("Creating a new game")
+        console.log('Creating a new game');
         navigate('/game');
     }
 

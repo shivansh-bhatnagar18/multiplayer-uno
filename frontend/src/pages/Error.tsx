@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom"
-
+import { Link } from 'react-router-dom';
 
 function Error() {
     return (
@@ -7,7 +6,7 @@ function Error() {
             This page does not exist!
             <Link to="home">Go back to homepage</Link>
         </div>
-    )
+    );
 }
 
-export default Error
+export default Error;

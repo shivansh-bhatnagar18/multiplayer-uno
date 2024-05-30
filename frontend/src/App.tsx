@@ -20,10 +20,10 @@ const router = createBrowserRouter([
             {
                 path: '/play',
                 element: <PlayOptions />,
-                
-            },{
+            },
+            {
                 path: '/game',
-                element: <Game/>
+                element: <Game />,
             },
             { path: '/about', element: <About /> },
         ],
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-   return <RouterProvider router={router}/>
+    return <RouterProvider router={router} />;
 }
 
 export default App;

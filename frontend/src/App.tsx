@@ -1,19 +1,37 @@
-import { useState } from 'react';
 import './App.css';
-import Navbar from './Navbar';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Home from './pages.tsx/Home';
+import AppLayout from './pages.tsx/AppLayout';
+import Error from './pages.tsx/Error';
+import Game from './pages.tsx/Game';
+import About from './pages.tsx/About';
+import PlayOptions from './pages.tsx/PlayOptions';
+
+const router = createBrowserRouter([
+    {
+        element: <AppLayout />,
+        errorElement: <Error />,
+
+        children: [
+            {
+                path: '/',
+                element: <Home />,
+            },
+            {
+                path: '/play',
+                element: <PlayOptions />,
+                
+            },{
+                path: '/game',
+                element: <Game/>
+            },
+            { path: '/about', element: <About /> },
+        ],
+    },
+]);
 
 function App() {
-    const [count, setCount] = useState(0);
-    const a = 5;
-    console.log(a);
-    return (
-        <>
-            <Navbar></Navbar>
-            <p>Lets play a game of UNO! Click the button to draw a card.</p>
-            <p>Card: {count}</p>
-            <button onClick={() => setCount(count + 1)}>Draw a card</button>
-        </>
-    );
+   return <RouterProvider router={router}/>
 }
 
 export default App;

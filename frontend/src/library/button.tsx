@@ -5,12 +5,18 @@
 // - Customize the shape of the button (rectangle, rounded, circle)
 // - Handles click events
 
+type ButtonProps = {
+    onClick: () => void;
+    children: React.ReactNode;
+}
 
-function Button() {
+function Button({onClick, children}:ButtonProps) {
     return (
-        <div>
-            
-        </div>
+        <button onClick={onClick}>
+            {
+                children
+            }
+        </button>
     )
 }
 

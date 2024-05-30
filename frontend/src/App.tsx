@@ -1,11 +1,11 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Home from './pages.tsx/Home';
-import AppLayout from './pages.tsx/AppLayout';
-import Error from './pages.tsx/Error';
-import Game from './pages.tsx/Game';
-import About from './pages.tsx/About';
-import PlayOptions from './pages.tsx/PlayOptions';
+import Home from './pages/Home';
+import AppLayout from './pages/AppLayout';
+import Error from './pages/Error';
+import Game from './pages/Game';
+import About from './pages/About';
+import PlayOptions from './pages/PlayOptions';
 
 const router = createBrowserRouter([
     {

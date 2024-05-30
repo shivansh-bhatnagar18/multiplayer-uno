@@ -18,7 +18,7 @@ export class GameEngine {
             throw new Error('Not enough cards to distribute');
         }
 
-        this.players = this.players.map(player => {
+        this.players = this.players.map((player) => {
             player.cards = this.cardDeck.splice(0, NUM_CARDS_PER_PLAYER);
             return player;
         });

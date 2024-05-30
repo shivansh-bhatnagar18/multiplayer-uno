@@ -2,7 +2,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { GameEngine } from './uno-game-engine/engine';
-const games = new Map();
+const games: Map<string, GameEngine> = new Map();
 
 /**
  * Create a new game and store it in the games map
@@ -20,6 +20,6 @@ export function createGame() {
  * @param {string} id gameId
  * @returns {GameEngine|null} GameEngine instance
  */
-export function retrieveGame(id) {
+export function retrieveGame(id: string) {
     return games.get(id) || null;
 }

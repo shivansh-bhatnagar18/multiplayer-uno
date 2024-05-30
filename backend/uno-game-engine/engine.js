@@ -14,10 +14,14 @@ export class GameEngine {
         this.status = 'READY';
     }
     allotCards() {
-        //todo: Implement the card allotment logic: Remove `NUM_CARDS_PER_PLAYER` cards from the deck
-        // and add them to the player's hand - Do this for each player
-        // example:
-        this.players[0].cards = this.cardDeck.splice(0, NUM_CARDS_PER_PLAYER);
+        if (this.cardDeck.length < this.players.length * NUM_CARDS_PER_PLAYER) {
+            throw new Error('Not enough cards to distribute');
+        }
+
+        this.players = this.players.map(player => {
+            player.cards = this.cardDeck.splice(0, NUM_CARDS_PER_PLAYER);
+            return player;
+        });
     }
     addPlayer(player) {
         this.players.push(player);

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
     transform: { '^.+\\.d?ts?$': 'ts-jest' },
     testEnvironment: 'node',

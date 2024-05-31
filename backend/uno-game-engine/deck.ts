@@ -55,7 +55,11 @@ export function getShuffledCardDeck(): Array<UNOCard> {
  * Helper function to make a card object.
  * @returns {UNOCard} The composed UNO card.
  */
-export function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
+export function makeCard(
+    type: CardType,
+    color: CardColor,
+    value: CardValue
+): UNOCard {
     //todo: Implement unique identification of cards by assigning an id to each card
     return { type, color, value, id: undefined };
 }

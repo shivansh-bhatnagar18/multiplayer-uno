@@ -1,4 +1,3 @@
-
 ---
 
 # Contributing to Multiplayer UNO Game
@@ -45,6 +44,9 @@ Given that you have already forked the repository and set it up locally:
 
 7. **Test Your Changes**:
    - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
+   - Adhere to the eslint suggestions and use prettier to format code before committing. 
+   Running `npm run fix-format` in both the frontend and the backend will format all the files using prettier.
+
 
 8. **Commit Your Changes**:
    - Please refer to the commit message guidelines in [CONVENTIONS.md](CONVENTIONS.md#commit-message-guidelines) for writing meaningful commit messages.
@@ -68,9 +70,13 @@ Given that you have already forked the repository and set it up locally:
 
 - Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
+<<<<<<< HEAD
 - Addressing reviews on existing PRs is as important as creating new PRs. Please be responsive to the feedback and make the necessary updates.
 <<<<<<< HEAD
 =======
+=======
+- Addressing reviews on existing PRs is more important than creating new PRs. Please be responsive to the feedback and make the necessary updates.
+>>>>>>> upstream/master
 - Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
 
 ## Common Git Operations you may need to perform
@@ -93,7 +99,7 @@ If any merge conflicts occur, you will need to resolve them manually. Code edito
 Now the local copy of the branch is synced with upstream/main. You need to force push these changes to origin, since the commit history has been rewritten.
 
 ```bash
-git push origin <branch-name> --force
+git push --force
 ```
 
 ### Editing commit history
@@ -141,7 +147,7 @@ After making the changes, you can continue the rebase process by running `git re
 
 When there are no more commits left, the rebase process will be complete.
 
-After all the commits have been applied, you can push the changes to your branch using `git push origin <branch-name> --force`. This will overwrite the commits in the remote branch in your forked repository with the changes you just made locally.
+After all the commits have been applied, you can push the changes to your branch using `git push --force`. This will overwrite the commits in the remote branch in your forked repository with the changes you just made locally.
 
 #### Tip
 VSCode provides a helpful UI to perform these operations. You can set the default text editor for Git to VSCode by running the following command:
@@ -156,6 +162,8 @@ This will open VSCode whenever you run a command that requires a text editor, li
 ## Code Review
 
 All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.
+
+Your PR will be merged only after the maintainers approve it. Different areas of codebase are handled by different maintainers.
 
 ## Code of Conduct
 

@@ -40,35 +40,31 @@ const deck = [];
  The function makeCard is used to make the card objects.
  @returns {Array} deck - An array of 108 UNO cards.
  */
-export default function getShuffledCardDeck() {
+export default function getShuffledCardDeck(): Array<UNOCard> {
     const deck = [];
     // todo: Implement the card generation logic
     // dummy code:
     // deck.push(makeCard('special', 'wild', 'wild'))
     // deck.push(makeCard('number', 'red', '0'))
 
-    shuffle(deck)
-    return deck
+    shuffle(deck);
+    return deck;
 }
 
 /**
  * Helper function to make a card object.
- * @param {string} type one of ['number', 'special', 'wild']
- * @param {string} color one of ['red', 'yellow', 'green', 'blue']
- * @param {string} value the numeric value as string or the special card name ("skip", "reverse", "draw2", "wild", "draw4")
- * @returns {{type: string, color: string, value: string, id: unknown}} card - An object representing an UNO card.
+ * @returns {UNOCard} The composed UNO card.
  */
-function makeCard(type, color, value) {
+function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
     //todo: Implement unique identification of cards by assigning an id to each card
-    return { type, color, value };
+    return { type, color, value, id: undefined };
 }
 
 /**
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
- * @param {Array} deck 
  */
-function shuffle(deck) {
+function shuffle(deck: Array<any>) {
     //todo: Implement a generic shuffling algorithm
     [deck[0], deck[1]] = [deck[1], deck[0]];
 }

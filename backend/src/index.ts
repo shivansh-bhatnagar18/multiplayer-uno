@@ -27,11 +27,15 @@ mongoose
 =======
 app.use(json());
 
+<<<<<<< HEAD:backend/src/index.js
 connect(process.env.MONGO_URI, {
 >>>>>>> upstream/master
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
+=======
+connect(process.env.MONGO_URI!)
+>>>>>>> upstream/master:backend/src/index.ts
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('Could not connect to MongoDB', err));
 

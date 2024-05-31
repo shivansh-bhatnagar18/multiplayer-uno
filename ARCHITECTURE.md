@@ -1,4 +1,4 @@
-# Communication between client and server
+# Communication between the client and the server
 
 Apart from the initial request-response exchange for initial setup,
 the client and server communicate using a simple message-based

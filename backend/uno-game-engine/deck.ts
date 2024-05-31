@@ -46,7 +46,30 @@ export default function getShuffledCardDeck(): Array<UNOCard> {
     // dummy code:
     // deck.push(makeCard('special', 'wild', 'wild'))
     // deck.push(makeCard('number', 'red', '0'))
+        // generating cards of each color
 
+for(let col of colors){
+    for(let val of values){
+     if(val.length==1){
+         for(let i=0;i<2;i++){
+             makeCard("number",col,val);
+             if(val==0) break;
+
+         }
+     }else{
+         for(let i=0;i<2;i++){
+             makeCard("special",col,val);
+         }
+     }
+
+    }
+ }
+    // generating special cards
+    for(let sc of specialCards){
+     for(let i=0;i<4;i++){
+         makeCard("special","wild",sc);
+     }
+    }
     shuffle(deck);
     return deck;
 }

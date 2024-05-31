@@ -1,15 +1,6 @@
-enum CardType {
-    Number,
-    Special,
-    Wild,
-}
+type CardType = 'number' | 'special' | 'wild';
 
-enum CardColor {
-    Red,
-    Yellow,
-    Green,
-    Blue,
-}
+type CardColor = 'red' | 'blue' | 'green' | 'yellow';
 
 type SpecialCardNames = 'skip' | 'reverse' | 'draw2' | 'draw4' | 'colchange';
 type CardNumbers = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';

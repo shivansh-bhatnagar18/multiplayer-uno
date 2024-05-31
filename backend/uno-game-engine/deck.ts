@@ -1,4 +1,4 @@
-const colors = ['red', 'yellow', 'green', 'blue'];
+const colors: Array<CardColor> = ['red', 'yellow', 'green', 'blue'];
 const values = [
     '0',
     '1',
@@ -40,7 +40,7 @@ const deck = [];
  The function makeCard is used to make the card objects.
  @returns {Array} deck - An array of 108 UNO cards.
  */
-export default function getShuffledCardDeck(): Array<UNOCard> {
+export function getShuffledCardDeck(): Array<UNOCard> {
     const deck = [];
     // todo: Implement the card generation logic
     // dummy code:
@@ -55,7 +55,7 @@ export default function getShuffledCardDeck(): Array<UNOCard> {
  * Helper function to make a card object.
  * @returns {UNOCard} The composed UNO card.
  */
-function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
+export function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
     //todo: Implement unique identification of cards by assigning an id to each card
     return { type, color, value, id: undefined };
 }
@@ -64,7 +64,7 @@ function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
  */
-function shuffle(deck: Array<any>) {
+export function shuffle(deck: Array<any>) {
     //todo: Implement a generic shuffling algorithm
     [deck[0], deck[1]] = [deck[1], deck[0]];
 }

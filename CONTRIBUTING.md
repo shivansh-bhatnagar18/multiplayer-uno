@@ -43,7 +43,8 @@ Given that you have already forked the repository and set it up locally:
    - Make the necessary changes to fix the issue. Follow the existing code style and conventions. Please refer to the code style and conventions in [CONVENTIONS.md](CONVENTIONS.md).
 
 7. **Test Your Changes**:
-   - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
+   - Thoroughly test your changes manually to ensure they work as intended and do not introduce any new bugs.
+   - You can write unit tests for backend changes whenever required. Your changes should not cause existing tests to fail.
    - Adhere to the eslint suggestions and use prettier to format code before committing. 
    Running `npm run fix-format` in both the frontend and the backend will format all the files using prettier.
 

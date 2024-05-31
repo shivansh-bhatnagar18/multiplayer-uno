@@ -13,8 +13,9 @@
 
 ## For React Components
 - Use functional components with hooks instead of class based components.
+- Component names here should be in PascalCase.
 - Avoid copy pasting code. If you find yourself copying and pasting code, consider refactoring it into a reusable component or function. Use array methods like `map`, `filter`, and `reduce` to avoid duplicating code.
-- Try to use tailwind for css styling as much as possible. If you need to write custom css, use CSS modules. Avoid using global styles, unless they actually need to be global. Take `input.tsx` as reference.
+- Try to use tailwind for css styling as much as possible. If you need to write custom css, use CSS modules. Avoid using global styles, unless they actually need to be global.
 
 
 ## Commit Message Guidelines
@@ -26,7 +27,7 @@
     ```
     <area_of_code>: <short_description>
     
-    <detailed_description>
+    <detailed_description, preferably in points>
 
     Fixes: #<issue_number> (omit this if there is no issue associated with the commit)
     ```
@@ -35,7 +36,8 @@
     server: Add endpoint to fetch user data.
 
     This commit adds a new endpoint to the server that allows clients to fetch user data.
-    We fetch the user data from MongoDB and return it as a JSON response, filtering out sensitive information.
+    We fetch the user data from MongoDB and return it as a JSON response, filtering out
+    sensitive information.
 
     Fixes #28626
     ```
@@ -51,9 +53,10 @@
 - Use meaningful and descriptive names for variables, functions, and classes to enhance code readability.
 - Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint and prettier).
 - Use proper spacing and line breaks to improve code readability.
+- All the global variables should be declared above the functions in the respective file.
 - Avoid unnecessary code duplication and strive for code reusability.
 - Write clear and concise documentation for public APIs and important functions. Do not over-document trivial functions.
 - We are using TypeScript in a very lenient and flexible setting. The project can have both JS and TS files, and one of the goals would be to convert all files to TS eventually. Where you are not using types.
-- Try to keep the use of external dependencies to a minimum. This is because the purpose of project is first to learn and then to build. So, we will try to build as much as possible from scratch.
+- Try to keep the use of external dependencies to a minimum. This is because the purpose of project is first to learn and then to build. So, we will try to build as much as possible from scratch. That way there are more issues to work on.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.

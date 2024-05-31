@@ -1,5 +1,5 @@
 const colors: Array<CardColor> = ['red', 'yellow', 'green', 'blue'];
-const values = [
+const numValues: Array<CardNumbers> = [
     '0',
     '1',
     '2',
@@ -10,12 +10,10 @@ const values = [
     '7',
     '8',
     '9',
-    'skip',
-    'reverse',
-    'draw2',
 ];
-const specialCards = ['wild', 'draw4'];
-const deck = [];
+const specialValues: Array<SpecialCardNames> = ['skip', 'reverse', 'draw2'];
+const wildCardValue: Array<SpecialCardNames> = ['colchange', 'draw4'];
+const deck: Array<UNOCard> = [];
 
 /**    
  * In a standard UNO deck, there are 108 cards. Here's the breakdown:
@@ -41,11 +39,27 @@ const deck = [];
  @returns {Array} deck - An array of 108 UNO cards.
  */
 export function getShuffledCardDeck(): Array<UNOCard> {
-    const deck = [];
-    // todo: Implement the card generation logic
-    // dummy code:
-    // deck.push(makeCard('special', 'wild', 'wild'))
-    // deck.push(makeCard('number', 'red', '0'))
+    const deck: Array<UNOCard> = [];
+
+    colors.forEach((color) => {
+        numValues.forEach((value) => {
+            deck.push(makeCard('number', color, value));
+            if (value !== '0') {
+                deck.push(makeCard('number', color, value));
+            }
+        });
+        specialValues.forEach((value) => {
+            deck.push(makeCard('special', color, value));
+            deck.push(makeCard('special', color, value));
+        });
+        if (color === 'black') {
+            wildCardValue.forEach((value) => {
+                for (let i = 0; i < 4; i++) {
+                    deck.push(makeCard('wild', color, value));
+                }
+            });
+        }
+    });
 
     shuffle(deck);
     return deck;

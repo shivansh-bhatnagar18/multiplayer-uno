@@ -49,6 +49,21 @@
 
     ```
 
+### Preparatory Commits
+Preparatory commits are commits that prepare the codebase for a new feature or fix. They should not contain any functional changes. They can include things like:
+- Exporting a function from a module.
+- Renaming a variable or function.
+- Other such changes that do not affect the functionality of the code.
+
+The commit message for preparatory commits should be the same as normal commits, but the commit description should mention that it is a preparatory commit for an issue. The Fixes clause is omitted, because the commit doesn't actually fixes the issue.
+
+Example:
+```
+client: Refactor button component.
+
+This commit adds a `backgroundColor` prop to the button component to allow users to customize the background color of the button. This is in preparation to #12345.
+```
+
 ## Other Important Points
 - Use meaningful and descriptive names for variables, functions, and classes to enhance code readability.
 - Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint and prettier).

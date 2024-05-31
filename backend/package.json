@@ -2,27 +2,13 @@
     "name": "backend",
     "version": "1.0.0",
     "main": "index.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "type": "module",
->>>>>>> upstream/master
-=======
->>>>>>> upstream/master
     "scripts": {
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "format": "prettier --check .",
         "fix-format": "prettier --write .",
-<<<<<<< HEAD
-        "test": "jest"
-=======
         "test": "jest",
-<<<<<<< HEAD
-        "start": "node src/index.js"
->>>>>>> upstream/master
-=======
         "start": "ts-node src/index.ts"
->>>>>>> upstream/master
     },
     "keywords": [],
     "author": "",

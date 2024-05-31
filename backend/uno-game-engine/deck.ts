@@ -55,7 +55,11 @@ export function getShuffledCardDeck(): Array<UNOCard> {
  * Helper function to make a card object.
  * @returns {UNOCard} The composed UNO card.
  */
-export function makeCard(type: CardType, color: CardColor, value: CardValue): UNOCard {
+export function makeCard(
+    type: CardType,
+    color: CardColor,
+    value: CardValue
+): UNOCard {
     //todo: Implement unique identification of cards by assigning an id to each card
     return { type, color, value, id: undefined };
 }
@@ -64,7 +68,10 @@ export function makeCard(type: CardType, color: CardColor, value: CardValue): UN
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
  */
-export function shuffle(deck: Array<any>) {
-    //todo: Implement a generic shuffling algorithm
-    [deck[0], deck[1]] = [deck[1], deck[0]];
+function shuffle(deck: Array<UNOCard>) {
+    // Fisher-Yates shuffle algorithm to shuffle card deck
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
 }

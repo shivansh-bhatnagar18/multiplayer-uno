@@ -1,5 +1,5 @@
 import { getShuffledCardDeck } from './deck';
-
+import { shuffle } from './deck';
 const NUM_CARDS_PER_PLAYER = 7;
 export class GameEngine {
     constructor() {
@@ -37,7 +37,12 @@ export class GameEngine {
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
     drawCardFromDeck(player) {
-        //todo: Handle the case when the deck is empty and we have to move the thrown cards back to the deck
+        if (this.cardDeck.length === 0) {
+            const thrown = this.thrownCards.pop();
+            this.cardDeck = this.thrownCards;
+            this.thrownCards = [thrown];
+            shuffle(this.cardDeck);
+        }
         this.players
             .find((p) => p.id === player.id)
             .cards.push(this.cardDeck.pop());

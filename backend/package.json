@@ -8,7 +8,7 @@
         "format": "prettier --check .",
         "fix-format": "prettier --write .",
         "test": "jest",
-        "start": "ts-node src/index.js"
+        "start": "ts-node src/index.ts"
     },
     "keywords": [],
     "author": "",

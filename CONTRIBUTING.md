@@ -44,6 +44,9 @@ Given that you have already forked the repository and set it up locally:
 
 7. **Test Your Changes**:
    - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
+   - Adhere to the eslint suggestions and use prettier to format code before committing. 
+   Running `npm run fix-format` in both the frontend and the backend will format all the files using prettier.
+
 
 8. **Commit Your Changes**:
    - Please refer to the commit message guidelines in [CONVENTIONS.md](CONVENTIONS.md#commit-message-guidelines) for writing meaningful commit messages.

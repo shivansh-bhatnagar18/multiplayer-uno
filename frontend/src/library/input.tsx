@@ -7,7 +7,7 @@ type InputComponentProps = {
 function Input({ placeholder }: InputComponentProps) {
     return (
         <div>
-            <input style={styles} placeholder={placeholder}></input>
+            <input className={styles.input} placeholder={placeholder}></input>
         </div>
     );
 }

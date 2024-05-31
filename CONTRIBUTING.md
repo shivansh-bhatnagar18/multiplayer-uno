@@ -164,6 +164,8 @@ This will open VSCode whenever you run a command that requires a text editor, li
 
 All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.
 
+When you open a pull request, you can request a review from the maintainers. You can also request a review after making changes in resopnse to feedback. The requested reviewer may then review the PR themselves or delegate to another maintainer.
+
 Your PR will be merged only after the maintainers approve it. Different areas of codebase are handled by different maintainers.
 
 ## Code of Conduct

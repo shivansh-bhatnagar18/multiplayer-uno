@@ -3,12 +3,12 @@
 
 type CardType = 'number' | 'special' | 'wild';
 
-type CardColor = 'red' | 'blue' | 'green' | 'yellow';
+type CardColor = 'red' | 'blue' | 'green' | 'yellow' | 'wild';
 
-type SpecialCardNames = 'skip' | 'reverse' | 'draw2' | 'draw4' | 'colchange';
-type CardNumbers = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type SpecialCardName = 'skip' | 'reverse' | 'draw2' | 'draw4' | 'colchange';
+type CardNumber = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 
-type CardValue = SpecialCardNames | CardNumbers;
+type CardValue = SpecialCardName | CardNumber;
 
 type UNOCard = {
     type: CardType;

@@ -1,4 +1,4 @@
-import getShuffledCardDeck from './deck';
+import { getShuffledCardDeck } from './deck';
 
 const NUM_CARDS_PER_PLAYER = 7;
 export class GameEngine {

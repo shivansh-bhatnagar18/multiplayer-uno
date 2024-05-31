@@ -67,3 +67,12 @@
 - Try to keep the use of external dependencies to a minimum. This is because the purpose of project is first to learn and then to build. So, we will try to build as much as possible from scratch. That way there are more issues to work on.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.
+
+## Testing
+We use `jest` for backend tests. You can run the tests using the following command:
+```bash
+cd backend
+npm run test
+```
+
+For testing a function using `jest`, you have to export it from the module.

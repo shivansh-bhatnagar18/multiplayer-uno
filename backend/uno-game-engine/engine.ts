@@ -1,7 +1,17 @@
 import { getShuffledCardDeck } from './deck';
 
 const NUM_CARDS_PER_PLAYER = 7;
+
 export class GameEngine {
+    cardDeck: UNOCard[];
+    thrownCards: UNOCard[];
+    players: Player[];
+    currentPlayerIndex: number;
+    lastThrownCard: UNOCard | null;
+    currentColor: number;
+    direction: number;
+    status: 'READY' | 'STARTED';
+
     constructor() {
         this.cardDeck = getShuffledCardDeck();
         this.thrownCards = [];
@@ -18,12 +28,12 @@ export class GameEngine {
             throw new Error('Not enough cards to distribute');
         }
 
-        this.players = this.players.map((player) => {
+        this.players = this.players.map((player: Player) => {
             player.cards = this.cardDeck.splice(0, NUM_CARDS_PER_PLAYER);
             return player;
         });
     }
-    addPlayer(player) {
+    addPlayer(player: Player) {
         this.players.push(player);
     }
     startGame() {
@@ -36,10 +46,10 @@ export class GameEngine {
         this.currentPlayerIndex =
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
-    drawCardFromDeck(player) {
+    drawCardFromDeck(player: Player) {
         //todo: Handle the case when the deck is empty and we have to move the thrown cards back to the deck
         this.players
-            .find((p) => p.id === player.id)
+            .find((p: Player) => p.id === player.id)
             .cards.push(this.cardDeck.pop());
     }
 }

@@ -1,4 +1,4 @@
-import { getShuffledCardDeck } from './deck';
+import { getShuffledCardDeck, shuffle } from './deck';
 import { handleEvent } from './gameEvents';
 
 const NUM_CARDS_PER_PLAYER = 7;
@@ -47,11 +47,35 @@ export class GameEngine {
         this.currentPlayerIndex =
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
-    drawCardFromDeck(player: Player) {
-        //todo: Handle the case when the deck is empty and we have to move the thrown cards back to the deck
-        this.players
-            .find((p: Player) => p.id === player.id)
-            .cards.push(this.cardDeck.pop());
+    drawCardFromDeck(player: Player): EventResult {
+        try {
+            if (this.cardDeck.length === 0) {
+                this.cardDeck = [...this.thrownCards];
+                this.thrownCards = [];
+                shuffle(this.cardDeck);
+            }
+            const currentPlayer = this.players.find(
+                (p: Player) => p.id === player.id
+            );
+            if (currentPlayer && this.cardDeck) {
+                const card = this.cardDeck.pop();
+                if (card) {
+                    currentPlayer.cards.push(card);
+                    return {
+                        type: 'SUCCESS',
+                        message: 'Card drawn successfully',
+                    };
+                } else
+                    return { type: 'ERROR', message: 'Unable to draw a card' };
+            } else {
+                return {
+                    type: 'ERROR',
+                    message: 'Player not found or cardDeck is empty',
+                };
+            }
+        } catch (error) {
+            return { type: 'ERROR', message: (error as Error).message };
+        }
     }
     dispatchEvent(event: GameEvent) {
         // handle different types of events based on event.type

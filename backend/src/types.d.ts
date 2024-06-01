@@ -1,3 +1,6 @@
+// We declare those types which are used throughout the application here.
+// For types that are used only in one file, we can declare them in that file itself.
+
 type CardType = 'number' | 'special' | 'wild';
 
 type CardColor = 'red' | 'blue' | 'green' | 'yellow';
@@ -18,3 +21,31 @@ type Player = {
     id: string;
     cards: UNOCard[];
 };
+
+type EventResult = {
+    type: 'SUCCESS' | 'ERROR';
+    message: string;
+};
+
+declare global {
+    type GameEngine = import('./engine').GameEngine;
+}
+
+type GameEventType = 'DRAW_CARD' | 'THROW_CARD';
+
+type GameEvent =
+    | {
+          type: 'DRAW_CARD';
+          playerId: string;
+          data: {
+              card: UNOCard;
+          };
+      }
+    | {
+          type: 'THROW_CARD';
+          playerId: string;
+          data: {
+              card: UNOCard;
+          };
+      };
+//todo: Add more events

@@ -76,5 +76,11 @@ export function makeCard(
  */
 export function shuffle(deck: Array<any>) {
     //todo: Implement a generic shuffling algorithm
-    [deck[0], deck[1]] = [deck[1], deck[0]];
+    //[deck[0], deck[1]] = [deck[1], deck[0]];
+    for (var i = deck.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
+    }
 }

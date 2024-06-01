@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from '../Navbar';
+import Footer from '../pages/Footer'
 
 function AppLayout() {
     return (
         <div>
             <Navbar />
             <Outlet />
-            {/* todo: Add a footer component */}
+            <Footer />
         </div>
     );
 }

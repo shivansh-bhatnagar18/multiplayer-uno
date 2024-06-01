@@ -1,4 +1,5 @@
 import { getShuffledCardDeck } from './deck';
+import { handleEvent } from './gameEvents';
 
 const NUM_CARDS_PER_PLAYER = 7;
 
@@ -51,5 +52,9 @@ export class GameEngine {
         this.players
             .find((p: Player) => p.id === player.id)
             .cards.push(this.cardDeck.pop());
+    }
+    dispatchEvent(event: GameEvent) {
+        // handle different types of events based on event.type
+        handleEvent(this, event);
     }
 }

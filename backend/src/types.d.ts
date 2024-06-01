@@ -13,3 +13,8 @@ type UNOCard = {
     value: CardValue;
     id: undefined;
 };
+
+type Player = {
+    id: string;
+    cards: UNOCard[];
+};

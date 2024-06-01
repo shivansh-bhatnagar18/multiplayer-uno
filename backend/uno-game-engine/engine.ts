@@ -1,5 +1,6 @@
 import { getShuffledCardDeck } from './deck';
 import { handleEvent } from './gameEvents';
+import { shuffle } from './deck';
 
 const NUM_CARDS_PER_PLAYER = 7;
 
@@ -21,7 +22,6 @@ export class GameEngine {
         this.lastThrownCard = null;
         this.currentColor = 0;
         this.direction = 1;
-
         this.status = 'READY';
     }
     allotCards() {
@@ -48,10 +48,37 @@ export class GameEngine {
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
     drawCardFromDeck(player: Player) {
-        //todo: Handle the case when the deck is empty and we have to move the thrown cards back to the deck
-        this.players
-            .find((p: Player) => p.id === player.id)
-            .cards.push(this.cardDeck.pop());
+        if (this.cardDeck.length === 0) {
+            if (this.thrownCards.length === 0) {
+                throw new Error('No cards left to draw');
+            }
+
+            // Move thrown cards back to the deck and updated last thrown card
+            this.cardDeck = this.thrownCards.splice(
+                0,
+                this.thrownCards.length - 1
+            );
+            //Updating the last thrown card
+            this.updateLastThrownCard();
+            // Shuffle the deck
+            shuffle(this.cardDeck); // using shuffle function defined in deck.ts
+        }
+
+        // Draw a card for the player
+        const drawnCard = this.cardDeck.pop();
+        if (drawnCard) {
+            this.players.find((p) => p.id === player.id)?.cards.push(drawnCard);
+        } else {
+            throw new Error('Failed to draw a card');
+        }
+    }
+    updateLastThrownCard() {
+        // checking if thrown cards are empty
+        if (this.thrownCards.length > 0) {
+            this.lastThrownCard = this.thrownCards[this.thrownCards.length - 1];
+        } else {
+            this.lastThrownCard = null;
+        }
     }
     dispatchEvent(event: GameEvent) {
         // handle different types of events based on event.type

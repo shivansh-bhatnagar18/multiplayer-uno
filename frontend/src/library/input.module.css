@@ -1,0 +1,20 @@
+/* rules defined in this file are scoped to the js/ts file importing this.  */
+.input {
+    width: 100%;
+    height: 25px;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input:focus {
+    border-color: #fb6767;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.input::placeholder {
+    color: #aaa;
+}

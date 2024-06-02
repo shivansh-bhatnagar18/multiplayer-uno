@@ -71,13 +71,7 @@ Given that you have already forked the repository and set it up locally:
 
 - Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
-<<<<<<< HEAD
-- Addressing reviews on existing PRs is as important as creating new PRs. Please be responsive to the feedback and make the necessary updates.
-<<<<<<< HEAD
-=======
-=======
 - Addressing reviews on existing PRs is more important than creating new PRs. Please be responsive to the feedback and make the necessary updates.
->>>>>>> upstream/master
 - Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
 
 ## How to make a good Pull Request
@@ -167,8 +161,6 @@ VSCode provides a helpful UI to perform these operations. You can set the defaul
 git config --global core.editor "code --wait"
 ```
 This will open VSCode whenever you run a command that requires a text editor, like `git rebase -i HEAD~4`, `git commit --amend`, etc.
-
->>>>>>> upstream/master
 
 ## Code Review
 

@@ -36,14 +36,7 @@
     server: Add endpoint to fetch user data.
 
     This commit adds a new endpoint to the server that allows clients to fetch user data.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     We fetch the user data from MongoDB and return it as a JSON response, filtering out sensitive information.
-=======
-    We fetch the user data from MongoDB and return it as a JSON response, filtering out
-    sensitive information.
->>>>>>> upstream/master
 
     Fixes #28626
     ```
@@ -53,7 +46,6 @@
 
     This commit refactors the user profile component to improve code readability and maintainability. 
 
->>>>>>> upstream/master
     ```
 
 ### Preparatory Commits

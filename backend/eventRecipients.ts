@@ -3,10 +3,12 @@
 
 import { Response } from 'express';
 
-const clients = new Map<string, Response>();
+// Create a new Map to store clients
+const clients = new Map<string, { gameId: string; res: Response }>();
 
-export function addClient(userId: string, res: Response) {
-    clients.set(userId, res);
+// Function to add a client to the Map
+export function addClient(userId: string, gameId: string, res: Response) {
+    clients.set(userId, { gameId, res });
 }
 
 export function removeClient(userId: string) {
@@ -15,4 +17,13 @@ export function removeClient(userId: string) {
 
 export function getClient(userId: string) {
     return clients.get(userId);
+}
+
+// Function to send an event to all clients for a specific gameId
+export function sendEventToClients(gameId: string, event: any) {
+  for (const [userId, clientInfo] of clients.entries()) {
+    if (clientInfo.gameId === gameId) {
+      clientInfo.res.json([event]);
+    }
+  }
 }

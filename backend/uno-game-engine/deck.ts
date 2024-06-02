@@ -1,21 +1,21 @@
-const colors: Array<CardColor> = ['red', 'yellow', 'green', 'blue'];
-const values = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    'skip',
-    'reverse',
-    'draw2',
-];
-const specialCards = ['wild', 'draw4'];
-const deck = [];
+// const colors = ['red', 'yellow', 'green', 'blue'];
+// const values = [
+//     '0',
+//     '1',
+//     '2',
+//     '3',
+//     '4',
+//     '5',
+//     '6',
+//     '7',
+//     '8',
+//     '9',
+//     'skip',
+//     'reverse',
+//     'draw2',
+// ];
+// const specialCards = ['wild', 'draw4'];
+// const deck = [];
 const sameCardCount = []; // to keep track of same cards in assigning unique id to each card
 
 /**    
@@ -74,6 +74,7 @@ export function makeCard(
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
  */
+// elint-disable-next-line
 export function shuffle(deck: Array<UNOCard>) {
     // Fisher-Yates shuffle algorithm to shuffle card deck
     for (let i = deck.length - 1; i > 0; i--) {

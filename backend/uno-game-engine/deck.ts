@@ -74,7 +74,10 @@ export function makeCard(
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
  */
-export function shuffle(deck: Array<any>) {
-    //todo: Implement a generic shuffling algorithm
-    [deck[0], deck[1]] = [deck[1], deck[0]];
+export function shuffle(deck: Array<UNOCard>) {
+    // Fisher-Yates shuffle algorithm to shuffle card deck
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
 }

@@ -49,6 +49,21 @@
 
     ```
 
+### Preparatory Commits
+Preparatory commits are commits that prepare the codebase for a new feature or fix. They should not contain any functional changes. They can include things like:
+- Exporting a function from a module.
+- Renaming a variable or function.
+- Other such changes that do not affect the functionality of the code.
+
+The commit message for preparatory commits should be the same as normal commits, but the commit description should mention that it is a preparatory commit for an issue. The Fixes clause is omitted, because the commit doesn't actually fixes the issue.
+
+Example:
+```
+client: Refactor button component.
+
+This commit adds a `backgroundColor` prop to the button component to allow users to customize the background color of the button. This is in preparation to #12345.
+```
+
 ## Other Important Points
 - Use meaningful and descriptive names for variables, functions, and classes to enhance code readability.
 - Follow consistent indentation and formatting throughout the codebase (will be enforced by ESLint and prettier).
@@ -60,3 +75,12 @@
 - Try to keep the use of external dependencies to a minimum. This is because the purpose of project is first to learn and then to build. So, we will try to build as much as possible from scratch. That way there are more issues to work on.
 
 Remember to review and adhere to these conventions to maintain a clean and consistent codebase.
+
+## Testing
+We use `jest` for backend tests. You can run the tests using the following command:
+```bash
+cd backend
+npm run test
+```
+
+For testing a function using `jest`, you have to export it from the module.

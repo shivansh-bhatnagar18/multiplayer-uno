@@ -17,3 +17,5 @@ This project is a multiplayer UNO game built using the MERN (MongoDB, Express, R
 - **Node.js**: To run the server-side code and manage dependencies.
 - **Socket.IO**: For real-time communication between players in the game rooms.
 
+Additionally, we use `jest` for backend tests. 
+

@@ -43,7 +43,8 @@ Given that you have already forked the repository and set it up locally:
    - Make the necessary changes to fix the issue. Follow the existing code style and conventions. Please refer to the code style and conventions in [CONVENTIONS.md](CONVENTIONS.md).
 
 7. **Test Your Changes**:
-   - Thoroughly test your changes to ensure they work as intended and do not introduce any new bugs.
+   - Thoroughly test your changes manually to ensure they work as intended and do not introduce any new bugs.
+   - You can write unit tests for backend changes whenever required. Your changes should not cause existing tests to fail.
    - Adhere to the eslint suggestions and use prettier to format code before committing. 
    Running `npm run fix-format` in both the frontend and the backend will format all the files using prettier.
 
@@ -72,6 +73,16 @@ Given that you have already forked the repository and set it up locally:
 - Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
 - Addressing reviews on existing PRs is more important than creating new PRs. Please be responsive to the feedback and make the necessary updates.
 - Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
+
+## How to make a good Pull Request
+- Make sure your PR is solving only one issue. If you are solving multiple issues, create separate PRs for each issue.
+- Make sure your PR is up-to-date with the main branch. If there are any conflicts, resolve them before opening the PR.
+- See [code review](#code-review) section for more details on how to address review comments.
+- Write a coherent pull request description linking to the issue you are solving and the approach and notable decisions you made while solving the issue.
+- The Pull Request should pass all the checks before it can be merged. The checks include:
+  - ESLint checks (There should be no eslint errors at least in the files you have modified.)
+  - Prettier checks
+  - Unit tests 
 
 ## Common Git Operations you may need to perform
 
@@ -155,6 +166,8 @@ This will open VSCode whenever you run a command that requires a text editor, li
 ## Code Review
 
 All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.
+
+When you open a pull request, you can request a review from the maintainers. You can also request a review after making changes in response to feedback. The requested reviewer may then review the PR themselves or delegate it to another maintainer. When requesting a review, make sure that your PR doesn't have merge conflicts. If it does, resolve the conflicts before requesting a review.
 
 Your PR will be merged only after the maintainers approve it. Different areas of codebase are handled by different maintainers.
 

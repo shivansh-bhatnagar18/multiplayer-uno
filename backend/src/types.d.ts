@@ -27,10 +27,6 @@ type EventResult = {
     message: string;
 };
 
-declare global {
-    type GameEngine = import('./engine').GameEngine;
-}
-
 type GameEventType = 'DRAW_CARD' | 'THROW_CARD';
 
 type GameEvent =

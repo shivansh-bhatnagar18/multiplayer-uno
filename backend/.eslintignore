@@ -1,5 +1,6 @@
 /.eslintrc.js
-/node_modules/*
-/dist/*
-/tests/*
+/node_modules/_
+/dist/_
+/tests/\*
 /jest.config.js
+/uno-game-engine/deck.ts

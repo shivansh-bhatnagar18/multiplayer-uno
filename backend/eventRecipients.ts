@@ -20,10 +20,10 @@ export function getClient(userId: string) {
 }
 
 // Function to send an event to all clients for a specific gameId
-export function sendEventToClients(gameId: string, event: any) {
-  for (const [userId, clientInfo] of clients.entries()) {
-    if (clientInfo.gameId === gameId) {
-      clientInfo.res.json([event]);
+export function sendEventToClients(gameId: string, event: GameEvent) {
+    for (const clientInfo of clients.values()) {
+        if (clientInfo.gameId === gameId) {
+            clientInfo.res.json([event]);
+        }
     }
-  }
 }

@@ -1,12 +1,19 @@
 // Implement the handler for `/events` endpoint. Refer to ARCHITECTURE.md for implementation details.
 import { sendEventToClients } from '../eventRecipients';
 
-export const sendEvents = async (req, res) => {
-    sendEventToClients('gameId', {
+// removed req,res from arguments of function causing eslint errors
+export const sendEvents = async () => {
+    //passing a dummy event
+    sendEventToClients('game_id', {
         type: 'DRAW_CARD',
-        player: 'player1',
+        playerId: 'player1',
         data: {
-            cardID: 'red-5',
+            card: {
+                type: 'number',
+                color: 'red',
+                value: '1',
+                id: 'string',
+            },
         },
     });
 };

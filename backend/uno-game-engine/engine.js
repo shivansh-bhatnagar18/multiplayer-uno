@@ -37,9 +37,16 @@ export class GameEngine {
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
     drawCardFromDeck(player) {
-        //todo: Handle the case when the deck is empty and we have to move the thrown cards back to the deck
+        /* sets the card deck to throwncards, and set throwncards to last thrown card, calls shuffle on the card deck from deck.ts */
+        if(this.cardDeck.length===0){
+            const thrownCard = this.thrownCards.pop();
+            this.cardDeck = this.thrownCards;
+            this.thrownCards = [thrownCard];
+            shuffle(this.cardDeck)
+        }
         this.players
             .find((p) => p.id === player.id)
             .cards.push(this.cardDeck.pop());
+
     }
 }

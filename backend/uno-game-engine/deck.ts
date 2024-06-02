@@ -15,6 +15,7 @@ const values: CardValue[] = [
     'reverse',
     'draw2',
 ];
+
 const specialCards: CardValue[] = ['colchange', 'draw4'];
 const sameCardCount = [];
 /**

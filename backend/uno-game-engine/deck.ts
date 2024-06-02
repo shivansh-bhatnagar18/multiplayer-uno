@@ -86,12 +86,25 @@ export function makeCard(
 
     const uid = `${id}-${sameCardCount[id]}`;
     return { type, color, value, id: uid };
+    const id = `card-${type}-${color}-${value}`;
+
+    if (!sameCardCount[id]) sameCardCount[id] = 0;
+    sameCardCount[id]++; // increment the count of same cards to assign unique id
+
+    const uid = `${id}-${sameCardCount[id]}`;
+    return { type, color, value, id: uid };
 }
 
 /**
  * This function shuffles the elements of the given array *in place* . The function behaves in a type-agnostic way.
  * Time complexity: O(n)
  */
+export function shuffle(deck: Array<UNOCard>) {
+    // Fisher-Yates shuffle algorithm to shuffle card deck
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
 export function shuffle(deck: Array<UNOCard>) {
     // Fisher-Yates shuffle algorithm to shuffle card deck
     for (let i = deck.length - 1; i > 0; i--) {

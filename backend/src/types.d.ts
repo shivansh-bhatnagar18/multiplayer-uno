@@ -44,4 +44,7 @@ type GameEvent =
               card: UNOCard;
           };
       };
+
+// Represent all the events that can be sent to the client
+type AppEvent = GameEvent;
 //todo: Add more events

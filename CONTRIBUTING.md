@@ -36,7 +36,7 @@ Given that you have already forked the repository and set it up locally:
 
      ```bash
      git fetch upstream
-     git checkout -b <your branch name> upstream/main
+     git checkout -b <your branch name> upstream/master
      ```
 
 6. **Implement Your Fix**:
@@ -60,7 +60,7 @@ Given that you have already forked the repository and set it up locally:
      ```
 
 10. **Open a Pull Request**:
-    - Open a pull request (PR) against the `main` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist. You should only solve one issue in one PR.
+    - Open a pull request (PR) against the `master` branch of the original repository. Provide a clear description of your changes and reference the issue number you are fixing. Fill the self review checklist. You should only solve one issue in one PR.
 
 11. **Address Review Comments**:
       - If maintainers suggests changes to your code, make the necessary updates and push the changes to your branch. The fix/changes should not be in a separate commit - rather the original commit must be modified force-pushed to the branch. If merge conflicts arise, use `git rebase` to resolve them. See the section on [editing commit history](#editing-commit-history) for more details.
@@ -70,9 +70,9 @@ Given that you have already forked the repository and set it up locally:
 ## Points to remember during contribution
 
 - Editing commit history and rebasing are very valuable tools for keeping the commit history clean and easy to understand. Please familiarize yourself with these concepts before contributing. In any case, the seniors will be there to help you out.
-- Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the main branch. This will help you avoid merge conflicts, and sync your branch with the main branch.
+- Before starting work, run `git fetch upstream` and then `git rebase upstream/master`, to rebase your branch on top of the master branch. This will help you avoid merge conflicts, and sync your branch with the master branch.
 - Addressing reviews on existing PRs is more important than creating new PRs. Please be responsive to the feedback and make the necessary updates.
-- Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the main branch from upstream first.
+- Create a new branch for each issue you are working on. This will help you keep your changes isolated and make it easier to manage multiple PRs. The branch should be created from upstream/master, and only after fetching the latest changes from the master branch from upstream first.
 
 ## How to make a good Pull Request
 - Make sure your PR is solving only one issue. If you are solving multiple issues, create separate PRs for each issue.
@@ -83,6 +83,7 @@ Given that you have already forked the repository and set it up locally:
   - ESLint checks (There should be no eslint errors at least in the files you have modified.)
   - Prettier checks
   - Unit tests 
+  - The commit history should be clean, concise and descriptive. It must match the format specified in [CONVENTIONS.md](CONVENTIONS.md#commit-message-guidelines).
 
 ## Common Git Operations you may need to perform
 
@@ -168,6 +169,20 @@ This will open VSCode whenever you run a command that requires a text editor, li
 All contributions go through a code review process to ensure the quality and maintainability of the codebase. During the review, maintainers may provide feedback or request changes to your code. Please be responsive to the feedback and make the necessary updates. There may be multiple rounds of review before your changes are approved.
 
 When you open a pull request, you can request a review from the maintainers. You can also request a review after making changes in response to feedback. The requested reviewer may then review the PR themselves or delegate it to another maintainer. When requesting a review, make sure that your PR doesn't have merge conflicts. If it does, resolve the conflicts before requesting a review.
+
+After a round of code review, it is your duty to:
+- Reply to all comments made by the reviewer. If you disagree with a comment, you can discuss it with the reviewer.
+- Make the necessary changes to your code.
+- Tag the reviewer in the PR thread if you want to discuss something with them.
+- Request a review again after making the changes. (Using the `Request Review` button on the PR page.)
+
+Any change suggested by the reviewer should be made in the same commit, unless specified. The commit message should
+be a summary of the changes you made. (Do not include things like `removed comment after review`). 
+
+
+# NOTE
+- If you committed a bug, do not make another commit fixing it. Instead, amend the original commit using `git commit --amend`. This will add the changes to the original commit.
+- Add tests for a function implemented, in the same commit as the implementation.
 
 Your PR will be merged only after the maintainers approve it. Different areas of codebase are handled by different maintainers.
 

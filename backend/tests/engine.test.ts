@@ -1,4 +1,4 @@
-import { GameEngine } from '../uno-game-engine/engine';
+import { GameEngine } from '../src/uno-game-engine/engine';
 
 describe('testing drawCardFromDeck()', () => {
     test('draws a card when deck is empty but thrownCards is not', () => {

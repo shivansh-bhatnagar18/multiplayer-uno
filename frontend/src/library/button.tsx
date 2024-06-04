@@ -11,7 +11,14 @@ type ButtonProps = {
 };
 
 function Button({ onClick, children }: ButtonProps) {
-    return <button onClick={onClick}>{children}</button>;
+    return (
+        <button
+            className="text-white bg-red-600 px-5 py-2 rounded-3xl text-md shadow-md transform transition-transform hover:scale-105 hover:shadow-glow hover:bg-red-900 active:bg-black active:scale-95 active:shadow-none"
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
 }
 
 export default Button;

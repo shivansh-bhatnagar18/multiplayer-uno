@@ -33,9 +33,7 @@ export function scheduleSend(clientId: ClientId, event: AppEvent) {
     //todo: Enqueue the event for sending.
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function doSendEvent(clientId: ClientId) {
-    //todo: Send all the events in the queue to the client, only if the response object is available.
     const events = eventQueue.get(clientId);
     if (events) {
         events.forEach((event) => {

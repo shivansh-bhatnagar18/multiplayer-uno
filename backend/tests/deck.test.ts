@@ -2,7 +2,7 @@ import {
     shuffle,
     makeCard,
     getShuffledCardDeck,
-} from '../uno-game-engine/deck';
+} from '../src/uno-game-engine/deck';
 
 describe('getShuffledCardDeck', () => {
     test('should return an array of 108 cards', () => {

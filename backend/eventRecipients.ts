@@ -28,12 +28,21 @@ export function getClient(clientId: ClientId) {
     return clients.get(clientId);
 }
 
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function scheduleSend(clientId: ClientId, event: AppEvent) {
-    eventQueue.get(clientId)?.push(event);
+    //todo: Enqueue the event for sending.
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function doSendEvent(clientId: ClientId) {
     //todo: Send all the events in the queue to the client, only if the response object is available.
+    const events = eventQueue.get(clientId);
+    if (events) {
+        events.forEach((event) => {
+            for (const clientEligibleId of clients.keys())
+                if (clientEligibleId != clientId) {
+                    clients.get(clientEligibleId)?.write(JSON.stringify(event));
+                }
+        });
+    }
 }

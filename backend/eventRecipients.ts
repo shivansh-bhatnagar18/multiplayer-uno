@@ -28,9 +28,9 @@ export function getClient(clientId: ClientId) {
     return clients.get(clientId);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 export function scheduleSend(clientId: ClientId, event: AppEvent) {
-    //todo: Enqueue the event for sending.
+    eventQueue.get(clientId)?.push(event);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

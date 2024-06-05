@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
     res.send('Hello from the backend!');
 });
 
+//Routes
+import userRoutes from './routes/userRoutes.js';
+
+app.use('/api/v1/auth', userRoutes);
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

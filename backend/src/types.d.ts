@@ -1,6 +1,6 @@
 // We declare those types which are used throughout the application here.
 // For types that are used only in one file, we can declare them in that file itself.
-
+import { Document } from 'mongoose';
 type CardType = 'number' | 'special' | 'wild';
 
 type CardColor = 'red' | 'blue' | 'green' | 'yellow' | 'wild';
@@ -48,3 +48,9 @@ type GameEvent =
 // Represent all the events that can be sent to the client
 type AppEvent = GameEvent;
 //todo: Add more events
+interface User extends Document {
+    name: string;
+    email: string;
+    picture?: string;
+    password: string;
+}

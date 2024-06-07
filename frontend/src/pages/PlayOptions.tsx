@@ -27,20 +27,36 @@ const PlayOptions = () => {
                         alt="UNO Logo"
                         className="h-12 w-auto mr-2"
                     />
-                    <h1 className="text-white text-4xl font-bold font-serif">
-                        Ready for Action?
-                    </h1>
+                    <Heading
+                        text="Ready for Action?"
+                        fontSize="text-4xl"
+                        fontWeight="font-bold"
+                        textColor="text-white"
+                        fontStyle="font-serif"
+                    />
                 </div>
                 <div className="flex flex-col md:flex-row w-full md:max-w-screen-md space-y-10 md:space-y-0 md:space-x-10 p-10">
-                    <div className="bg-gradient-to-r from-red-900 via-blue-950 to-red-900 flex-1 w-full p-5 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
+                    <div className="bg-gradient-to-r from-red-900 via-blue-900 to-red-900 flex-1 w-full p-5 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
                         <div className="pb-12 pt-3">
-                            <Heading name="Create a new game" />
+                            <Heading
+                                text="Create a new game"
+                                fontSize="text-3xl"
+                                fontWeight="font-bold"
+                                textColor="text-white"
+                                fontStyle="font-serif"
+                            />
                         </div>
                         <Button onClick={CreateGame}>New Game</Button>
                     </div>
-                    <div className="bg-gradient-to-r from-red-900 via-green-950 to-red-900 flex-1 w-full p-3 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
+                    <div className="bg-gradient-to-r from-red-900 via-green-900 to-red-900 flex-1 w-full p-3 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
                         <div className="pt-2 pb-2">
-                            <Heading name="Join an existing Game" />
+                            <Heading
+                                text="Join an existing Game"
+                                fontSize="text-3xl"
+                                fontWeight="font-bold"
+                                textColor="text-white"
+                                fontStyle="font-serif"
+                            />
                         </div>
                         <div className="p-2 pb-2 w-full justify-self-center">
                             <input

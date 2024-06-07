@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <>
-            <div>Home Page</div>
+            <div className="font-kavoon">Home Page</div>
             <Link to="/play">Play</Link>
         </>
     );

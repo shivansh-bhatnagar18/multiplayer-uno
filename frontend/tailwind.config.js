@@ -5,7 +5,11 @@ export default {
     './src/**/*.{tsx,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        kavoon: ['Kavoon', 'serif'],
+      },
+    },
   },
   plugins: [],
 }

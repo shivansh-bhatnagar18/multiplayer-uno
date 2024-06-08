@@ -10,6 +10,11 @@ export default {
         kavoon: ['Kavoon', 'serif'],
       },
     },
+    extend: {
+      borderWidth: {
+        '3': '3px',
+      },
+    },
   },
   plugins: [],
 }

@@ -3,6 +3,7 @@ import express, { json } from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
 import { config } from 'dotenv';
+import userRoutes from './routes/userRoutes';
 
 config();
 
@@ -19,6 +20,8 @@ connect(process.env.MONGO_URI!)
 app.get('/', (req, res) => {
     res.send('Hello from the backend!');
 });
+
+app.use('/api/v1/auth', userRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

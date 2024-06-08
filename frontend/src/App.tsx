@@ -5,7 +5,6 @@ import AppLayout from './pages/AppLayout';
 import Error from './pages/Error';
 import Game from './pages/Game';
 import About from './pages/About';
-import PlayOptions from './pages/PlayOptions';
 
 const router = createBrowserRouter([
     {
@@ -16,10 +15,6 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
-            },
-            {
-                path: '/play',
-                element: <PlayOptions />,
             },
             {
                 path: '/game',

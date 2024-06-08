@@ -5,20 +5,49 @@
 // - Customize the shape of the button (rectangle, rounded, circle)
 // - Handles click events
 
+import React from 'react';
+import '../index.css';
+
 type ButtonProps = {
-    onClick: () => void;
-    children: React.ReactNode;
+    text: string;
+    textColor?: string;
+    backgroundColor?: string;
+    fontSize?: string;
+    rounded?: string;
+    buttonSize?: string;
+    textStroke?: string;
+    borderColor?: string;
+    hoverColor?: string;
+    hoverScale?: boolean;
+    px?: string;
+    py?: string;
+    onClick?: () => void;
 };
 
-function Button({ onClick, children }: ButtonProps) {
+const Button: React.FC<ButtonProps> = ({
+    text,
+    textColor = 'text-white',
+    backgroundColor = 'bg-lime-500',
+    fontSize = 'text-lg',
+    rounded = 'rounded-xl',
+    buttonSize = 'w-36 h-11',
+    px = 'px-3',
+    py = 'py-1',
+    textStroke,
+    borderColor = 'border-black',
+    hoverColor = 'hover:bg-lime-600',
+    hoverScale = true,
+    onClick,
+}) => {
     return (
         <button
-            className="text-white bg-red-600 px-5 py-2 rounded-3xl text-md shadow-md transform transition-transform hover:scale-105 hover:shadow-glow hover:bg-red-900 active:bg-black active:scale-95 active:shadow-none"
             onClick={onClick}
+            className={`shadow-xl border-3 ${borderColor} font-kavoon ${textColor} ${buttonSize} ${rounded} ${fontSize} ${px} ${py} ${backgroundColor} transition-all duration-300 ${hoverScale ? 'transform hover:scale-105' : ''} ${hoverColor}`}
+            style={{ textShadow: textStroke ? textStroke : 'none' }}
         >
-            {children}
+            {text}
         </button>
     );
-}
+};
 
 export default Button;

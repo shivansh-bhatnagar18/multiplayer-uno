@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../library/button';
 import Heading from '../library/heading';
 import '../index.css';
 
-const PlayOptions = () => {
+const PlayOptions: React.FC = () => {
     const [gameCode, setGameCode] = useState('');
     const navigate = useNavigate();
     const CreateGame = () => {
@@ -36,7 +36,7 @@ const PlayOptions = () => {
                     />
                 </div>
                 <div className="flex flex-col md:flex-row w-full md:max-w-screen-md space-y-10 md:space-y-0 md:space-x-10 p-10">
-                    <div className="bg-gradient-to-r from-red-900 via-blue-900 to-red-900 flex-1 w-full p-5 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
+                    <div className="bg-gradient-to-r from-red-700 via-red-700 to-red-700 flex-1 w-full p-5 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
                         <div className="pb-12 pt-3">
                             <Heading
                                 text="Create a new game"
@@ -46,9 +46,13 @@ const PlayOptions = () => {
                                 fontStyle="font-serif"
                             />
                         </div>
-                        <Button onClick={CreateGame}>New Game</Button>
+                        <Button
+                            textStroke="1.5px 1px black"
+                            text="Start Game"
+                            onClick={CreateGame}
+                        />
                     </div>
-                    <div className="bg-gradient-to-r from-red-900 via-green-900 to-red-900 flex-1 w-full p-3 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
+                    <div className="bg-gradient-to-r from-red-700 via-red-700 to-red-700 flex-1 w-full p-3 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
                         <div className="pt-2 pb-2">
                             <Heading
                                 text="Join an existing Game"
@@ -66,7 +70,16 @@ const PlayOptions = () => {
                                 className="border-2 border-red-600 rounded-lg p-1 mb-4 text-md w-full bg-black text-white"
                             />
                         </div>
-                        <Button onClick={JoinGame}>Join Game</Button>
+                        <Button
+                            buttonSize="w-64 h-9"
+                            py="py-0"
+                            textColor="text-white"
+                            text="Sign In using Google"
+                            backgroundColor="bg-gray-400"
+                            hoverColor="hover:bg-gray-500"
+                            textStroke="1.5px 1px black"
+                            onClick={JoinGame}
+                        />
                     </div>
                 </div>
             </div>

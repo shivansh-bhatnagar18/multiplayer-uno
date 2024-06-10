@@ -15,6 +15,7 @@ type ButtonProps = {
     fontSize?: string;
     rounded?: string;
     buttonSize?: string;
+    type?: "submit" | "reset" | "button"
     borderColor?: string;
     hoverColor?: string;
     hoverScale?: boolean;
@@ -36,11 +37,13 @@ const Button: React.FC<ButtonProps> = ({
     borderColor = 'border-black',
     hoverColor = 'hover:bg-lime-600',
     hoverScale = true,
+    type = 'button',
     onClick,
     className = '',
 }) => {
     return (
         <button
+            type={type}
             onClick={onClick}
             className={`text-stroke ${className} shadow-xl border-3 ${borderColor} font-kavoon ${textColor} ${buttonSize} ${rounded} ${fontSize} ${px} ${py} ${backgroundColor} transition-all duration-300 ${hoverScale ? 'transform hover:scale-105' : ''} ${hoverColor}`}
         >

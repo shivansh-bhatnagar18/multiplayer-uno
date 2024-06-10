@@ -6,6 +6,8 @@ import Error from './pages/Error';
 import Game from './pages/Game';
 import About from './pages/About';
 import { AuthProvider } from './contexts/AuthContext';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp'
 
 const router = createBrowserRouter([
     {
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
             },
             { path: '/about', element: <About /> },
             { path: '/error', element: <Error /> },
+            { path: '/login', element: <Login />},
+            { path: '/signup', element: <SignUp />}
         ],
     },
 ]);

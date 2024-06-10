@@ -8,12 +8,12 @@ import {
 
 export type User = {
     name: string;
-    email: string;
+    pass: string;
 };
 
 export type AuthContextProps = {
     getUser: () => User | null;
-    login: () => void;
+    login: (arg0: string, arg1: string) => void;
     logout: () => void;
     isLoggedIn: () => boolean;
 };
@@ -30,14 +30,14 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }: { children: ReactElement }) {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);    
 
-    const login = useCallback(() => {
+    const login = useCallback((name: string, pass: string) => {
         setUser({
-            name: 'John Doe',
-            email: '',
+            name: name,
+            pass: pass,
         });
-    }, []);
+    }, [setUser]);
 
     const logout = useCallback(() => {
         setUser(null);

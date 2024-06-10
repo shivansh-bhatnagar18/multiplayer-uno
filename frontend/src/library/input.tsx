@@ -15,7 +15,7 @@ const Input: React.FC<Props> = ({
 }) => {
     return (
         <input
-            className={`w-[${width}] h-[${height}] bg-[#d9d9d9] border-4 border-black rounded-[20px] flex items-center justify-center text-center p-0 font-normal font-kavoon text-[23.2px] leading-[29px] text-black placeholder-white placeholder-opacity-50"`}
+            className={`w-${width} h-${height} bg-[#d9d9d9] border-4 border-black rounded-full flex items-center justify-center text-center p-0 font-normal font-kavoon text-[23.2px] leading-[29px] text-black placeholder-white placeholder-opacity-50"`}
             {...props}
         />
     );

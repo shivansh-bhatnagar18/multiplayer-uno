@@ -23,7 +23,7 @@ const Home: React.FC = () => {
     const auth = useAuth();
 
     const handleLogin = () => {
-        auth.login();
+        navigate('/login');
     };
 
     const handleLogout = () => {

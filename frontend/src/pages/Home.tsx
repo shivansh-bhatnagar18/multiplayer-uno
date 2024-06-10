@@ -9,12 +9,13 @@ const Home: React.FC = () => {
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
-        navigate('/game');
+        navigate('/error');
     };
 
     const JoinGame = () => {
         // Logic to join a game
         console.log('Join Game with code');
+        navigate('/error');
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);

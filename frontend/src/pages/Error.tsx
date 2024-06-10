@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import ErrorImage from '../assets/tornCard.svg';
+import Button from '../library/button';
 
 function Error() {
     return (
@@ -21,9 +21,13 @@ function Error() {
                         Sorry, the page you're looking for can't be found.
                         Please return to the Homepage!
                     </p>
-                    <button className="p-4 outline-none border-none rounded-md text-white bg-[#FF2400] cursor-pointer transition-all duration-500 hover:bg-[#12a101]">
-                        <Link to="home">Go back to Homepage</Link>
-                    </button>
+                    <Button
+                        text="Return back to homepage"
+                        buttonSize="w-80 h-12"
+                        className="border-4"
+                        rounded="rounded-full"
+                        onClick={() => (window.location.href = '/')}
+                    />
                 </div>
             </div>
         </div>

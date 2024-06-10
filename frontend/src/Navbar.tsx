@@ -88,6 +88,9 @@ const Navbar: React.FC<NavbarProps> = ({
                                 fontSize="text-2xl"
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
+                                onClick={() => {
+                                    window.location.href = '/error';
+                                }}
                             />
                         </div>
                         <div className="mt-4">
@@ -97,6 +100,9 @@ const Navbar: React.FC<NavbarProps> = ({
                                 fontSize="text-2xl"
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
+                                onClick={() => {
+                                    window.location.href = '/error';
+                                }}
                             />
                         </div>
                     </div>

@@ -12,7 +12,12 @@ export default {
     },
     extend: {
       borderWidth: {
-        '3': '3px',
+        '3': "3px",
+      },
+    },
+    extend: {
+      backgroundImage: {
+        'uno-bg': "url('/src/assets/bg.jpg')",
       },
     },
   },

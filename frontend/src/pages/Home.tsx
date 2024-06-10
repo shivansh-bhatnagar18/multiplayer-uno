@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../library/button';
-import Heading from '../library/heading';
+import Navbar from '../Navbar';
 import '../index.css';
 
 const Home: React.FC = () => {
-    const [gameCode, setGameCode] = useState('');
     const navigate = useNavigate();
     const CreateGame = () => {
         // Logic to create a game
@@ -15,73 +14,56 @@ const Home: React.FC = () => {
 
     const JoinGame = () => {
         // Logic to join a game
-        console.log('Join Game with code:', gameCode);
+        console.log('Join Game with code');
+    };
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+
+    const handleLogin = () => {
+        setUsername('Username_7');
+        setIsLoggedIn(true);
+    };
+
+    const handleLogout = () => {
+        setUsername('');
+        setIsLoggedIn(false);
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-neutral-950 via-red-950 to-neutral-950">
-            <div className="max-h-screen w-screen max-w-screen-md p-1 md:items-center md:justify-center">
-                <div className="flex items-center justify-center p-3 mb-10 ">
+        <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
+            <Navbar
+                isLoggedIn={isLoggedIn}
+                username={username}
+                onLogin={handleLogin}
+                onLogout={handleLogout}
+            />
+            <div className="flex flex-col items-center justify-center flex-grow">
+                <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
                     <img
-                        src="/UNO_Logo.svg"
+                        src="src/assets/Uno-Logo.png"
                         alt="UNO Logo"
-                        className="h-12 w-auto mr-2"
-                    />
-                    <Heading
-                        text="Ready for Action?"
-                        fontSize="text-4xl"
-                        fontWeight="font-bold"
-                        textColor="text-white"
-                        fontStyle="font-serif"
+                        className="w-full h-full object-cover"
                     />
                 </div>
-                <div className="flex flex-col md:flex-row w-full md:max-w-screen-md space-y-10 md:space-y-0 md:space-x-10 p-10">
-                    <div className="bg-gradient-to-r from-red-700 via-red-700 to-red-700 flex-1 w-full p-5 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
-                        <div className="pb-12 pt-3">
-                            <Heading
-                                text="Create a new game"
-                                fontSize="text-3xl"
-                                fontWeight="font-bold"
-                                textColor="text-white"
-                                fontStyle="font-serif"
-                            />
-                        </div>
-                        <Button
-                            textStroke="1.5px 1px black"
-                            text="Start Game"
-                            onClick={CreateGame}
-                        />
-                    </div>
-                    <div className="bg-gradient-to-r from-red-700 via-red-700 to-red-700 flex-1 w-full p-3 border-2 border-spacing-2 border-opacity-80 border-red-950 rounded-xl shadow-md flex flex-col items-center">
-                        <div className="pt-2 pb-2">
-                            <Heading
-                                text="Join an existing Game"
-                                fontSize="text-3xl"
-                                fontWeight="font-bold"
-                                textColor="text-white"
-                                fontStyle="font-serif"
-                            />
-                        </div>
-                        <div className="p-2 pb-2 w-full justify-self-center">
-                            <input
-                                placeholder="Enter the Game Code"
-                                value={gameCode}
-                                onChange={(e) => setGameCode(e.target.value)}
-                                className="border-2 border-red-600 rounded-lg p-1 mb-4 text-md w-full bg-black text-white"
-                            />
-                        </div>
-                        <Button
-                            buttonSize="w-64 h-9"
-                            py="py-0"
-                            textColor="text-white"
-                            text="Sign In using Google"
-                            backgroundColor="bg-gray-400"
-                            hoverColor="hover:bg-gray-500"
-                            textStroke="1.5px 1px black"
-                            onClick={JoinGame}
-                        />
-                    </div>
-                </div>
+                <Button
+                    text="Start Game"
+                    className="mb-6 w-48 border-4"
+                    buttonSize="w-[220px] h-16"
+                    fontSize="text-3xl"
+                    px="px-3"
+                    py="py-1"
+                    onClick={CreateGame}
+                />
+                <Button
+                    text="Join Game"
+                    className="mb-4 w-48 border-4"
+                    buttonSize="w-[220px] h-16"
+                    fontSize="text-3xl"
+                    px="px-3"
+                    py="py-1"
+                    onClick={JoinGame}
+                />
             </div>
         </div>
     );

@@ -11,3 +11,17 @@ body::-webkit-scrollbar {
 .font-kavoon {
     font-family: 'Kavoon', 'serif';
 }
+
+.text-stroke {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    text-stroke-width: 1px;
+    text-stroke-color: black;
+}
+
+.text-stroke-2 {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: black;
+    text-stroke-width: 1.5px;
+    text-stroke-color: black;
+}

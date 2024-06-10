@@ -15,12 +15,12 @@ type ButtonProps = {
     fontSize?: string;
     rounded?: string;
     buttonSize?: string;
-    textStroke?: string;
     borderColor?: string;
     hoverColor?: string;
     hoverScale?: boolean;
     px?: string;
     py?: string;
+    className?: string;
     onClick?: () => void;
 };
 
@@ -29,21 +29,20 @@ const Button: React.FC<ButtonProps> = ({
     textColor = 'text-white',
     backgroundColor = 'bg-lime-500',
     fontSize = 'text-lg',
-    rounded = 'rounded-xl',
+    rounded = 'rounded-2xl',
     buttonSize = 'w-36 h-11',
     px = 'px-3',
     py = 'py-1',
-    textStroke,
     borderColor = 'border-black',
     hoverColor = 'hover:bg-lime-600',
     hoverScale = true,
     onClick,
+    className = '',
 }) => {
     return (
         <button
             onClick={onClick}
-            className={`shadow-xl border-3 ${borderColor} font-kavoon ${textColor} ${buttonSize} ${rounded} ${fontSize} ${px} ${py} ${backgroundColor} transition-all duration-300 ${hoverScale ? 'transform hover:scale-105' : ''} ${hoverColor}`}
-            style={{ textShadow: textStroke ? textStroke : 'none' }}
+            className={`text-stroke ${className} shadow-xl border-3 ${borderColor} font-kavoon ${textColor} ${buttonSize} ${rounded} ${fontSize} ${px} ${py} ${backgroundColor} transition-all duration-300 ${hoverScale ? 'transform hover:scale-105' : ''} ${hoverColor}`}
         >
             {text}
         </button>

@@ -4,6 +4,7 @@ import Input from '../library/input';
 import Navbar from '../Navbar';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
 
 const Login: React.FC = () => {
@@ -11,16 +12,18 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
+    const navigate = useNavigate();
     const auth = useAuth();
+    const user = auth.getUser();
 
     const handleLogin = () => {
-        setUsername('Username_7');
-        setIsLoggedIn(true);
+        setUsername(username);
+        console.log(auth.isLoggedIn());
     };
 
     const handleLogout = () => {
         setUsername('');
-        setIsLoggedIn(false);
+        auth.logout();
     };
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,9 +39,9 @@ const Login: React.FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('Form submitted');
-        const user = auth.getUser();
         if (user?.name == name && user.pass == password) {
             console.log('Successful Login');
+            navigate('/home');
         } else {
             console.log('Failed Login');
         }
@@ -47,13 +50,13 @@ const Login: React.FC = () => {
     useEffect(() => {
         setIsLoggedIn(auth.isLoggedIn());
         console.log(isLoggedIn);
-    }, [auth, auth.getUser()]);
+    }, [auth, user, isLoggedIn]);
 
     return (
         <>
             <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
                 <Navbar
-                    isLoggedIn={true} //true here so that navbar does not render signin/login button
+                    isLoggedIn={auth.isLoggedIn()} //true here so that navbar does not render signin/login button
                     username={username}
                     onLogin={handleLogin}
                     onLogout={handleLogout}
@@ -113,7 +116,7 @@ const Login: React.FC = () => {
                                 <div className="font-kavoon flex justify-center items-center my-3">
                                     Don't have an account?{' '}
                                     <Link
-                                        to="/signup"
+                                        to="/register"
                                         className=" text-blue-700 "
                                     >
                                         {' '}

@@ -3,6 +3,7 @@ import Button from './library/button';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
 import RulesModal from './library/rulesModal';
+import { useAuth } from './contexts/AuthContext';
 
 type NavbarProps = {
     isLoggedIn?: boolean;
@@ -22,10 +23,18 @@ const Navbar: React.FC<NavbarProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [showRulesModal, setShowRulesModal] = useState(false);
 
+    const auth = useAuth();
+
+    const user = auth.getUser();
+
     const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const goToLogin = () => {
+        navigate('/login');
     };
 
     return (
@@ -40,8 +49,17 @@ const Navbar: React.FC<NavbarProps> = ({
                         />
                     </button>
                 </div>
-                {isLoggedIn ? (
-                    <></>
+                {auth.isLoggedIn() ? (
+                    <>
+                        <div className="text-xl font-bold mt-2">
+                            <Button
+                                text={user ? user.name : 'Noname'}
+                                buttonSize="w-56 h-11"
+                                className="border-4"
+                                rounded="rounded-2xl"
+                            />
+                        </div>
+                    </>
                 ) : (
                     <>
                         <div className="text-xl font-bold mt-2">
@@ -50,6 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-56 h-11"
                                 className="border-4"
                                 rounded="rounded-2xl"
+                                onClick={goToLogin}
                             />
                         </div>
                     </>

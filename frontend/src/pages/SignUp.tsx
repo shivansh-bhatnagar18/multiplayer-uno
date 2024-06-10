@@ -4,6 +4,7 @@ import Input from '../library/input';
 import Navbar from '../Navbar';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
 
 const SignUp: React.FC = () => {
@@ -12,7 +13,9 @@ const SignUp: React.FC = () => {
     const [confirmPass, setConfirmPass] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
+    const navigate = useNavigate();
     const auth = useAuth();
+    const user = auth.getUser();
 
     const handleLogin = () => {
         setUsername('Username_7');
@@ -46,6 +49,7 @@ const SignUp: React.FC = () => {
         if (password === confirmPass) {
             auth.login(name, password);
             console.log('successfull signup');
+            navigate('/');
         } else {
             console.log('failed signup');
         }
@@ -56,7 +60,7 @@ const SignUp: React.FC = () => {
         console.log(user);
         setIsLoggedIn(auth.isLoggedIn());
         console.log(isLoggedIn);
-    }, [auth, auth.getUser()]);
+    }, [auth, user, isLoggedIn]);
 
     return (
         <>

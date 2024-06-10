@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <div className="space-x-4">
                     <button onClick={toggleMenu}>
                         <img
-                            src="src/assets/hamburger.png"
+                            src="/hamburger.png"
                             alt="hamburger menu"
                             className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-9 lg:h-9"
                         />
@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             className="absolute top-3 right-3"
                         >
                             <img
-                                src="src/assets/close.png"
+                                src="/close.png"
                                 alt="Close menu"
                                 className="w-7 h-7 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-10 lg:h-10"
                             />

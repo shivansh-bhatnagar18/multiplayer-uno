@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             <div className="flex flex-col items-center justify-center flex-grow">
                 <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
                     <img
-                        src="src/assets/Uno-Logo.png"
+                        src="/unologo.png"
                         alt="UNO Logo"
                         className="w-full h-full object-cover"
                     />

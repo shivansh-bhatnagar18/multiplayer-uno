@@ -1,11 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Button from '../library/button';
 import Navbar from '../Navbar';
+import Modal from '../library/modal';
 import '../index.css';
 import { useAuth } from '../contexts/AuthContext';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
@@ -14,8 +17,8 @@ const Home: React.FC = () => {
 
     const JoinGame = () => {
         // Logic to join a game
+        setShowModal(true);
         console.log('Join Game with code');
-        navigate('/error');
     };
     const auth = useAuth();
 
@@ -62,6 +65,7 @@ const Home: React.FC = () => {
                     onClick={JoinGame}
                 />
             </div>
+            {showModal && <Modal onClose={() => setShowModal(false)} />}
         </div>
     );
 };

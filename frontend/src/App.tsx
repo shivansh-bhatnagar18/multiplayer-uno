@@ -5,6 +5,7 @@ import AppLayout from './pages/AppLayout';
 import Error from './pages/Error';
 import Game from './pages/Game';
 import About from './pages/About';
+import { AuthProvider } from './contexts/AuthContext';
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <AuthProvider>
+            <>
+                <RouterProvider router={router} />;
+            </>
+        </AuthProvider>
+    );
 }
 
 export default App;

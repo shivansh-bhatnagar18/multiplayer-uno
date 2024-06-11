@@ -1,7 +1,7 @@
 import { getShuffledCardDeck, shuffle } from './deck';
 import { handleEvent } from './gameEvents';
 
-const NUM_CARDS_PER_PLAYER = 7;
+export const NUM_CARDS_PER_PLAYER = 7;
 
 export class GameEngine {
     cardDeck: UNOCard[];
@@ -47,9 +47,9 @@ export class GameEngine {
         this.currentPlayerIndex =
             (this.currentPlayerIndex + this.direction) % this.players.length;
     }
-    drawCardFromDeck(player: Player): EventResult {
+    drawCardFromDeck(player: Player, numCards = 1): EventResult {
         try {
-            if (this.cardDeck.length === 0) {
+            if (this.cardDeck.length < numCards) {
                 this.cardDeck = [...this.thrownCards];
                 this.thrownCards = [];
                 shuffle(this.cardDeck);
@@ -58,15 +58,18 @@ export class GameEngine {
                 (p: Player) => p.id === player.id
             );
             if (currentPlayer && this.cardDeck) {
-                const card = this.cardDeck.pop();
-                if (card) {
-                    currentPlayer.cards.push(card);
+                const cards = this.cardDeck.splice(-numCards, numCards);
+                if (cards.length > 0) {
+                    currentPlayer.cards.push(...cards);
                     return {
                         type: 'SUCCESS',
-                        message: 'Card drawn successfully',
+                        message: `${numCards} card(s) drawn successfully`,
                     };
                 } else
-                    return { type: 'ERROR', message: 'Unable to draw a card' };
+                    return {
+                        type: 'ERROR',
+                        message: `Unable to draw ${numCards} card(s)`,
+                    };
             } else {
                 return {
                     type: 'ERROR',

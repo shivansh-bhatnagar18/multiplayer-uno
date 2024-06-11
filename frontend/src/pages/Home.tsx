@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../library/button';
 import Navbar from '../Navbar';
 import '../index.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -17,25 +17,21 @@ const Home: React.FC = () => {
         console.log('Join Game with code');
         navigate('/error');
     };
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
+    const auth = useAuth();
 
     const handleLogin = () => {
-        setUsername('Username_7');
-        setIsLoggedIn(true);
+        auth.login();
     };
 
     const handleLogout = () => {
-        setUsername('');
-        setIsLoggedIn(false);
+        auth.logout();
     };
 
     return (
         <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
             <Navbar
-                isLoggedIn={isLoggedIn}
-                username={username}
+                isLoggedIn={auth.isLoggedIn()}
+                username={auth.getUser()?.name || ''}
                 onLogin={handleLogin}
                 onLogout={handleLogout}
             />

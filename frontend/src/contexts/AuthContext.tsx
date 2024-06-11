@@ -39,14 +39,16 @@ export function AuthProvider({ children }: { children: ReactElement }) {
         });
     }, []);
 
-    const logout = useCallback(() => {}, []);
+    const logout = useCallback(() => {
+        setUser(null);
+    }, []);
 
     const getUser = useCallback(() => {
         return user;
     }, [user]);
 
     const isLoggedIn = useCallback(() => {
-        return !!user;
+        return user !== null;
     }, [user]);
 
     return (

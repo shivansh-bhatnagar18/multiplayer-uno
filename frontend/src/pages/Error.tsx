@@ -1,7 +1,9 @@
 import ErrorImage from '../assets/tornCard.svg';
 import Button from '../library/button';
+import { useNavigate } from 'react-router-dom';
 
 function Error() {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-white">
             <div className="grid grid-rows-3 justify-items-center text-center gap-4 max-w-[400px] p-8 text-[#333333] md:grid-cols-2 md:gap-2 md:gap-x-14 md:max-w-screen-xl lg:gap-x-20">
@@ -26,7 +28,7 @@ function Error() {
                         buttonSize="w-80 h-12"
                         className="border-4"
                         rounded="rounded-full"
-                        onClick={() => (window.location.href = '/')}
+                        onClick={() => navigate('/')}
                     />
                 </div>
             </div>

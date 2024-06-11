@@ -104,7 +104,10 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    window.location.href = '/error';
+                                    window.open(
+                                        'https://www.unorules.com/',
+                                        '_blank'
+                                    );
                                 }}
                             />
                         </div>

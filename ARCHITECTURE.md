@@ -31,13 +31,12 @@ format of the message is:
 
 ```json
 {
-	"type": "DRAW_CARD",
-	"player": "player1",
-	"data": {
-		"cardID": "red-5"
-	}
+	"type": "THROW_CARD",
+	"playerId": "1",
+	"cardId": "card-number-red-5",
 }
 ```
+Other possible values for `type` are `DRAW_CARD`, `ANNOUNCE_UNO`, etc.
 
 When such a request reaches the server, the server updates the game state and sends the message to all clients (through the polling mechanism). The clients update their game state accordingly, and make the necessary changes to their UI and game state.
 

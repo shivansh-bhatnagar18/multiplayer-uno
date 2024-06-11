@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from './library/button';
 import './index.css';
+import { useNavigate } from 'react-router-dom';
 
 type NavbarProps = {
     isLoggedIn?: boolean;
@@ -16,6 +17,8 @@ const Navbar: React.FC<NavbarProps> = ({
     onLogout,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -92,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    window.location.href = '/error';
+                                    navigate('/error');
                                 }}
                             />
                         </div>

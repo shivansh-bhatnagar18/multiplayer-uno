@@ -27,7 +27,7 @@ type EventResult = {
     message: string;
 };
 
-type GameEventType = 'DRAW_CARD' | 'THROW_CARD';
+type GameEventType = 'DRAW_CARD' | 'THROW_CARD' | 'JOIN_GAME';
 
 type GameEvent =
     | {
@@ -43,6 +43,11 @@ type GameEvent =
           data: {
               cardId: string;
           };
+      }
+    | {
+          type: 'JOIN_GAME';
+          playerId: string;
+          data: null;
       };
 
 // Represent all the events that can be sent to the client

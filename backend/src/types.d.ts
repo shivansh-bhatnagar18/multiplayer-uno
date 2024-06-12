@@ -34,14 +34,14 @@ type GameEvent =
           type: 'DRAW_CARD';
           playerId: string;
           data: {
-              card: UNOCard;
+              cardId: string;
           };
       }
     | {
           type: 'THROW_CARD';
           playerId: string;
           data: {
-              card: UNOCard;
+              cardId: string;
           };
       };
 

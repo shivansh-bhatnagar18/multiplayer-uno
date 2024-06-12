@@ -45,7 +45,8 @@ export class GameEngine {
     }
     nextPlayer() {
         this.currentPlayerIndex =
-            (this.currentPlayerIndex + this.direction) % this.players.length;
+            (this.players.length + this.currentPlayerIndex + this.direction) %
+            this.players.length;
     }
     drawCardFromDeck(player: Player, numCards = 1): EventResult {
         try {

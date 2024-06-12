@@ -20,3 +20,13 @@ export function handleEvent(game: GameEngine, event: GameEvent): EventResult {
     }
     return handler(game, event);
 }
+
+// some utility functions shared by event handlers
+
+export function getPlayer(game: GameEngine, playerId: string) {
+    return game.players.find((p) => p.id === playerId);
+}
+
+export function getPlayerCard(player: Player, cardId: string) {
+    return player.cards.find((c) => c.id === cardId);
+}

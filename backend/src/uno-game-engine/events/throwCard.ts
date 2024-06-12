@@ -1,15 +1,12 @@
-import { registerEventHandler } from '../gameEvents';
+import { getPlayer, getPlayerCard, registerEventHandler } from '../gameEvents';
 import { GameEngine } from '../engine';
+import assert from 'assert';
 
-function findPlayer(game: GameEngine, playerId: string) {
-    return game.players.find((p) => p.id === playerId);
-}
-
-function findCard(player, cardId: string) {
-    return player.cards.find((c) => c.id === cardId);
-}
-
-function canThrowCard(game: GameEngine, player, card): EventResult {
+function canThrowCard(
+    game: GameEngine,
+    player: Player,
+    card: UNOCard
+): EventResult {
     const { currentPlayerIndex, players } = game;
     const currentPlayer = players[currentPlayerIndex];
 
@@ -39,12 +36,14 @@ function canThrowCard(game: GameEngine, player, card): EventResult {
 }
 
 export function throwCard(game: GameEngine, event: GameEvent): EventResult {
-    const player = findPlayer(game, event.playerId);
+    // validate the event so that typescript knows that event is of type 'THROW_CARD'
+    assert(event.type === 'THROW_CARD', 'Invalid event type');
+    const player = getPlayer(game, event.playerId);
     if (!player) {
         return { type: 'ERROR', message: 'Player not found' };
     }
 
-    const card = findCard(player, event.data.card.id);
+    const card = getPlayerCard(player, event.data.cardId);
     if (!card) {
         return { type: 'ERROR', message: 'Card not found' };
     }

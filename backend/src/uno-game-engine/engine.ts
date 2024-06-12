@@ -81,8 +81,8 @@ export class GameEngine {
             return { type: 'ERROR', message: (error as Error).message };
         }
     }
-    dispatchEvent(event: GameEvent) {
+    dispatchEvent(event: GameEvent): EventResult {
         // handle different types of events based on event.type
-        handleEvent(this, event);
+        return handleEvent(this, event);
     }
 }

@@ -5,6 +5,7 @@ import { NextFunction } from 'express';
 export interface IUser extends mongoose.Document {
     username: string;
     password: string;
+    activeGameId: string | null;
     isPasswordCorrect: (password: string) => Promise<boolean>;
 }
 
@@ -19,6 +20,10 @@ const userSchema = new mongoose.Schema<IUser>(
             type: String,
             required: [true, 'Password is required'],
             minlength: [6, 'Password must be at least 6 characters long'],
+        },
+        activeGameId: {
+            type: String,
+            default: null,
         },
     },
     {

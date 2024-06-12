@@ -14,9 +14,10 @@ const clients = new Map<ClientId, Response>();
 const eventQueue = new Map<ClientId, AppEvent[]>();
 
 export function addClient(clientId: ClientId, res: Response) {
-    // todo: We can immediately send any events that are in the queue.
+    // if there are new events for this client, we will send them immediately
+    // else we will withhold the response object until there are new events
     clients.set(clientId, res);
-    eventQueue.set(clientId, []);
+    doSendEvents(clientId);
 }
 
 export function removeClient(clientId: ClientId) {
@@ -32,8 +33,16 @@ export function getAllClients(): ClientId[] {
     return Array.from(clients.keys());
 }
 
-export function scheduleSend(clientId: ClientId, event: AppEvent) {
-    eventQueue.get(clientId)?.push(event);
+export function enqueueForSend(clientId: ClientId, event: AppEvent) {
+    if (!eventQueue.has(clientId)) {
+        // this is most probably not going to happen, as a polling request is expected
+        // to be made before any app event is sent to the client, but better safe than sorry
+        eventQueue.set(clientId, [event]);
+    } else {
+        eventQueue.get(clientId)?.push(event);
+    }
+    // send the events immediately if the client is waiting
+    doSendEvents(clientId);
 }
 
 export function doSendEvents(clientId: ClientId) {

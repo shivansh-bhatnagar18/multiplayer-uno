@@ -27,7 +27,7 @@ type EventResult = {
     message: string;
 };
 
-type GameEventType = 'DRAW_CARD' | 'THROW_CARD' | 'JOIN_GAME';
+type GameEventType = 'DRAW_CARD' | 'THROW_CARD' | 'JOIN_GAME' | 'LEAVE_GAME';
 
 type GameEvent =
     | {
@@ -46,6 +46,11 @@ type GameEvent =
       }
     | {
           type: 'JOIN_GAME';
+          playerId: string;
+          data: null;
+      }
+    | {
+          type: 'LEAVE_GAME';
           playerId: string;
           data: null;
       };

@@ -1,20 +1,22 @@
-import { getPlayer, getPlayerCard, registerEventHandler } from '../gameEvents';
+import {
+    checkCurrentPlayer,
+    getPlayer,
+    getPlayerCard,
+    registerEventHandler,
+} from '../gameEvents';
 import { GameEngine } from '../engine';
 import assert from 'assert';
 
-function canThrowCard(
+export function canThrowCard(
     game: GameEngine,
     player: Player,
     card: UNOCard
 ): EventResult {
-    const { currentPlayerIndex, players } = game;
-    const currentPlayer = players[currentPlayerIndex];
-
     // check if the player is the current player
-    if (currentPlayer.id !== player.id) {
-        return { type: 'ERROR', message: 'It is not your turn' };
+    const canThrow = checkCurrentPlayer(game, player);
+    if (canThrow.type === 'ERROR') {
+        return canThrow;
     }
-
     // check if the player actually possesses the card
     if (!player.cards.some((c) => c.id === card.id)) {
         return { type: 'ERROR', message: 'Player does not possess the card' };

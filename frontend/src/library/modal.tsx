@@ -44,8 +44,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         >
             <div className="bg-[rgb(222,209,209)] p-5 rounded-xl border-4 border-black shadow-md flex flex-col gap-10 w-1/3 h-1/3 items-center justify-center">
                 <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-black text-center">
-                    Join an
-                    Existing Game
+                    Join an Existing Game
                 </h1>
                 <div className="flex justify-center w-2/3">
                     <input

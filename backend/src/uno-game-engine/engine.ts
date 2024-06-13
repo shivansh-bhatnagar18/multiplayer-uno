@@ -48,6 +48,14 @@ export class GameEngine {
             (this.players.length + this.currentPlayerIndex + this.direction) %
             this.players.length;
     }
+
+    removePlayer(player: Player) {
+        this.cardDeck.push(...player.cards);
+        shuffle(this.cardDeck);
+        const index = this.players.indexOf(player);
+        this.players.splice(index, 1);
+    }
+
     drawCardFromDeck(player: Player, numCards = 1): EventResult {
         try {
             if (this.cardDeck.length < numCards) {

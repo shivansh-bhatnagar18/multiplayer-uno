@@ -17,7 +17,6 @@ const Navbar: React.FC<NavbarProps> = ({
     onLogout,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -40,10 +39,10 @@ const Navbar: React.FC<NavbarProps> = ({
                     <div className="text-xl font-bold mt-2">
                         <Button
                             text="Login"
-                            buttonSize="w-56 h-11"
                             className="border-4"
                             rounded="rounded-2xl"
                             onClick={onLogin}
+                            buttonSize="min-w-[140px] sm:w-56 h-11"
                         />
                     </div>
                 )}

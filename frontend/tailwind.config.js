@@ -18,6 +18,8 @@ export default {
     extend: {
       backgroundImage: {
         'uno-bg': "url('/src/assets/bg.jpg')",
+        'table-bg': "url('/playBackground.png')",
+        'player-icon-bg': "url('/playerIcon.png')",
       },
     },
   },

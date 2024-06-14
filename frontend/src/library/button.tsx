@@ -15,7 +15,7 @@ type ButtonProps = {
     fontSize?: string;
     rounded?: string;
     buttonSize?: string;
-    type?: "submit" | "reset" | "button"
+    type?: 'submit' | 'reset' | 'button';
     borderColor?: string;
     hoverColor?: string;
     hoverScale?: boolean;

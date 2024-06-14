@@ -41,22 +41,19 @@ const Navbar: React.FC<NavbarProps> = ({
                     </button>
                 </div>
                 {isLoggedIn ? (
-                            <>
-
-                            </>
-                        ) : (
-                            <>
-                                <div className="text-xl font-bold mt-2">
-                                    <Button
-                                    text="Sign In /Login"
-                                    buttonSize="w-56 h-11"
-                                    className="border-4"
-                                    rounded="rounded-2xl"
-                                    />
-                                </div>
-                            </>
-                        )}
-               
+                    <></>
+                ) : (
+                    <>
+                        <div className="text-xl font-bold mt-2">
+                            <Button
+                                text="Sign In /Login"
+                                buttonSize="w-56 h-11"
+                                className="border-4"
+                                rounded="rounded-2xl"
+                            />
+                        </div>
+                    </>
+                )}
             </div>
             {isOpen && (
                 <div className="fixed inset-0 flex z-20">

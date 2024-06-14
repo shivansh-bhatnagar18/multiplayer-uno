@@ -30,14 +30,17 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }: { children: ReactElement }) {
-    const [user, setUser] = useState<User | null>(null);    
+    const [user, setUser] = useState<User | null>(null);
 
-    const login = useCallback((name: string, pass: string) => {
-        setUser({
-            name: name,
-            pass: pass,
-        });
-    }, [setUser]);
+    const login = useCallback(
+        (name: string, pass: string) => {
+            setUser({
+                name: name,
+                pass: pass,
+            });
+        },
+        [setUser]
+    );
 
     const logout = useCallback(() => {
         setUser(null);

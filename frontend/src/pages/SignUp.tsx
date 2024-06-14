@@ -13,7 +13,7 @@ const SignUp: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const auth = useAuth();
-    
+
     const handleLogin = () => {
         setUsername('Username_7');
         setIsLoggedIn(true);
@@ -24,7 +24,9 @@ const SignUp: React.FC = () => {
         setIsLoggedIn(false);
     };
 
-    const handelConfirmPassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handelConfirmPassChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         setConfirmPass(event.target.value);
     };
 
@@ -32,19 +34,20 @@ const SignUp: React.FC = () => {
         setName(event.target.value);
     };
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         setPassword(event.target.value);
     };
-
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('Form submitted');
-        if(password === confirmPass){
-            auth.login(name, password)
-            console.log("successfull signup")
-        }else{
-            console.log("failed signup");
+        if (password === confirmPass) {
+            auth.login(name, password);
+            console.log('successfull signup');
+        } else {
+            console.log('failed signup');
         }
     };
 
@@ -57,16 +60,16 @@ const SignUp: React.FC = () => {
 
     return (
         <>
-            <div className='min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative'>
+            <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
                 <Navbar
-                    isLoggedIn={true}                   //true here so that navbar does not render signin/login button
+                    isLoggedIn={true} //true here so that navbar does not render signin/login button
                     username={username}
                     onLogin={handleLogin}
                     onLogout={handleLogout}
                 />
-                <div className=' w-full flex justify-center items-center grow'>
-                    <div className='flex flex-col justify-center items-center'>
-                    {/* <div className='flex justify-center'>
+                <div className=" w-full flex justify-center items-center grow">
+                    <div className="flex flex-col justify-center items-center">
+                        {/* <div className='flex justify-center'>
                         <Button
                             buttonSize="w-96 h-12"
                             py="py-0"
@@ -80,54 +83,61 @@ const SignUp: React.FC = () => {
                     </div>
                     <div className='w-96 h-1 bg-neutral-300 my-3'></div> */}
                         <div>
-                            <form onSubmit={handleSubmit} className=''>
-                                <div className=''>
-                                    <div className=' my-3'>
+                            <form onSubmit={handleSubmit} className="">
+                                <div className="">
+                                    <div className=" my-3">
                                         <Input
                                             id="email"
                                             type="text"
                                             onChange={handleNameChange}
                                             placeholder="Enter Username"
-                                            width = "96"
-                                            height= "12"
+                                            width="96"
+                                            height="12"
                                         />
                                     </div>
-                                    <div className='my-3'>
+                                    <div className="my-3">
                                         <Input
                                             id="pass"
                                             type="password"
                                             onChange={handlePasswordChange}
                                             placeholder="Password"
-                                            width = "96"
-                                            height= "12"
+                                            width="96"
+                                            height="12"
                                         />
                                     </div>
-                                    <div className='my-3'>
+                                    <div className="my-3">
                                         <Input
                                             id="confirmPass"
                                             type="password"
                                             onChange={handelConfirmPassChange}
                                             placeholder="Confirm Password"
-                                            width = "96"
-                                            height= "12"
+                                            width="96"
+                                            height="12"
                                         />
                                     </div>
-                                    <div className='flex justify-center'>
+                                    <div className="flex justify-center">
                                         <Button
                                             text="Sign Up"
                                             textColor="text-white"
-                                            py='0'
+                                            py="0"
                                             buttonSize="w-32 h-10"
-                                            className='border-4 rounded-full'
-                                            fontSize='text-2xl'
-                                            type='submit'
+                                            className="border-4 rounded-full"
+                                            fontSize="text-2xl"
+                                            type="submit"
                                         />
                                     </div>
                                 </div>
                             </form>
                             <div>
-                                <div className='font-kavoon flex justify-center items-center my-3'>
-                                    Already have an account? <Link to="/login" className=' text-blue-700 '> Login</Link>
+                                <div className="font-kavoon flex justify-center items-center my-3">
+                                    Already have an account?{' '}
+                                    <Link
+                                        to="/login"
+                                        className=" text-blue-700 "
+                                    >
+                                        {' '}
+                                        Login
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +145,6 @@ const SignUp: React.FC = () => {
                 </div>
             </div>
         </>
-        
     );
 };
 

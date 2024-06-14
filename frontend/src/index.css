@@ -4,9 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body::-webkit-scrollbar {
-    display: none;
+::-webkit-scrollbar {
+    width: 16px;
 }
+
+::-webkit-scrollbar-track {
+    background: #920903;
+    border-radius: 0px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(60deg, #fc2f02, #920903); 
+    border-radius: 10px; 
+    border: 1px solid #920903; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(60deg, #920903,#fc2f02); 
+}
+
 
 .font-kavoon {
     font-family: 'Kavoon', 'serif';
@@ -25,3 +41,57 @@ body::-webkit-scrollbar {
     text-stroke-width: 1.5px;
     text-stroke-color: black;
 }
+
+
+.loginbtnstyles{
+    width: 240px;
+    position: absolute;
+    right: 6%;
+    top: ;
+
+}
+
+.dimensions{
+    height: 100vh;
+}
+
+.UnoImg{
+    width: 900px;
+    height: 400px;
+}
+
+@media (max-width: 800px) {
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    .loginbtnstyles{
+        width: 150px;
+        height: 50px;
+
+    }
+
+    .UnoImg{
+        width: 650px;
+        height: 400px;
+    }
+
+    .dimensions{
+        height: 100vh;
+        width: 100vw;
+    }
+  }
+
+
+  @media (max-width: 550px) {
+    .UnoImg{
+        height: 180px;
+        width: 400px;
+    }
+
+    .loginbtnstyles{
+        position: absolute;
+        top: 7.5px;
+    }
+  }

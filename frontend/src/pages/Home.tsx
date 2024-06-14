@@ -5,10 +5,12 @@ import Navbar from '../Navbar';
 import Modal from '../library/modal';
 import '../index.css';
 import { useAuth } from '../contexts/AuthContext';
+import RulesModal from '../library/rulesModal';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const [showRulesModal, setShowRulesModal] = useState(false);
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
@@ -29,6 +31,9 @@ const Home: React.FC = () => {
     const handleLogout = () => {
         auth.logout();
     };
+    const openRulesModal = () => {
+        setShowRulesModal(true);
+    };
 
     return (
         <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
@@ -37,6 +42,7 @@ const Home: React.FC = () => {
                 username={auth.getUser()?.name || ''}
                 onLogin={handleLogin}
                 onLogout={handleLogout}
+                onOpenRulesModal={openRulesModal}
             />
             <div className="flex flex-col items-center justify-center flex-grow">
                 <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
@@ -66,6 +72,9 @@ const Home: React.FC = () => {
                 />
             </div>
             {showModal && <Modal onClose={() => setShowModal(false)} />}
+            {showRulesModal && (
+                <RulesModal onClose={() => setShowRulesModal(false)} />
+            )}
         </div>
     );
 };

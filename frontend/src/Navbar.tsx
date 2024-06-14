@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import Button from './library/button';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+import RulesModal from './library/rulesModal';
 
 type NavbarProps = {
     isLoggedIn?: boolean;
     username?: string;
     onLogin?: () => void;
     onLogout?: () => void;
+    onOpenRulesModal?: () => void;
 };
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -15,8 +17,10 @@ const Navbar: React.FC<NavbarProps> = ({
     username = 'unknown',
     onLogin,
     onLogout,
+    onOpenRulesModal,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showRulesModal, setShowRulesModal] = useState(false);
 
     const navigate = useNavigate();
 
@@ -107,10 +111,8 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    window.open(
-                                        'https://www.unorules.com/',
-                                        '_blank'
-                                    );
+                                    toggleMenu();
+                                    onOpenRulesModal?.();
                                 }}
                             />
                         </div>
@@ -120,6 +122,9 @@ const Navbar: React.FC<NavbarProps> = ({
                         onClick={toggleMenu}
                     ></div>
                 </div>
+            )}
+            {showRulesModal && (
+                <RulesModal onClose={() => setShowRulesModal(false)} />
             )}
         </div>
     );

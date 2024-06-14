@@ -39,8 +39,8 @@ const Navbar: React.FC = () => {
                         <div className="text-xl font-bold mt-2">
                             <Button
                                 text={auth.getUser()!.name}
-                                buttonSize="w-56 h-11"
-                                className="border-4"
+                                
+                                className="border-4 loginbtnstyles"
                                 rounded="rounded-2xl"
                                 onClick={goToLogin}
                             />

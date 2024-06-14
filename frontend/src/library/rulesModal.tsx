@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 interface ModalProps {
     onClose: () => void;
@@ -12,6 +12,21 @@ const RulesModal: React.FC<ModalProps> = ({ onClose }) => {
             onClose();
         }
     };
+    const handleKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        },
+        [onClose]
+    );
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleKeyDown]);
 
     return (
         <div

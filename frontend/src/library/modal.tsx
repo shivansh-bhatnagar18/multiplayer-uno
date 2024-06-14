@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './button';
 import { ToastContext } from './toast/toast-context';
@@ -35,6 +35,22 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setGameCode(e.target.value);
     };
+
+    const handleKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        },
+        [onClose]
+    );
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleKeyDown]);
 
     return (
         <div

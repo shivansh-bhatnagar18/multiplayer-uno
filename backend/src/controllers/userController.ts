@@ -3,12 +3,18 @@ import { catchError, ControllerFunction } from '../utils';
 import jwt from 'jsonwebtoken';
 import { IUser, User } from '../models/userModel';
 import { Types } from 'mongoose';
+import { AuthRequest } from '../middlewares/authMiddleware';
 
 const getUserToken = (_id: string | Types.ObjectId): string => {
     const token = jwt.sign({ _id }, process.env.JWT_SECRET as string, {
         expiresIn: '28d',
     });
     return token;
+};
+
+const cookieOptions = {
+    httpOnly: true,
+    secure: true,
 };
 
 const registerUser: ControllerFunction = catchError(
@@ -34,9 +40,11 @@ const registerUser: ControllerFunction = catchError(
             throw new Error('Failed to create user');
         }
 
-        res.status(201).send({
-            message: 'User created successfully',
-            createdUser,
+        const token = getUserToken(user.id);
+        res.status(201).cookie('accessToken', token, cookieOptions).json({
+            message: 'Sign up successful',
+            user: createdUser,
+            token,
         });
     }
 );
@@ -59,20 +67,23 @@ const loginUser: ControllerFunction = catchError(
             throw new Error('Invalid credentials');
         }
 
-        const token: string = getUserToken((user as IUser)._id as string);
+        const token: string = getUserToken(user.id);
 
         const loggedInUser = await User.findById(user._id).select('-password');
 
-        const options = {
-            httpOnly: true,
-            secure: true,
-        };
-
-        res.status(200).cookie('accessToken', token, options).json({
-            token,
+        res.status(200).cookie('accessToken', token, cookieOptions).json({
+            message: 'Login successful',
             user: loggedInUser,
+            token,
         });
     }
 );
 
-export { registerUser, loginUser };
+const verifyUser: ControllerFunction = catchError(
+    async (req: AuthRequest, res: Response): Promise<void> => {
+        const user = req.user as IUser;
+        res.status(200).json({ user });
+    }
+);
+
+export { registerUser, loginUser, verifyUser };

@@ -1,9 +1,13 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthRequest } from './middlewares/authMiddleware';
 
-export type ControllerFunction = (req: Request, res: Response) => Promise<void>;
+export type ControllerFunction = (
+    req: AuthRequest,
+    res: Response
+) => Promise<void>;
 
 export function catchError(fn: ControllerFunction): ControllerFunction {
-    return async function (req: Request, res: Response) {
+    return async function (req: AuthRequest, res: Response) {
         try {
             return await fn(req, res);
         } catch (error) {

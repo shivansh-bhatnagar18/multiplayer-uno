@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '../library/button';
 import Input from '../library/input';
 import Navbar from '../Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import '../index.css';
 
 const Login: React.FC = () => {
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
-    const navigate = useNavigate();
+    const [password, setPassword] = useState('');
     const auth = useAuth();
-    const user = auth.getUser();
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
-        setUsername(username);
-        console.log(auth.isLoggedIn());
-    };
-
-    const handleLogout = () => {
-        setUsername('');
-        auth.logout();
-    };
-
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
+    const handleUsernameChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setUsername(event.target.value);
     };
 
     const handlePasswordChange = (
@@ -36,31 +24,17 @@ const Login: React.FC = () => {
         setPassword(event.target.value);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('Form submitted');
-        if (user?.name == name && user.pass == password) {
-            console.log('Successful Login');
-            navigate('/home');
-        } else {
-            console.log('Failed Login');
-        }
+        await auth.authenticate(username, password);
+        navigate('/');
     };
-
-    useEffect(() => {
-        setIsLoggedIn(auth.isLoggedIn());
-        console.log(isLoggedIn);
-    }, [auth, user, isLoggedIn]);
 
     return (
         <>
             <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
-                <Navbar
-                    isLoggedIn={auth.isLoggedIn()} //true here so that navbar does not render signin/login button
-                    username={username}
-                    onLogin={handleLogin}
-                    onLogout={handleLogout}
-                />
+                <Navbar />
                 <div className=" w-full flex justify-center items-center grow">
                     <div className="flex flex-col justify-center items-center">
                         {/* <div className='flex justify-center'>
@@ -83,7 +57,7 @@ const Login: React.FC = () => {
                                         <Input
                                             id="email"
                                             type="text"
-                                            onChange={handleNameChange}
+                                            onChange={handleUsernameChange}
                                             placeholder="Enter Username"
                                             width="96"
                                             height="12"

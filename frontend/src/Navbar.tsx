@@ -1,36 +1,21 @@
 import React, { useState } from 'react';
 import Button from './library/button';
 import './index.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import RulesModal from './library/rulesModal';
 import { useAuth } from './contexts/AuthContext';
 
-type NavbarProps = {
-    isLoggedIn?: boolean;
-    username?: string;
-    onLogin?: () => void;
-    onLogout?: () => void;
-    onOpenRulesModal?: () => void;
-};
-
-const Navbar: React.FC<NavbarProps> = ({
-    isLoggedIn,
-    username = 'unknown',
-    onLogin,
-    onLogout,
-    onOpenRulesModal,
-}) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Navbar: React.FC = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showRulesModal, setShowRulesModal] = useState(false);
-
     const auth = useAuth();
-
-    const user = auth.getUser();
-
     const navigate = useNavigate();
+    const location = useLocation();
+    const showLoginBtn =
+        location.pathname !== '/login' && location.pathname !== '/signup';
 
     const toggleMenu = () => {
-        setIsOpen(!isOpen);
+        setSidebarOpen(!sidebarOpen);
     };
 
     const goToLogin = () => {
@@ -53,18 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <>
                         <div className="text-xl font-bold mt-2">
                             <Button
-                                text={user ? user.name : 'Noname'}
-                                buttonSize="w-56 h-11"
-                                className="border-4"
-                                rounded="rounded-2xl"
-                            />
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <div className="text-xl font-bold mt-2">
-                            <Button
-                                text="Sign In /Login"
+                                text={auth.getUser()!.name}
                                 buttonSize="w-56 h-11"
                                 className="border-4"
                                 rounded="rounded-2xl"
@@ -72,9 +46,23 @@ const Navbar: React.FC<NavbarProps> = ({
                             />
                         </div>
                     </>
+                ) : (
+                    <>
+                        {showLoginBtn && (
+                            <div className="text-xl font-bold mt-2">
+                                <Button
+                                    text="Login"
+                                    onClick={() => navigate('/login')}
+                                    buttonSize="w-56 h-11"
+                                    className="border-4"
+                                    rounded="rounded-2xl"
+                                />
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
-            {isOpen && (
+            {sidebarOpen && (
                 <div className="fixed inset-0 flex z-20">
                     <div className="bg-gray-300 text-black border-gray-600 w-64 p-4 shadow-lg pl-10 rounded-r-lg relative z-30">
                         <button
@@ -87,14 +75,14 @@ const Navbar: React.FC<NavbarProps> = ({
                                 className="w-7 h-7 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-10 lg:h-10"
                             />
                         </button>
-                        {isLoggedIn ? (
+                        {auth.isLoggedIn() ? (
                             <>
                                 <div className="mb-2 mt-20 text-2xl font-kavoon align-center text-stroke-2 text-white font-bold">
-                                    {username}
+                                    {auth.getUser()?.name}
                                 </div>
                                 <Button
                                     text="Logout"
-                                    onClick={onLogout}
+                                    onClick={auth.logout}
                                     className="border-4 mb-2 mt-5"
                                     fontSize="text-2xl"
                                     buttonSize="w-[170px] h-12"
@@ -105,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             <>
                                 <Button
                                     text="Login"
-                                    onClick={onLogin}
+                                    onClick={() => navigate('/login')}
                                     className="border-4 mb-2 mt-20"
                                     fontSize="text-2xl"
                                     buttonSize="w-[170px] h-12"
@@ -121,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    navigate('/error');
+                                    navigate('/about');
                                 }}
                             />
                         </div>
@@ -133,8 +121,8 @@ const Navbar: React.FC<NavbarProps> = ({
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    toggleMenu();
-                                    onOpenRulesModal?.();
+                                    setShowRulesModal(true);
+                                    setSidebarOpen(false);
                                 }}
                             />
                         </div>

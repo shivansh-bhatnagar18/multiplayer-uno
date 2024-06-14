@@ -12,7 +12,7 @@ export const verifyToken = async (
     next: NextFunction
 ) => {
     try {
-        const accessToken: string = req.cookies.accessToken;
+        const accessToken: string = req.body.token;
 
         if (!accessToken) {
             return res.status(401).json({ error: 'Access token is required' });

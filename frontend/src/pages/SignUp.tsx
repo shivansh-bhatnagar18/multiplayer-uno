@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '../library/button';
 import Input from '../library/input';
 import Navbar from '../Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import '../index.css';
+import { useToast } from '../library/toast/toast-context';
 
 const SignUp: React.FC = () => {
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const auth = useAuth();
-    const user = auth.getUser();
-
-    const handleLogin = () => {
-        setUsername('Username_7');
-        setIsLoggedIn(true);
-    };
-
-    const handleLogout = () => {
-        setUsername('');
-        setIsLoggedIn(false);
-    };
+    const toast = useToast();
 
     const handelConfirmPassChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -34,7 +22,7 @@ const SignUp: React.FC = () => {
     };
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
+        setUsername(event.target.value);
     };
 
     const handlePasswordChange = (
@@ -43,34 +31,20 @@ const SignUp: React.FC = () => {
         setPassword(event.target.value);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('Form submitted');
-        if (password === confirmPass) {
-            auth.login(name, password);
-            console.log('successfull signup');
-            navigate('/');
-        } else {
-            console.log('failed signup');
+        if (password !== confirmPass) {
+            toast.open({ message: 'Passwords do not match', color: 'error' });
+            return;
         }
+        await auth.authenticate(username, password, true);
+        navigate('/');
     };
-
-    useEffect(() => {
-        const user = auth.getUser();
-        console.log(user);
-        setIsLoggedIn(auth.isLoggedIn());
-        console.log(isLoggedIn);
-    }, [auth, user, isLoggedIn]);
 
     return (
         <>
             <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
-                <Navbar
-                    isLoggedIn={true} //true here so that navbar does not render signin/login button
-                    username={username}
-                    onLogin={handleLogin}
-                    onLogout={handleLogout}
-                />
+                <Navbar />
                 <div className=" w-full flex justify-center items-center grow">
                     <div className="flex flex-col justify-center items-center">
                         {/* <div className='flex justify-center'>

@@ -4,7 +4,6 @@ import Button from '../library/button';
 import Navbar from '../Navbar';
 import Modal from '../library/modal';
 import '../index.css';
-import { useAuth } from '../contexts/AuthContext';
 import RulesModal from '../library/rulesModal';
 
 const Home: React.FC = () => {
@@ -22,28 +21,10 @@ const Home: React.FC = () => {
         setShowModal(true);
         console.log('Join Game with code');
     };
-    const auth = useAuth();
-
-    const handleLogin = () => {
-        navigate('/login');
-    };
-
-    const handleLogout = () => {
-        auth.logout();
-    };
-    const openRulesModal = () => {
-        setShowRulesModal(true);
-    };
 
     return (
         <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
-            <Navbar
-                isLoggedIn={auth.isLoggedIn()}
-                username={auth.getUser()?.name || ''}
-                onLogin={handleLogin}
-                onLogout={handleLogout}
-                onOpenRulesModal={openRulesModal}
-            />
+            <Navbar />
             <div className="flex flex-col items-center justify-center flex-grow">
                 <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
                     <img

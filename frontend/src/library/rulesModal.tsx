@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface ModalProps {
     onClose: () => void;
@@ -13,10 +13,22 @@ const RulesModal: React.FC<ModalProps> = ({ onClose }) => {
         }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onClose();
+        }
+    }
+
+    useEffect(() => {
+        modalRef.current?.focus();
+    });
+
     return (
         <div
             ref={modalRef}
             onClick={closeModal}
+            tabIndex={-1}
+            onKeyDown={handleKeyDown}
             className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-10"
         >
             <div className="bg-[rgb(222,209,209)] p-5 rounded-xl border-4 border-black shadow-md flex flex-col gap-10 w-1/2 h-1/2 items-center justify-center">

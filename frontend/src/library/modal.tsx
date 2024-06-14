@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './button';
 import { ToastContext } from './toast/toast-context';
@@ -19,6 +19,16 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onClose();
+        }
+    }
+
+    useEffect(() => {
+        modalRef.current?.focus();
+    });
+    
     const handleButtonClick = () => {
         if (gameCode.trim()) {
             navigate('/game');
@@ -40,6 +50,8 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         <div
             ref={modalRef}
             onClick={closeModal}
+            tabIndex={-1}
+            onKeyDown={handleKeyDown}
             className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
         >
             <div className="bg-[rgb(222,209,209)] p-5 rounded-xl border-4 border-black shadow-md flex flex-col gap-10 w-1/3 h-1/3 items-center justify-center">

@@ -1,11 +1,11 @@
+import { GameEngine } from '../engine';
+import assert from 'assert';
+import { EventResult, GameEvent, Player, UNOCard } from '../../types';
 import {
     checkCurrentPlayer,
     getPlayer,
     getPlayerCard,
-    registerEventHandler,
-} from '../gameEvents';
-import { GameEngine } from '../engine';
-import assert from 'assert';
+} from './eventHandlerUtils';
 
 export function canThrowCard(
     game: GameEngine,
@@ -94,5 +94,3 @@ function handleSpecialCard(game: GameEngine, card: UNOCard) {
             break;
     }
 }
-
-registerEventHandler('THROW_CARD', throwCard);

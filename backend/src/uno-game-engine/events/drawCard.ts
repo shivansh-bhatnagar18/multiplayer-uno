@@ -1,11 +1,8 @@
-import {
-    checkCurrentPlayer,
-    getPlayer,
-    registerEventHandler,
-} from '../gameEvents';
 import { GameEngine } from '../engine';
 import assert from 'assert';
 import { canThrowCard, throwCard } from './throwCard';
+import { EventResult, GameEvent } from '../../types';
+import { checkCurrentPlayer, getPlayer } from './eventHandlerUtils';
 
 export function drawCard(game: GameEngine, event: GameEvent): EventResult {
     // validate the event so that typescript knows that event is of type 'DRAW_CARD'
@@ -50,5 +47,3 @@ export function drawCard(game: GameEngine, event: GameEvent): EventResult {
         };
     }
 }
-
-registerEventHandler('DRAW_CARD', drawCard);

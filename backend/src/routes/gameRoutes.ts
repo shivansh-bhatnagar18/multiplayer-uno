@@ -1,6 +1,10 @@
 import express from 'express';
 import { addClient } from '../eventRecipients';
-import { handleGameEvent } from '../controllers/gameControllers';
+import {
+    handleGameCreate,
+    handleGameEvent,
+    handleGameJoin,
+} from '../controllers/gameControllers';
 import { AuthRequest, verifyToken } from '../middlewares/authMiddleware';
 
 const router = express.Router();
@@ -14,5 +18,8 @@ router.get('/events', function (req: AuthRequest, res) {
 });
 
 router.post('/events', handleGameEvent);
+
+router.post('/join', handleGameJoin);
+router.post('/create', handleGameCreate);
 
 export default router;

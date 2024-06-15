@@ -1,3 +1,4 @@
+import { EventResult, Player } from '../src/types';
 import {
     GameEngine,
     NUM_CARDS_PER_PLAYER,
@@ -15,7 +16,7 @@ describe('GameEngine', () => {
     let game: GameEngine;
 
     beforeEach(() => {
-        game = new GameEngine();
+        game = new GameEngine('dummygame');
     });
 
     test('draws a card when deck is empty but thrownCards is not', () => {

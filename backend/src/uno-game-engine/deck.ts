@@ -1,3 +1,12 @@
+import type {
+    CardColor,
+    CardNumber,
+    CardType,
+    CardValue,
+    SpecialCardName,
+    UNOCard,
+} from '../types';
+
 const colors: Array<CardColor> = ['red', 'yellow', 'green', 'blue', 'wild'];
 const numValues: Array<CardNumber> = [
     '0',

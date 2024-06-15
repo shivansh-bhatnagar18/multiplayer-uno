@@ -21,12 +21,14 @@ export type AuthContextProps = {
     ) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
+    jwt: string;
 };
 export const AuthContext = createContext<AuthContextProps>({
     getUser: () => null,
     authenticate: () => new Promise(() => {}),
     logout: () => {},
     isLoggedIn: () => false,
+    jwt: '',
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -36,13 +38,13 @@ export function useAuth() {
 
 export function AuthProvider({ children }: { children: ReactElement }) {
     const [user, setUser] = useState<User | null>(null);
-    const [jwt, setJwt] = useState<string | null>(null);
+    const [jwt, setJwt] = useState<string>('');
     const toast = useToast();
 
     useEffect(() => {
+        const localToken = localStorage.getItem('jwt');
         async function checkExistingJWT() {
             try {
-                const localToken = localStorage.getItem('jwt');
                 const res = await fetch(
                     process.env.REACT_APP_BACKEND_URL + '/auth/verify',
                     {
@@ -59,17 +61,18 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                     throw new Error('Invalid token');
                 } else {
                     const data = await res.json();
+                    // so the jwt was valid
                     setUser({
                         name: data.user.username,
                     });
-                    setJwt(localToken);
+                    setJwt(localToken!);
                 }
             } catch (e) {
                 console.info('deleting existing jwt');
                 localStorage.removeItem('jwt');
             }
         }
-        checkExistingJWT();
+        if (localToken) checkExistingJWT();
     }, []);
 
     const authenticate = useCallback(
@@ -106,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
 
     const logout = useCallback(() => {
         setUser(null);
-        setJwt(null);
+        setJwt('');
         localStorage.removeItem('jwt');
     }, []);
 
@@ -115,12 +118,18 @@ export function AuthProvider({ children }: { children: ReactElement }) {
     }, [user]);
 
     const isLoggedIn = useCallback(() => {
-        return jwt !== null;
+        return !!jwt;
     }, [jwt]);
 
     return (
         <AuthContext.Provider
-            value={{ getUser, authenticate, logout, isLoggedIn }}
+            value={{
+                getUser,
+                authenticate,
+                logout,
+                isLoggedIn,
+                jwt: jwt,
+            }}
         >
             {children}
         </AuthContext.Provider>

@@ -3,11 +3,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import AppLayout from './pages/AppLayout';
 import Error from './pages/Error';
-import Game from './pages/Game';
 import About from './pages/About';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import { GameProvider } from './contexts/GameContext';
 
 const router = createBrowserRouter([
     {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/game',
-                element: <Game />,
+                element: <GameProvider />,
             },
             { path: '/about', element: <About /> },
             { path: '/error', element: <Error /> },

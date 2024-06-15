@@ -1,6 +1,11 @@
 // this module houses the handlers for various game events.
 
+import { EventResult, GameEvent, GameEventType } from '../types';
 import { type GameEngine } from './engine';
+import { drawCard } from './events/drawCard';
+import { joinGame } from './events/joinGame';
+import { leaveGame } from './events/leaveGame';
+import { throwCard } from './events/throwCard';
 
 type GameEventHandler = (game: GameEngine, event: GameEvent) => EventResult;
 
@@ -21,27 +26,7 @@ export function handleEvent(game: GameEngine, event: GameEvent): EventResult {
     return handler(game, event);
 }
 
-// some utility functions shared by event handlers
-
-export function getPlayer(game: GameEngine, playerId: string) {
-    return game.players.find((p) => p.id === playerId);
-}
-
-export function getPlayerCard(player: Player, cardId: string) {
-    return player.cards.find((c) => c.id === cardId);
-}
-
-export function checkCurrentPlayer(
-    game: GameEngine,
-    player: Player
-): EventResult {
-    const { currentPlayerIndex, players } = game;
-    const currentPlayer = players[currentPlayerIndex];
-
-    // check if the player is the current player
-    if (currentPlayer.id !== player.id) {
-        return { type: 'ERROR', message: 'It is not your turn' };
-    }
-
-    return { type: 'SUCCESS', message: 'Can draw/throw card' };
-}
+registerEventHandler('JOIN_GAME', joinGame);
+registerEventHandler('LEAVE_GAME', leaveGame);
+registerEventHandler('DRAW_CARD', drawCard);
+registerEventHandler('THROW_CARD', throwCard);

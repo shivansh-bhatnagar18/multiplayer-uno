@@ -1,3 +1,4 @@
+import { EventResult, Player } from '../src/types';
 import {
     GameEngine,
     NUM_CARDS_PER_PLAYER,

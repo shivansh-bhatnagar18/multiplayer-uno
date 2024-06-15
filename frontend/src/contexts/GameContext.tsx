@@ -95,6 +95,26 @@ export const GameProvider = () => {
         setupGame();
     }, [location.search]);
 
+    // polling
+    useEffect(() => {
+        async function poll() {
+            const res = await fetch(`${backendUrl}/game/events`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: auth.jwt,
+                },
+            });
+            if (!res.ok) {
+                throw new Error((await res.json()).error);
+            }
+            const data = await res.json();
+            // to be changed later to have a more sensible structure
+            setGameState(data.events[0]);
+        }
+        poll();
+    }, [gameState]);
+
     return (
         <GameContext.Provider value={{ gameState, setGameState }}>
             {gameState ? (

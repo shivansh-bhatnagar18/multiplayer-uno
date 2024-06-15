@@ -4,12 +4,10 @@ import Button from '../library/button';
 import Navbar from '../Navbar';
 import Modal from '../library/modal';
 import '../index.css';
-import RulesModal from '../library/rulesModal';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
-    const [showRulesModal, setShowRulesModal] = useState(false);
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
@@ -53,9 +51,6 @@ const Home: React.FC = () => {
                 />
             </div>
             {showModal && <Modal onClose={() => setShowModal(false)} />}
-            {showRulesModal && (
-                <RulesModal onClose={() => setShowRulesModal(false)} />
-            )}
         </div>
     );
 };

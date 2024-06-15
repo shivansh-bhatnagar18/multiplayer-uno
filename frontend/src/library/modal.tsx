@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './button';
 import { ToastContext } from './toast/toast-context';
@@ -24,10 +24,6 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
             onClose();
         }
     }
-
-    useEffect(() => {
-        modalRef.current?.focus();
-    });
     
     const handleButtonClick = () => {
         if (gameCode.trim()) {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 interface ModalProps {
     onClose: () => void;
@@ -18,10 +18,6 @@ const RulesModal: React.FC<ModalProps> = ({ onClose }) => {
             onClose();
         }
     }
-
-    useEffect(() => {
-        modalRef.current?.focus();
-    });
 
     return (
         <div

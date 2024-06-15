@@ -4,22 +4,13 @@ import { v4 as uuid } from 'uuid';
 import { GameEngine } from './uno-game-engine/engine';
 const games: Map<string, GameEngine> = new Map();
 
-/**
- * Create a new game and store it in the games map
- * @returns {string} gameId
- */
 export function createGame() {
     const gameId = uuid();
-    const game = new GameEngine();
+    const game = new GameEngine(gameId);
     games.set(gameId, game);
-    return gameId;
+    return game;
 }
 
-/**
- * Retrieve a game from the games map
- * @param {string} id gameId
- * @returns {GameEngine|null} GameEngine instance
- */
-export function retrieveGame(id: string) {
+export function retrieveGame(id: string): GameEngine | null {
     return games.get(id) || null;
 }

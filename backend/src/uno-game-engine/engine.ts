@@ -1,9 +1,11 @@
+import type { EventResult, GameEvent, Player, UNOCard } from '../types';
 import { getShuffledCardDeck, shuffle } from './deck';
 import { handleEvent } from './gameEvents';
 
 export const NUM_CARDS_PER_PLAYER = 7;
 
 export class GameEngine {
+    id: string;
     cardDeck: UNOCard[];
     thrownCards: UNOCard[];
     players: Player[];
@@ -13,7 +15,8 @@ export class GameEngine {
     direction: number;
     status: 'READY' | 'STARTED';
 
-    constructor() {
+    constructor(id: string) {
+        this.id = id;
         this.cardDeck = getShuffledCardDeck();
         this.thrownCards = [];
         this.players = [];

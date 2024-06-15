@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 
     const handleButtonClick = () => {
         if (gameCode.trim()) {
-            navigate('/game');
+            navigate('/game?type=join&code=' + gameCode);
         } else {
             open({
                 message: 'Please Enter The Game Code',
@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setGameCode(e.target.value);
+        setGameCode(e.target.value.trim());
     };
 
     return (

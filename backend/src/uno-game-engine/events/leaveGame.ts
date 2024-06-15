@@ -1,6 +1,7 @@
 import { assert } from 'console';
 import { GameEngine } from '../engine';
-import { getPlayer, registerEventHandler } from '../gameEvents';
+import { EventResult, GameEvent } from '../../types';
+import { getPlayer } from './eventHandlerUtils';
 
 export function leaveGame(game: GameEngine, event: GameEvent): EventResult {
     assert(event.type === 'LEAVE_GAME', 'Invalid event type');
@@ -11,5 +12,3 @@ export function leaveGame(game: GameEngine, event: GameEvent): EventResult {
     game.removePlayer(player);
     return { type: 'SUCCESS', message: 'player left successfully' };
 }
-
-registerEventHandler('LEAVE_GAME', leaveGame);

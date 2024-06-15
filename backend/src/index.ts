@@ -3,6 +3,8 @@ import express, { json } from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
 import { config } from 'dotenv';
+import userRoutes from './routes/userRoutes';
+import gameRoutes from './routes/gameRoutes';
 
 config();
 
@@ -21,9 +23,9 @@ app.get('/', (req, res) => {
 });
 
 //Routes
-import userRoutes from './routes/userRoutes.js';
 
 app.use('/api/v1/auth', userRoutes);
+app.use('/api/v1/game', gameRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

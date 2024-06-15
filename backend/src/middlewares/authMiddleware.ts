@@ -13,7 +13,6 @@ export const verifyToken = async (
 ) => {
     try {
         const accessToken: string = req.body.token;
-
         if (!accessToken) {
             return res.status(401).json({ error: 'Access token is required' });
         }

@@ -7,6 +7,7 @@
 // from the queue to the client.
 
 import { Response } from 'express';
+import { AppEvent } from './types';
 
 type ClientId = string;
 

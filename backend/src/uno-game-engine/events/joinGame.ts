@@ -1,6 +1,6 @@
 import { assert } from 'console';
 import { GameEngine } from '../engine';
-import { registerEventHandler } from '../gameEvents';
+import { EventResult, GameEvent, Player } from '../../types';
 
 export function joinGame(game: GameEngine, event: GameEvent): EventResult {
     assert(event.type === 'JOIN_GAME', 'Invalid event type');
@@ -8,5 +8,3 @@ export function joinGame(game: GameEngine, event: GameEvent): EventResult {
     game.addPlayer(player);
     return { type: 'SUCCESS', message: 'player joined successfully' };
 }
-
-registerEventHandler('JOIN_GAME', joinGame);

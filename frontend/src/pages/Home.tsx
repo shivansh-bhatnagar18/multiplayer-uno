@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
-        navigate('/game');
+        navigate('/game?type=create');
     };
 
     const JoinGame = () => {

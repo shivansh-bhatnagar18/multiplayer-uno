@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
                                 <Button
                                     text="Login"
                                     onClick={() => navigate('/login')}
-                                    buttonSize="w-56 h-11"
+                                    buttonSize="min-w-[140px] sm:w-56 h-11"
                                     className="border-4"
                                     rounded="rounded-2xl"
                                 />

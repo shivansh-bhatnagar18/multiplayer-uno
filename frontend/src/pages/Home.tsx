@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../library/button';
 import Navbar from '../Navbar';
 import Modal from '../library/modal';
@@ -20,15 +20,22 @@ const Home: React.FC = () => {
         console.log('Join Game with code');
     };
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     return (
         <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
             <Navbar />
             <div className="flex flex-col items-center justify-center flex-grow">
-                <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
+                <div className="w-full max-w-[900px] h-[300px] md:h-[270px] lg:h-[240px] overflow-hidden mt-4 mb-5">
                     <img
                         src="/unologo.png"
                         alt="UNO Logo"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                     />
                 </div>
                 <Button

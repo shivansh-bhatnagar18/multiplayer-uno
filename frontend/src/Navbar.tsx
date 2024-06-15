@@ -4,10 +4,12 @@ import './index.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RulesModal from './library/rulesModal';
 import { useAuth } from './contexts/AuthContext';
+import AboutUsModal from './library/aboutUsModal';
 
 const Navbar: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showRulesModal, setShowRulesModal] = useState(false);
+    const [showAboutUsModal, setShowAboutUsModal] = useState(false);
     const auth = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -109,7 +111,8 @@ const Navbar: React.FC = () => {
                                 buttonSize="w-[170px] h-12"
                                 px="px-0"
                                 onClick={() => {
-                                    navigate('/about');
+                                    setShowAboutUsModal(true);
+                                    setSidebarOpen(false);
                                 }}
                             />
                         </div>
@@ -135,6 +138,9 @@ const Navbar: React.FC = () => {
             )}
             {showRulesModal && (
                 <RulesModal onClose={() => setShowRulesModal(false)} />
+            )}
+            {showAboutUsModal && (
+                <AboutUsModal onClose={() => setShowAboutUsModal(false)} />
             )}
         </div>
     );

@@ -4,8 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
-body::-webkit-scrollbar {
-    display: none;
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: #920903;
+    border-radius: 0px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(60deg, #fc2f02, #920903); 
+    border-radius: 10px; 
+    border: 1px solid #920903; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(60deg, #920903,#fc2f02); 
 }
 
 .font-kavoon {

@@ -10,17 +10,17 @@
 
 ::-webkit-scrollbar-track {
     background: #920903;
-    border-radius: 0px; 
+    border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(60deg, #fc2f02, #920903); 
-    border-radius: 10px; 
-    border: 1px solid #920903; 
+    background: linear-gradient(60deg, #fc2f02, #920903);
+    border-radius: 10px;
+    border: 1px solid #920903;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(60deg, #920903,#fc2f02); 
+    background: linear-gradient(60deg, #920903, #fc2f02);
 }
 
 .font-kavoon {

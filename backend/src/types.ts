@@ -1,8 +1,6 @@
 // We declare those types which are used throughout the application here.
 // For types that are used only in one file, we can declare them in that file itself.
 
-import { GameEngine } from './uno-game-engine/engine';
-
 export type CardType = 'number' | 'special' | 'wild';
 
 export type CardColor = 'red' | 'blue' | 'green' | 'yellow' | 'wild';
@@ -48,7 +46,8 @@ export type GameEventType =
     | 'DRAW_CARD'
     | 'THROW_CARD'
     | 'JOIN_GAME'
-    | 'LEAVE_GAME';
+    | 'LEAVE_GAME'
+    | 'STATE_SYNC';
 
 export type GameEvent =
     | {
@@ -72,9 +71,18 @@ export type GameEvent =
     | {
           type: 'LEAVE_GAME';
           playerId: string;
+      }
+    | {
+          type: 'STATE_SYNC';
+          data: {
+              players: Player[];
+              cards: UNOCard[];
+              currentTurn: number;
+              lastThrownCard: string;
+          };
       };
 
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later
-export type AppEvent = GameEvent | GameEngine;
+export type AppEvent = GameEvent;
 //todo: Add more events

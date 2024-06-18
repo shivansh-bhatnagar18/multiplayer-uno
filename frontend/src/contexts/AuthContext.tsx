@@ -7,6 +7,7 @@ import {
     useState,
 } from 'react';
 import { useToast } from '../library/toast/toast-context';
+import * as channel from '../channel';
 
 export type User = {
     name: string;
@@ -66,6 +67,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                         name: data.user.username,
                     });
                     setJwt(localToken!);
+                    channel.startPolling(localToken!);
                 }
             } catch (e) {
                 console.info('deleting existing jwt');
@@ -103,6 +105,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             });
             setJwt(data.token);
             localStorage.setItem('jwt', data.token);
+            channel.startPolling(data.token);
         },
         [setUser, toast]
     );
@@ -111,6 +114,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
         setUser(null);
         setJwt('');
         localStorage.removeItem('jwt');
+        channel.stopPolling();
     }, []);
 
     const getUser = useCallback(() => {

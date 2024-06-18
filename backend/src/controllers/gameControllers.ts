@@ -81,6 +81,14 @@ function propagateChanges(game: GameEngine) {
     // to their local game state, but that would be an extra implementation burden.
     // Instead, we can just send the new game state to the clients.
     for (const player of game.players) {
-        enqueueForSend(player.id, game);
+        enqueueForSend(player.id, {
+            type: 'STATE_SYNC',
+            data: {
+                players: game.players,
+                cards: game.cardDeck,
+                currentTurn: game.currentPlayerIndex,
+                lastThrownCard: game.lastThrownCard?.id || '',
+            },
+        });
     }
 }

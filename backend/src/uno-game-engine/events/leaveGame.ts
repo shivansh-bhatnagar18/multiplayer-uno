@@ -1,4 +1,4 @@
-import { assert } from 'console';
+import assert from 'assert';
 import { GameEngine } from '../engine';
 import { EventResult, GameEvent } from '../../types';
 import { getPlayer } from './eventHandlerUtils';

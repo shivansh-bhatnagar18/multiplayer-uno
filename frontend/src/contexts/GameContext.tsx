@@ -4,9 +4,10 @@ import Game from '../pages/Game';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { useToast } from '../library/toast/toast-context';
+import * as channel from '../channel';
 
 interface GameState {
-    players: { id: number; name: string; cards: string[] }[];
+    players: { id: string; cards: string[] }[];
     cards: string[];
     currentTurn: number;
     lastThrownCard: string;
@@ -90,6 +91,7 @@ export const GameProvider = () => {
                         throw new Error('Game state not received');
                     }
                     setGameState(data.gameState);
+                    // extract card and player data from the game state and store in maps
                     console.log(data.gameState.id);
                 }
             } catch (e) {
@@ -105,22 +107,23 @@ export const GameProvider = () => {
 
     // polling
     useEffect(() => {
-        async function poll() {
-            const res = await fetch(`${backendUrl}/game/events`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: auth.jwt,
-                },
-            });
-            if (!res.ok) {
-                throw new Error((await res.json()).error);
+        // add event listener to listen for the game state changes
+        channel.setGameEventsDispatcher((event) => {
+            console.log('Received event:', event);
+            if (event.type === 'STATE_SYNC') {
+                setGameState({
+                    players: event.data.players.map((player) => {
+                        return {
+                            id: player.id,
+                            cards: player.cards.map((card) => card.id),
+                        };
+                    }),
+                    cards: event.data.cards.map((card) => card.id),
+                    currentTurn: event.data.currentTurn,
+                    lastThrownCard: event.data.lastThrownCard,
+                });
             }
-            const data = await res.json();
-            // to be changed later to have a more sensible structure
-            setGameState(data.events[0]);
-        }
-        poll();
+        });
     }, [gameState]);
 
     return (

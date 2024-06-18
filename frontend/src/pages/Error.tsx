@@ -24,12 +24,13 @@ function Error() {
                         Please return to the Homepage!
                     </p>
                     <Button
-                        text="Return back to homepage"
+                        variant="accept"
+                        size="medium"
                         buttonSize="w-80 h-12"
-                        className="border-4"
-                        rounded="rounded-full"
                         onClick={() => navigate('/')}
-                    />
+                    >
+                        Return to homepage
+                    </Button>
                 </div>
             </div>
         </div>

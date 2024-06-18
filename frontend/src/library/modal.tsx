@@ -59,15 +59,15 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                     />
                 </div>
                 <Button
-                    text="Enter"
-                    onClick={handleButtonClick}
+                    size="medium"
                     backgroundColor="bg-yellow-300"
+                    className="hover:bg-yellow-500"
+                    borderColor="border-black"
                     textColor="text-white"
-                    borderColor="border-black border-4"
-                    hoverColor="hover:bg-yellow-400"
-                    rounded="rounded-full"
-                    buttonSize="w-32 h-10"
-                />
+                    onClick={handleButtonClick}
+                >
+                    Enter
+                </Button>
             </div>
         </div>
     );

@@ -71,12 +71,14 @@ const Game: React.FC = () => {
                         </div>
                     </div>
                     <Button
-                        text="UNO"
-                        className="border-2 active:bg-red-600 mt-4"
+                        variant="accept"
+                        size="small"
+                        className="border-2 active:bg-red-600 mt-4 hover:bg-purple-900"
                         backgroundColor="bg-purple-800"
-                        hoverColor="hover:bg-purple-900"
                         buttonSize="w-18 h-10"
-                    />
+                    >
+                        UNO
+                    </Button>
                 </div>
 
                 {/* Player Mat */}

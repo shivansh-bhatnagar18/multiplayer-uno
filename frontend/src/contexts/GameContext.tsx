@@ -41,6 +41,14 @@ export const GameProvider = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
+        if (!auth.isLoggedIn()) {
+            navigate('/');
+            toast.open({
+                message: 'Please login to continue',
+                color: 'error',
+            });
+            return;
+        }
         const queryParams = new URLSearchParams(location.search);
         const gameType = queryParams.get('type');
         async function setupGame() {

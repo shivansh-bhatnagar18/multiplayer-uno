@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-center p-4 ml-4 mt-4 mr-2 relative z-10">
+            <div className="flex justify-between items-center p-4 ml-4 mt-4 mr-2 fixed z-10 w-full">
                 <div className="space-x-4">
                     <button onClick={toggleMenu}>
                         <img

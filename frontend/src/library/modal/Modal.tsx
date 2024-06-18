@@ -50,7 +50,7 @@ const Modal: React.FC<ModalContainerProps> = ({ content, buttons, size }) => {
                                 key={button.text}
                                 type={button.type}
                                 onClick={() => {
-                                    button.onClick();
+                                    button.onClick?.();
                                     hide();
                                 }}
                             >

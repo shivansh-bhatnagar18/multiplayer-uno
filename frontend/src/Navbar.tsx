@@ -234,7 +234,12 @@ const Navbar: React.FC = () => {
                                 size="medium"
                                 fontSize="text-2xl"
                                 onClick={() => {
-                                    modal.show(aboutUs, 'large');
+                                    modal.show(aboutUs, 'large', [
+                                        {
+                                            text: 'Close',
+                                            type: 'submit',
+                                        },
+                                    ]);
                                     setSidebarOpen(false);
                                 }}
                                 className="mb-2"
@@ -248,7 +253,12 @@ const Navbar: React.FC = () => {
                                 size="medium"
                                 fontSize="text-2xl"
                                 onClick={() => {
-                                    modal.show(rules, 'large');
+                                    modal.show(rules, 'large', [
+                                        {
+                                            text: 'Close',
+                                            type: 'submit',
+                                        },
+                                    ]);
                                     setSidebarOpen(false);
                                 }}
                             >

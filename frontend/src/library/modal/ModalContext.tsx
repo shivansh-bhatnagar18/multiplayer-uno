@@ -4,7 +4,7 @@ import Modal from './Modal';
 
 export type ModalButtonArgs = {
     text: string;
-    onClick: () => void;
+    onClick?: () => void;
     type: 'submit' | 'reset' | 'button';
 };
 type ModalContextType = {

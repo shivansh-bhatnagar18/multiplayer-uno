@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../library/button';
 import Input from '../library/input';
-import Navbar from '../Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../index.css';
@@ -34,7 +33,6 @@ const Login: React.FC = () => {
     return (
         <>
             <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
-                <Navbar />
                 <div className=" w-full flex justify-center items-center grow">
                     <div className="flex flex-col justify-center items-center">
                         {/* <div className='flex justify-center'>

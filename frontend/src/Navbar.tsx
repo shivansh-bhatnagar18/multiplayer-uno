@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Button from './library/button';
 import './index.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import RulesModal from './library/rulesModal';
 import { useAuth } from './contexts/AuthContext';
 import { useModal } from './library/modal/ModalContext';
 
@@ -46,6 +45,84 @@ const aboutUs = (
                 </a>
                 . Thank you for visiting, and we hope you enjoy your time
                 playing UNO!
+            </div>
+        </div>
+    </>
+);
+const rules = (
+    <>
+        <div className="relative flex flex-col h-full overflow-y-auto">
+            <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-black text-center">
+                Rules
+            </h1>
+            <div className="text-left font-[Kavoon] px-4">
+                <h2 className="font-bold text-lg">Objective:</h2>
+                <ul className="list-disc list-inside">
+                    <li>Be the first to get rid of all your cards</li>
+                </ul>
+
+                <h2 className="font-bold text-lg mt-4">Setup:</h2>
+                <ul className="list-disc list-inside">
+                    <li>
+                        <b>Players:</b> 2-10.
+                    </li>
+                    <li>
+                        <b>Deck:</b> 108 cards.
+                    </li>
+                    <li>
+                        <b>Dealing:</b> 7 cards each, remaining cards form draw
+                        pile. Top card starts discard pile.
+                    </li>
+                </ul>
+
+                <h2 className="font-bold text-lg mt-4">Gameplay:</h2>
+                <ul className="list-disc list-inside">
+                    <li>
+                        <b>Turns:</b> Match a card from your hand to the top
+                        card of the discard pile by color or number, or play a
+                        Wild card.
+                    </li>
+                    <li>
+                        <b>Draw:</b> If you can't play, draw one card. Play it
+                        if possible; if not, turn passes.
+                    </li>
+                    <li>
+                        <b>UNO:</b>If at any point in play you are left with a
+                        single card you have to say uno.
+                    </li>
+                </ul>
+
+                <h2 className="font-bold text-lg mt-4">Action Cards:</h2>
+                <ul className="list-disc list-inside">
+                    <li>
+                        <b>Skip:</b> Next player misses a turn.
+                    </li>
+                    <li>
+                        <b>Reverse:</b> Reverses play direction.
+                    </li>
+                    <li>
+                        <b>Draw Two:</b> Next player draws 2 cards and misses a
+                        turn.
+                    </li>
+                    <li>
+                        <b>Wild:</b> Choose the color to continue play.
+                    </li>
+                    <li>
+                        <b>Wild Draw Four:</b> Choose color and next player
+                        draws 4 cards.
+                    </li>
+                </ul>
+                <p className="text-lg mt-4">
+                    If you would like to learn more about the Rules of UNO click{' '}
+                    <a
+                        href="https://www.unorules.com"
+                        target="_blank"
+                        className="underline"
+                    >
+                        here
+                    </a>
+                    .
+                </p>
             </div>
         </div>
     </>
@@ -171,7 +248,7 @@ const Navbar: React.FC = () => {
                                 size="medium"
                                 fontSize="text-2xl"
                                 onClick={() => {
-                                    setShowRulesModal(true);
+                                    modal.show(rules, 'large');
                                     setSidebarOpen(false);
                                 }}
                             >

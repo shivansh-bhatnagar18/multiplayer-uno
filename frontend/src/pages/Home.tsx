@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../library/button';
-import Navbar from '../Navbar';
 import '../index.css';
 import { useModal } from '../library/modal/ModalContext';
 
-const Content:React.FC = () => {
+const Content: React.FC = () => {
     return (
         <>
             <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-black text-center">
@@ -21,7 +20,7 @@ const Content:React.FC = () => {
                 />
             </div>
         </>
-    )
+    );
 };
 const Home: React.FC = () => {
     const modal = useModal();
@@ -34,7 +33,7 @@ const Home: React.FC = () => {
 
     const JoinGame = () => {
         // Logic to join a game
-        modal.show(<Content/>, 'small', [
+        modal.show(<Content />, 'small', [
             { type: 'submit', onClick: () => {}, text: 'Join Game' },
         ]);
         console.log('Join Game with code');

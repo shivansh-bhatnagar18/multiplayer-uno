@@ -40,12 +40,13 @@ const Navbar: React.FC = () => {
                     <>
                         <div className="text-xl font-bold mt-2">
                             <Button
-                                text={auth.getUser()!.name}
-                                buttonSize="w-56 h-11"
-                                className="border-4"
-                                rounded="rounded-2xl"
+                                variant="accept"
+                                size="medium"
+                                buttonSize="w-64 h-11"
                                 onClick={goToLogin}
-                            />
+                            >
+                                {auth.getUser()!.name}
+                            </Button>
                         </div>
                     </>
                 ) : (
@@ -53,12 +54,13 @@ const Navbar: React.FC = () => {
                         {showLoginBtn && (
                             <div className="text-xl font-bold mt-2">
                                 <Button
-                                    text="Login"
-                                    onClick={() => navigate('/login')}
+                                    variant="accept"
+                                    size="medium"
                                     buttonSize="w-56 h-11"
-                                    className="border-4"
-                                    rounded="rounded-2xl"
-                                />
+                                    onClick={() => navigate('/login')}
+                                >
+                                    Login
+                                </Button>
                             </div>
                         )}
                     </>
@@ -83,51 +85,54 @@ const Navbar: React.FC = () => {
                                     {auth.getUser()?.name}
                                 </div>
                                 <Button
-                                    text="Logout"
-                                    onClick={auth.logout}
-                                    className="border-4 mb-2 mt-5"
+                                    variant="accept"
+                                    size="medium"
                                     fontSize="text-2xl"
-                                    buttonSize="w-[170px] h-12"
-                                    px="px-0"
-                                />
+                                    onClick={auth.logout}
+                                    className="mb-2 mt-5"
+                                >
+                                    Logout
+                                </Button>
                             </>
                         ) : (
                             <>
                                 <Button
-                                    text="Login"
-                                    onClick={() => navigate('/login')}
-                                    className="border-4 mb-2 mt-20"
+                                    variant="accept"
+                                    size="medium"
                                     fontSize="text-2xl"
-                                    buttonSize="w-[170px] h-12"
-                                    px="px-0"
-                                />
+                                    onClick={() => navigate('/login')}
+                                    className="mb-2 mt-20"
+                                >
+                                    Login
+                                </Button>
                             </>
                         )}
                         <div className="mt-4">
                             <Button
-                                text="About Us"
-                                className="border-4 mb-2"
+                                variant="accept"
+                                size="medium"
                                 fontSize="text-2xl"
-                                buttonSize="w-[170px] h-12"
-                                px="px-0"
                                 onClick={() => {
                                     setShowAboutUsModal(true);
                                     setSidebarOpen(false);
                                 }}
-                            />
+                                className="mb-2"
+                            >
+                                About Us
+                            </Button>
                         </div>
                         <div className="mt-4">
                             <Button
-                                text="Rules"
-                                className="border-4"
+                                variant="accept"
+                                size="medium"
                                 fontSize="text-2xl"
-                                buttonSize="w-[170px] h-12"
-                                px="px-0"
                                 onClick={() => {
                                     setShowRulesModal(true);
                                     setSidebarOpen(false);
                                 }}
-                            />
+                            >
+                                Rules
+                            </Button>
                         </div>
                     </div>
                     <div

@@ -32,23 +32,17 @@ const Home: React.FC = () => {
                     />
                 </div>
                 <Button
-                    text="Start Game"
-                    className="mb-6 w-48 border-4"
-                    buttonSize="w-[220px] h-16"
-                    fontSize="text-3xl"
-                    px="px-3"
-                    py="py-1"
+                    variant="accept"
+                    className="mb-5"
+                    size="large"
                     onClick={CreateGame}
-                />
-                <Button
-                    text="Join Game"
-                    className="mb-4 w-48 border-4"
-                    buttonSize="w-[220px] h-16"
-                    fontSize="text-3xl"
-                    px="px-3"
-                    py="py-1"
-                    onClick={JoinGame}
-                />
+                >
+                    Start Game
+                </Button>
+
+                <Button variant="accept" size="large" onClick={JoinGame}>
+                    Join Game
+                </Button>
             </div>
             {showModal && <Modal onClose={() => setShowModal(false)} />}
         </div>

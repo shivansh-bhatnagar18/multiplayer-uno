@@ -95,14 +95,14 @@ const SignUp: React.FC = () => {
                                     </div>
                                     <div className="flex justify-center">
                                         <Button
-                                            text="Sign Up"
-                                            textColor="text-white"
-                                            py="0"
-                                            buttonSize="w-32 h-10"
-                                            className="border-4 rounded-full"
-                                            fontSize="text-2xl"
+                                            variant="accept"
+                                            size="medium"
+                                            buttonSize="w-36 h-12"
                                             type="submit"
-                                        />
+                                            fontSize="text-2xl"
+                                        >
+                                            Sign Up
+                                        </Button>
                                     </div>
                                 </div>
                             </form>

@@ -1,12 +1,31 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import Button from '../library/button';
-import Modal from '../library/modal';
+import Navbar from '../Navbar';
 import '../index.css';
+import { useModal } from '../library/modal/ModalContext';
 
+const Content:React.FC = () => {
+    return (
+        <>
+            <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-black text-center">
+                Join an Existing Game
+            </h1>
+            <div className="flex justify-center w-2/3">
+                <input
+                    className="font-normal font-[Kavoon] text-[20px] py-2 px-6 border-4 border-black rounded-3xl w-full h-12"
+                    placeholder="Enter the game code"
+                    style={{
+                        backgroundColor: 'rgb(222, 209, 209)',
+                        color: 'black',
+                    }}
+                />
+            </div>
+        </>
+    )
+};
 const Home: React.FC = () => {
+    const modal = useModal();
     const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false);
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
@@ -15,7 +34,9 @@ const Home: React.FC = () => {
 
     const JoinGame = () => {
         // Logic to join a game
-        setShowModal(true);
+        modal.show(<Content/>, 'small', [
+            { type: 'submit', onClick: () => {}, text: 'Join Game' },
+        ]);
         console.log('Join Game with code');
     };
 
@@ -42,7 +63,6 @@ const Home: React.FC = () => {
                     Join Game
                 </Button>
             </div>
-            {showModal && <Modal onClose={() => setShowModal(false)} />}
         </div>
     );
 };

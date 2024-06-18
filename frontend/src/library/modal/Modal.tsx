@@ -1,17 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { useModal } from './ModalContext';
+import { ModalButtonArgs, useModal } from './ModalContext';
 import Button from '../button';
 
 type ModalContainerProps = {
     content: React.ReactNode;
-    buttons: button[];
+    buttons: ModalButtonArgs[];
     size: 'small' | 'large';
-};
-
-type button = {
-    text: string;
-    onClick: () => void;
-    type: 'submit' | 'reset' | 'button';
 };
 
 const Modal: React.FC<ModalContainerProps> = ({ content, buttons, size }) => {
@@ -52,7 +46,14 @@ const Modal: React.FC<ModalContainerProps> = ({ content, buttons, size }) => {
                     {content}
                     {buttons.map((button) => {
                         return (
-                            <Button key={button.text} type={button.type}>
+                            <Button
+                                key={button.text}
+                                type={button.type}
+                                onClick={() => {
+                                    button.onClick();
+                                    hide();
+                                }}
+                            >
                                 {button.text}
                             </Button>
                         );

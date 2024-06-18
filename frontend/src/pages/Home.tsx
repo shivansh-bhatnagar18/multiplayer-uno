@@ -2,8 +2,29 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../library/button';
 import '../index.css';
 import { useModal } from '../library/modal/ModalContext';
+import { useState } from 'react';
+import { useToast } from '../library/toast/toast-context';
 
-const Content: React.FC = () => {
+function JoinGameModalContent() {
+    const [gameCode, setGameCode] = useState<string>('');
+    const { open } = useToast();
+    const navigate = useNavigate();
+    const modal = useModal();
+
+    function joinHandler() {
+        if (gameCode.trim()) {
+            modal.hide();
+            navigate('/game?type=join&code=' + gameCode);
+        } else {
+            open({
+                message: 'Please Enter The Game Code',
+                duration: 3000,
+                position: 'top-center',
+                color: 'warning',
+            });
+        }
+    }
+
     return (
         <>
             <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-black text-center">
@@ -17,14 +38,22 @@ const Content: React.FC = () => {
                         backgroundColor: 'rgb(222, 209, 209)',
                         color: 'black',
                     }}
+                    value={gameCode}
+                    onChange={(e) => {
+                        setGameCode(e.target.value.trim());
+                    }}
                 />
             </div>
+            <Button type={'submit'} onClick={joinHandler}>
+                Join Game
+            </Button>
         </>
     );
-};
-const Home: React.FC = () => {
+}
+function Home() {
     const modal = useModal();
     const navigate = useNavigate();
+
     const CreateGame = () => {
         // Logic to create a game
         console.log('Create Game');
@@ -33,9 +62,7 @@ const Home: React.FC = () => {
 
     const JoinGame = () => {
         // Logic to join a game
-        modal.show(<Content />, 'small', [
-            { type: 'submit', onClick: () => {}, text: 'Join Game' },
-        ]);
+        modal.show(<JoinGameModalContent />, 'small');
         console.log('Join Game with code');
     };
 
@@ -64,6 +91,6 @@ const Home: React.FC = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Home;

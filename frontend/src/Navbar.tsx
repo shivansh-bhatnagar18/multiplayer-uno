@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
     return (
         <div>
             <div className="flex justify-between items-center p-4 ml-4 mt-4 mr-2 fixed z-10 w-full">
-                <div className="space-x-4">
+                <div className="space-x-4 flex flex-row">
                     <button onClick={toggleMenu}>
                         <img
                             src="/hamburger.png"
@@ -156,6 +156,13 @@ const Navbar: React.FC = () => {
                             className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-9 lg:h-9"
                         />
                     </button>
+                    <a href="/">
+                        <img
+                            src="/UNO_Logo.svg"
+                            alt="logo"
+                            className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28"
+                        />
+                    </a>
                 </div>
                 {auth.isLoggedIn() ? (
                     <>

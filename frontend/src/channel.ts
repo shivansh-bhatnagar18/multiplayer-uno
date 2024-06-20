@@ -13,6 +13,7 @@ const GAME_EVENTS = {
 };
 
 let jwt: string = '';
+let polling = false;
 
 let gameEventsDispatcher: (event: types.AppEvent) => void = () => {};
 
@@ -60,20 +61,26 @@ function pollLoop() {
             pollLoop();
         })
         .catch((e) => {
+            if (!polling) {
+                console.log('Polling stopped - interrupted current poll');
+                return;
+            }
             console.error('Error polling:', e);
-            // setTimeout(() => {
-            //     console.log('Retrying polling');
-            //     pollLoop();
-            // }, 5000);
+            setTimeout(() => {
+                console.log('Retrying polling');
+                pollLoop();
+            }, 5000);
         });
 }
 
 export function startPolling(_jwt: string) {
     jwt = _jwt;
+    polling = true;
     pollLoop();
 }
 
 export function stopPolling() {
+    polling = false;
     if (abortController) {
         abortController.abort();
     }

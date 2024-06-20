@@ -42,13 +42,15 @@ async function poll() {
     if (!res.ok) {
         throw new Error((await res.json()).error);
     }
-    const data: types.AppEvent = await res.json();
+    const data: { events: types.AppEvent[] } = await res.json();
     console.log('Received event:', data);
-    if (GAME_EVENTS[data.type]) {
-        // it is a game event
-        gameEventsDispatcher(data);
-    } else {
-        console.log('No handler for event type: ', data.type);
+    for (const event of data.events) {
+        if (GAME_EVENTS[event.type]) {
+            // it is a game event
+            gameEventsDispatcher(event);
+        } else {
+            console.log('No handler for event type: ', event.type);
+        }
     }
 }
 

@@ -109,7 +109,8 @@ export const GameProvider = () => {
     useEffect(() => {
         // add event listener to listen for the game state changes
         channel.setGameEventsDispatcher((event) => {
-            console.log('Received event:', event);
+            // todo: this callback will be replaced by the event dispatcher
+            console.log('Handling event:', event);
             if (event.type === 'STATE_SYNC') {
                 setGameState({
                     players: event.data.players.map((player) => {

@@ -11,7 +11,8 @@ type ModalContextType = {
     show: (
         content: ReactNode,
         size: 'small' | 'large',
-        buttons?: ModalButtonArgs[]
+        buttons?: ModalButtonArgs[],
+        closeOnBlurClick?: boolean
     ) => void;
     hide: () => void;
 };
@@ -32,16 +33,20 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     const [modalContent, setModalContent] = useState<ReactNode>(null);
     const [modalButtons, setModalButtons] = useState<ModalButtonArgs[]>([]);
     const [modalSize, setModalSize] = useState<'small' | 'large'>('small');
+    const [modalCloseOnBlurClick, setModalCloseOnBlurClick] = useState(true);
+
     const [isVisible, setIsVisible] = useState(false);
 
     const show = (
         content: ReactNode,
         size: 'small' | 'large' = 'small',
-        buttons: ModalButtonArgs[] = []
+        buttons: ModalButtonArgs[] = [],
+        closeOnBlurClick: boolean = true
     ) => {
         setModalContent(content);
         setModalButtons(buttons);
         setModalSize(size);
+        setModalCloseOnBlurClick(closeOnBlurClick);
         setIsVisible(true);
     };
 
@@ -58,6 +63,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
                     content={modalContent}
                     buttons={modalButtons}
                     size={modalSize}
+                    closeOnBlurClick={modalCloseOnBlurClick}
                 />
             )}
         </ModalContext.Provider>

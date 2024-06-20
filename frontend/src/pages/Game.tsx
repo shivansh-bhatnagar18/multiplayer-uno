@@ -4,6 +4,7 @@ import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
 import { useToast } from '../library/toast/toast-context';
 import CopyButton from '../library/copyButton';
+import Chatbox from '../library/chatbox/Chatbox';
 
 interface GameProps {
     currentGame: string;
@@ -177,6 +178,8 @@ const Game: React.FC<GameProps> = ({ currentGame }) => {
                     </div>
                 </div>
             </div>
+
+            <Chatbox />
         </div>
     );
 };

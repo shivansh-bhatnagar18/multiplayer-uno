@@ -97,4 +97,13 @@ export type AppEventType = GameEventTypes | ChatEventTypes;
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later
 export type AppEvent = GameEvent;
+
+export type Message = {
+    content: string;
+    ref?: string | null;
+    atMentions?: string[];
+    reactions?: [string, string][];
+    playerName: string;
+};
+
 //todo: Add more events

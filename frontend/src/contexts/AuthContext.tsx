@@ -67,7 +67,8 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                         name: data.user.username,
                     });
                     setJwt(localToken!);
-                    channel.startPolling(localToken!);
+                    channel.setAuthCreds(data.token, data.user.id);
+                    channel.startPolling();
                 }
             } catch (e) {
                 console.info('deleting existing jwt');
@@ -105,7 +106,8 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             });
             setJwt(data.token);
             localStorage.setItem('jwt', data.token);
-            channel.startPolling(data.token);
+            channel.setAuthCreds(data.token, data.user.id);
+            channel.startPolling();
         },
         [setUser, toast]
     );

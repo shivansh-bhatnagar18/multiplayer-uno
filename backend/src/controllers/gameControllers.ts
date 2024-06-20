@@ -18,6 +18,7 @@ export async function handleGameEvent(req: AuthRequest, res: Response) {
         res.status(404).send({ message: 'Game not found' });
         return;
     }
+    console.log('handling event ', event);
     //todo: When game data is retrieved from database, it is not an instance of GameEngine
     // so we would need to convert it to an instance of GameEngine
     const result = game.dispatchEvent(event);
@@ -46,6 +47,7 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
     }
     //note: when retrieving game from database, it is not an instance of GameEngine
     // we'd need to add these functions to the mongodb game schema
+    // this should be sent once the joining player receives the game state
     game.dispatchEvent({ type: 'JOIN_GAME', playerId: req.user.id });
     propagateChanges(game);
     req.user.activeGameId = gameCode;

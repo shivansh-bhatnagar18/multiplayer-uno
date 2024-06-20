@@ -12,7 +12,7 @@ const GAME_EVENTS = {
     STATE_SYNC: 'STATE_SYNC',
 };
 
-let jwt: string = '';
+let authCreds: { jwt: string; playerId: string } | null = null;
 let polling = false;
 
 let gameEventsDispatcher: (event: types.AppEvent) => void = () => {};
@@ -24,6 +24,9 @@ export function setGameEventsDispatcher(
 }
 let abortController: AbortController | null = null;
 async function poll() {
+    if (!authCreds) {
+        throw new Error('Auth credentials not set');
+    }
     if (abortController) {
         abortController.abort();
     }
@@ -35,7 +38,7 @@ async function poll() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: jwt,
+                Authorization: authCreds.jwt,
             },
             signal: abortController.signal,
         }
@@ -73,8 +76,14 @@ function pollLoop() {
         });
 }
 
-export function startPolling(_jwt: string) {
-    jwt = _jwt;
+export function setAuthCreds(jwt: string, playerId: string) {
+    authCreds = { jwt, playerId };
+}
+
+export function startPolling() {
+    if (!authCreds) {
+        throw new Error('Auth credentials not set');
+    }
     polling = true;
     pollLoop();
 }
@@ -84,4 +93,26 @@ export function stopPolling() {
     if (abortController) {
         abortController.abort();
     }
+}
+
+export function triggerEvent(type: types.GameEventType, data?: unknown) {
+    if (!authCreds) {
+        throw new Error('Auth credentials not set');
+    }
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/game/events`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: authCreds.jwt,
+        },
+        body: JSON.stringify({
+            event: {
+                type,
+                playerId: authCreds.playerId,
+                data,
+            },
+        }),
+    }).catch((e) => {
+        console.error('Error triggering event:', e);
+    });
 }

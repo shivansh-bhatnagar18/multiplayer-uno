@@ -4,7 +4,7 @@ import {
     NUM_CARDS_PER_PLAYER,
 } from '../src/uno-game-engine/engine';
 
-function generateMockPlayers(numPlayers: number) {
+export function generateMockPlayers(numPlayers: number) {
     const players: Player[] = [];
     for (let i = 0; i < numPlayers; i++) {
         players.push({ id: i.toString(), cards: [] });
@@ -86,7 +86,10 @@ describe('GameEngine', () => {
     });
 
     test('drawCardFromDeck() returns an error when the player is not found', () => {
-        const status = game.drawCardFromDeck({ id: '1', cards: [] });
+        const status = game.drawCardFromDeck({
+            id: '1',
+            cards: [],
+        });
         expect(status.type).toBe('ERROR');
         expect(status.message).toBe('Player not found or cardDeck is empty');
     });

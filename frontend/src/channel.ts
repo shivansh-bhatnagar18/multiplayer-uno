@@ -10,6 +10,7 @@ const GAME_EVENTS = {
     JOIN_GAME: 'JOIN_GAME',
     LEAVE_GAME: 'LEAVE_GAME',
     STATE_SYNC: 'STATE_SYNC',
+    ANNOUNCE_UNO: 'ANNOUNCE_UNO',
 };
 
 let authCreds: { jwt: string; playerId: string } | null = null;

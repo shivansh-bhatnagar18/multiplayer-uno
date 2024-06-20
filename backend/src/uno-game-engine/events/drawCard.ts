@@ -22,6 +22,11 @@ export function drawCard(game: GameEngine, event: GameEvent): EventResult {
         return drawResult;
     }
 
+    if (player.cards.length === 2) {
+        game.runningEvents.hasAnnouncedUNO = null;
+        game.runningEvents.vulnerableToUNO = null;
+    }
+
     const drawnCard = player.cards[player.cards.length - 1]; // Last drawn card
 
     // Check if the drawn card can be thrown

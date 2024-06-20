@@ -1,4 +1,10 @@
-import type { EventResult, GameEvent, Player, UNOCard } from '../types';
+import type {
+    EventResult,
+    GameEvent,
+    Player,
+    RunningEvents,
+    UNOCard,
+} from '../types';
 import { getShuffledCardDeck, shuffle } from './deck';
 import { handleEvent } from './gameEvents';
 
@@ -14,6 +20,7 @@ export class GameEngine {
     currentColor: number;
     direction: number;
     status: 'READY' | 'STARTED';
+    runningEvents: RunningEvents;
 
     constructor(id: string) {
         this.id = id;
@@ -24,6 +31,10 @@ export class GameEngine {
         this.lastThrownCard = null;
         this.currentColor = 0;
         this.direction = 1;
+        this.runningEvents = {
+            vulnerableToUNO: null,
+            hasAnnouncedUNO: null,
+        };
 
         this.status = 'READY';
     }
@@ -51,7 +62,6 @@ export class GameEngine {
             (this.players.length + this.currentPlayerIndex + this.direction) %
             this.players.length;
     }
-
     removePlayer(player: Player) {
         this.cardDeck.push(...player.cards);
         shuffle(this.cardDeck);
@@ -73,6 +83,9 @@ export class GameEngine {
                 const cards = this.cardDeck.splice(-numCards, numCards);
                 if (cards.length > 0) {
                     currentPlayer.cards.push(...cards);
+
+                    // make the last player no longer vulnerable to UNO
+                    this.runningEvents.vulnerableToUNO = null;
                     return {
                         type: 'SUCCESS',
                         message: `${numCards} card(s) drawn successfully`,

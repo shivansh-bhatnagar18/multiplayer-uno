@@ -11,6 +11,7 @@ export type SpecialCardName =
     | 'draw2'
     | 'draw4'
     | 'colchange';
+
 export type CardNumber =
     | '0'
     | '1'
@@ -37,6 +38,11 @@ export type Player = {
     cards: UNOCard[];
 };
 
+export type RunningEvents = {
+    vulnerableToUNO: Player | null;
+    hasAnnouncedUNO: Player | null;
+};
+
 export type EventResult = {
     type: 'SUCCESS' | 'ERROR';
     message: string;
@@ -47,16 +53,14 @@ export enum GameEventTypes {
     THROW_CARD = 'THROW_CARD',
     JOIN_GAME = 'JOIN_GAME',
     LEAVE_GAME = 'LEAVE_GAME',
+    ANNOUNCE_UNO = 'ANNOUNCE_UNO',
     STATE_SYNC = 'STATE_SYNC',
 }
-
 export type GameEvent =
     | {
           type: GameEventTypes.DRAW_CARD;
           playerId: string;
-          data: {
-              cardId: string;
-          };
+          data?: null;
       }
     | {
           type: GameEventTypes.THROW_CARD;
@@ -72,6 +76,11 @@ export type GameEvent =
       }
     | {
           type: GameEventTypes.LEAVE_GAME;
+          playerId: string;
+          data?: null;
+      }
+    | {
+          type: GameEventTypes.ANNOUNCE_UNO;
           playerId: string;
           data?: null;
       }

@@ -5,6 +5,7 @@ import {
     checkCurrentPlayer,
     getPlayer,
     getPlayerCard,
+    getThrowableCards,
 } from './eventHandlerUtils';
 
 export function canThrowCard(
@@ -17,20 +18,9 @@ export function canThrowCard(
     if (canThrow.type === 'ERROR') {
         return canThrow;
     }
-    // check if the player actually possesses the card
-    if (!player.cards.some((c) => c.id === card.id)) {
-        return { type: 'ERROR', message: 'Player does not possess the card' };
-    }
 
-    // check if the card can be thrown
-    if (
-        game.lastThrownCard &&
-        !(
-            game.lastThrownCard.color === card.color ||
-            game.lastThrownCard.value === card.value ||
-            card.color === 'wild'
-        )
-    ) {
+    const throwableCards = getThrowableCards(game, player);
+    if (!throwableCards.find((c) => c.id === card.id)) {
         return { type: 'ERROR', message: 'Cannot throw this card' };
     }
 
@@ -55,8 +45,20 @@ export function throwCard(game: GameEngine, event: GameEvent): EventResult {
         return canThrow;
     }
 
+    // make the last player no longer vulnerable to UNO
+    game.runningEvents.vulnerableToUNO = null;
+
     player.cards = player.cards.filter((c) => c.id !== card.id);
 
+    // After throwing a card, check if the player has one card and forgot to announce UNO
+    if (
+        player.cards.length === 1 &&
+        game.runningEvents.hasAnnouncedUNO !== player
+    ) {
+        game.runningEvents.vulnerableToUNO = player;
+    }
+
+    game.runningEvents.hasAnnouncedUNO = null;
     game.thrownCards.push(card);
     game.lastThrownCard = card;
 

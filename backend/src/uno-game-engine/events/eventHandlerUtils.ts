@@ -11,6 +11,21 @@ export function getPlayerCard(player: Player, cardId: string) {
     return player.cards.find((c) => c.id === cardId);
 }
 
+export function getThrowableCards(game: GameEngine, player: Player) {
+    // get the cards that the player can throw
+    const { lastThrownCard } = game;
+    const throwableCards = player.cards.filter((card) => {
+        return (
+            !lastThrownCard ||
+            card.color === lastThrownCard.color ||
+            card.value === lastThrownCard.value ||
+            card.type === 'wild'
+        );
+    });
+
+    return throwableCards;
+}
+
 export function checkCurrentPlayer(
     game: GameEngine,
     player: Player
@@ -23,5 +38,8 @@ export function checkCurrentPlayer(
         return { type: 'ERROR', message: 'It is not your turn' };
     }
 
-    return { type: 'SUCCESS', message: 'Can draw/throw card' };
+    return {
+        type: 'SUCCESS',
+        message: 'Player is the current player',
+    };
 }

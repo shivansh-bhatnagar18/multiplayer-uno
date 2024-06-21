@@ -49,7 +49,10 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
     //note: when retrieving game from database, it is not an instance of GameEngine
     // we'd need to add these functions to the mongodb game schema
     // this should be sent once the joining player receives the game state
-    game.dispatchEvent({ type: GameEventTypes.JOIN_GAME, playerId: req.user.id });
+    game.dispatchEvent({
+        type: GameEventTypes.JOIN_GAME,
+        playerId: req.user.id,
+    });
     propagateChanges(game);
     req.user.activeGameId = gameCode;
     await req.user.save();

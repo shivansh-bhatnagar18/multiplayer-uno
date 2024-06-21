@@ -67,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                         name: data.user.username,
                     });
                     setJwt(localToken!);
-                    channel.setAuthCreds(localToken!, data.user.id);
+                    channel.setAuthCreds(localToken!, data.user._id);
                     channel.startPolling();
                 }
             } catch (e) {
@@ -106,7 +106,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             });
             setJwt(data.token);
             localStorage.setItem('jwt', data.token);
-            channel.setAuthCreds(data.token, data.user.id);
+            channel.setAuthCreds(data.token, data.user._id);
             channel.startPolling();
         },
         [setUser, toast]

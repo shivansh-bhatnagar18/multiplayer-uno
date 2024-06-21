@@ -42,38 +42,41 @@ export type EventResult = {
     message: string;
 };
 
-export type GameEventType =
-    | 'DRAW_CARD'
-    | 'THROW_CARD'
-    | 'JOIN_GAME'
-    | 'LEAVE_GAME'
-    | 'STATE_SYNC';
+export enum GameEventTypes {
+    DRAW_CARD = 'DRAW_CARD',
+    THROW_CARD = 'THROW_CARD',
+    JOIN_GAME = 'JOIN_GAME',
+    LEAVE_GAME = 'LEAVE_GAME',
+    STATE_SYNC = 'STATE_SYNC',
+}
 
 export type GameEvent =
     | {
-          type: 'DRAW_CARD';
+          type: GameEventTypes.DRAW_CARD;
           playerId: string;
           data: {
               cardId: string;
           };
       }
     | {
-          type: 'THROW_CARD';
+          type: GameEventTypes.THROW_CARD;
           playerId: string;
           data: {
               cardId: string;
           };
       }
     | {
-          type: 'JOIN_GAME';
+          type: GameEventTypes.JOIN_GAME;
           playerId: string;
+          data?: null;
       }
     | {
-          type: 'LEAVE_GAME';
+          type: GameEventTypes.LEAVE_GAME;
           playerId: string;
+          data?: null;
       }
     | {
-          type: 'STATE_SYNC';
+          type: GameEventTypes.STATE_SYNC;
           data: {
               players: Player[];
               cards: UNOCard[];
@@ -81,6 +84,15 @@ export type GameEvent =
               lastThrownCard: string;
           };
       };
+
+export enum ChatEventTypes {
+    SEND_MESSAGE = 'SEND_MESSAGE',
+    REACT_TO_MESSAGE = 'REACT_TO_MESSAGE',
+    DELETE_MESSAGE = 'DELETE_MESSAGE',
+    EDIT_MESSAGE = 'EDIT_MESSAGE',
+}
+
+export type AppEventType = GameEventTypes | ChatEventTypes;
 
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later

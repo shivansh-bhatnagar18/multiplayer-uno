@@ -95,7 +95,7 @@ export function stopPolling() {
     }
 }
 
-export function triggerEvent(type: types.GameEventType, data?: unknown) {
+export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
     if (!authCreds) {
         throw new Error('Auth credentials not set');
     }
@@ -106,11 +106,9 @@ export function triggerEvent(type: types.GameEventType, data?: unknown) {
             Authorization: authCreds.jwt,
         },
         body: JSON.stringify({
-            event: {
-                type,
-                playerId: authCreds.playerId,
-                data,
-            },
+            type: event.type,
+            playerId: authCreds.playerId,
+            data: event.data,
         }),
     }).catch((e) => {
         console.error('Error triggering event:', e);

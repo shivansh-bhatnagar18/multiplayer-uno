@@ -3,6 +3,7 @@ import { enqueueForSend } from '../eventRecipients';
 import { AuthRequest } from '../middlewares/authMiddleware';
 import { createGame, retrieveGame } from '../gameStore';
 import { GameEngine } from '../uno-game-engine/engine';
+import { GameEventTypes } from '../types';
 
 export async function handleGameEvent(req: AuthRequest, res: Response) {
     const event = req.body;
@@ -48,7 +49,7 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
     //note: when retrieving game from database, it is not an instance of GameEngine
     // we'd need to add these functions to the mongodb game schema
     // this should be sent once the joining player receives the game state
-    game.dispatchEvent({ type: 'JOIN_GAME', playerId: req.user.id });
+    game.dispatchEvent({ type: GameEventTypes.JOIN_GAME, playerId: req.user.id });
     propagateChanges(game);
     req.user.activeGameId = gameCode;
     await req.user.save();
@@ -61,8 +62,8 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
 export async function handleGameCreate(req: AuthRequest, res: Response) {
     const game = createGame();
     const eventResult = game.dispatchEvent({
-        type: 'JOIN_GAME',
-        playerId: req.user.id,
+        type: GameEventTypes.JOIN_GAME,
+        playerId: req.user.id as string,
     });
     if (eventResult.type === 'ERROR') {
         res.status(500).send({ message: 'Failed to create game' });
@@ -84,7 +85,7 @@ function propagateChanges(game: GameEngine) {
     // Instead, we can just send the new game state to the clients.
     for (const player of game.players) {
         enqueueForSend(player.id, {
-            type: 'STATE_SYNC',
+            type: GameEventTypes.STATE_SYNC,
             data: {
                 players: game.players,
                 cards: game.cardDeck,

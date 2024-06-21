@@ -1,6 +1,6 @@
 // this module houses the handlers for various game events.
 
-import { EventResult, GameEvent, GameEventType } from '../types';
+import { EventResult, GameEvent, GameEventTypes } from '../types';
 import { type GameEngine } from './engine';
 import { drawCard } from './events/drawCard';
 import { joinGame } from './events/joinGame';
@@ -9,10 +9,10 @@ import { throwCard } from './events/throwCard';
 
 type GameEventHandler = (game: GameEngine, event: GameEvent) => EventResult;
 
-const map = new Map<GameEventType, GameEventHandler>();
+const map = new Map<GameEventTypes, GameEventHandler>();
 
 export function registerEventHandler(
-    eventType: GameEventType,
+    eventType: GameEventTypes,
     handler: GameEventHandler
 ) {
     map.set(eventType, handler);
@@ -26,7 +26,7 @@ export function handleEvent(game: GameEngine, event: GameEvent): EventResult {
     return handler(game, event);
 }
 
-registerEventHandler('JOIN_GAME', joinGame);
-registerEventHandler('LEAVE_GAME', leaveGame);
-registerEventHandler('DRAW_CARD', drawCard);
-registerEventHandler('THROW_CARD', throwCard);
+registerEventHandler(GameEventTypes.JOIN_GAME, joinGame);
+registerEventHandler(GameEventTypes.LEAVE_GAME, leaveGame);
+registerEventHandler(GameEventTypes.DRAW_CARD, drawCard);
+registerEventHandler(GameEventTypes.THROW_CARD, throwCard);

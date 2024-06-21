@@ -1,7 +1,7 @@
 import { GameEngine } from '../engine';
 import assert from 'assert';
 import { canThrowCard, throwCard } from './throwCard';
-import { EventResult, GameEvent } from '../../types';
+import { EventResult, GameEvent, GameEventTypes } from '../../types';
 import { checkCurrentPlayer, getPlayer } from './eventHandlerUtils';
 
 export function drawCard(game: GameEngine, event: GameEvent): EventResult {
@@ -28,7 +28,7 @@ export function drawCard(game: GameEngine, event: GameEvent): EventResult {
     const canThrow = canThrowCard(game, player, drawnCard);
     if (canThrow.type === 'SUCCESS') {
         throwCard(game, {
-            type: 'THROW_CARD',
+            type: GameEventTypes.THROW_CARD,
             playerId: player.id,
             data: {
                 cardId: drawnCard.id,

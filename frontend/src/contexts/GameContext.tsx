@@ -34,7 +34,7 @@ export const GameProvider = () => {
     const [gameState, setGameState] = useState<GameState | null>(
         defaultGameState
     );
-
+    const [currentGame, setCurrentGame] = useState<string>('');
     const location = useLocation();
     const navigate = useNavigate();
     const toast = useToast();
@@ -75,6 +75,7 @@ export const GameProvider = () => {
                         throw new Error('Game state not received');
                     }
                     setGameState(data.gameState);
+                    setCurrentGame(data.gameState.id);
                 } else if (gameType === 'create') {
                     const res = await fetch(`${backendUrl}/game/create`, {
                         method: 'POST',
@@ -93,6 +94,7 @@ export const GameProvider = () => {
                     setGameState(data.gameState);
                     // extract card and player data from the game state and store in maps
                     console.log(data.gameState.id);
+                    setCurrentGame(data.gameState.id);
                 }
             } catch (e) {
                 toast.open({
@@ -130,7 +132,7 @@ export const GameProvider = () => {
     return (
         <GameContext.Provider value={{ gameState, setGameState }}>
             {gameState ? (
-                <Game />
+                <Game currentGame={currentGame as string} />
             ) : (
                 <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
                     Loading...

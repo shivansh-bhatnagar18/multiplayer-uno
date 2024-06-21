@@ -180,3 +180,31 @@
     border: transparent;
     color: black;
 }
+
+@media (max-width: 640px) {
+    .toast {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .close-button {
+        align-self: flex-end;
+    }
+
+    .top-left,
+    .top-center,
+    .top-right {
+        top: 0.5rem;
+    }
+
+    .top-center {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top-left,
+    .top-right {
+        left: 0.5rem;
+        right: 0.5rem;
+    }
+}

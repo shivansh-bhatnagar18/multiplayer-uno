@@ -69,7 +69,7 @@ function Home() {
     return (
         <div className="min-h-screen bg-uno-bg bg-cover bg-center flex flex-col relative">
             <div className="flex flex-col items-center justify-center flex-grow">
-                <div className="w-[520px] h-[180px] sm:w-[600px] sm:h-[200px] md:w-[720px] md:h-[235px] lg:w-[900px] lg:h-[300px] overflow-hidden mt-4 mb-5">
+                <div className="w-11/12 sm:w-[520px] sm:h-[180px] md:w-[600px] md:h-[200px] lg:w-[720px] lg:h-[235px] xl:w-[900px] xl:h-[300px] overflow-hidden mt-4 mb-5">
                     <img
                         src="/unologo.png"
                         alt="UNO Logo"

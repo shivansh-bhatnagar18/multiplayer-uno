@@ -1,15 +1,82 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
+import { useModal } from '../library/modal/ModalContext';
+import { useToast } from '../library/toast/toast-context';
+import CopyButton from '../library/copyButton';
 
-const Game: React.FC = () => {
+interface GameProps {
+    currentGame: string;
+}
+
+const Game: React.FC<GameProps> = ({ currentGame }) => {
     const { gameState } = useGameContext();
+    const modal = useModal();
+    useEffect(() => {
+        if (gameState) {
+            modal.show(<CreateGameModalContent />, 'large', [], false);
+        }
+        // eslint-disable-next-line
+    }, [gameState]);
 
-    if (!gameState) {
+    function CreateGameModalContent() {
+        const { open } = useToast();
+
+        function joinHandler() {
+            if (currentGame.trim()) {
+                modal.hide();
+            } else {
+                open({
+                    message: 'Error In Game Creation',
+                    duration: 3000,
+                    position: 'top-center',
+                    color: 'warning',
+                });
+            }
+        }
+
         return (
-            <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
-                Loading...
-            </div>
+            <>
+                <div className="flex flex-col items-center justify-center p-4 space-y-6">
+                    <div className="flex justify-center items-center w-full pl-6">
+                        <h1 className="font-normal font-[Kavoon] text-[30px] leading-[30px] text-[#333] text-center inline-block ml-auto">
+                            Start Game
+                        </h1>
+                        <i
+                            className="fa-solid fa-circle-xmark cursor-pointer text-3xl ml-auto mr-3"
+                            onClick={modal.hide}
+                        ></i>
+                    </div>
+                    <div className="flex justify-center px-5">
+                        <h2 className="text-bold font-bold  font-[Kavoon]  text-[#333] text-[20px]">
+                            Game Id :{' '}
+                            <span className="text-[#555] "> {currentGame}</span>
+                            &nbsp; <CopyButton copyText={currentGame} />
+                        </h2>
+                    </div>
+                    <div className="flex justify-center px-5">
+                        <h2 className="text-bold font-bold  text-[#333]  font-[Kavoon] text-[20px]">
+                            Players Joined :{' '}
+                            <span className="text-[#555] font-[Roboto]">
+                                {gameState?.players.length}
+                            </span>
+                        </h2>
+                    </div>
+                    <div className="flex justify-center px-5">
+                        <h2 className="text-bold font-bold  text-[#333]  font-[Kavoon] text-[20px]">
+                            Invite More Players : &nbsp;
+                            <CopyButton
+                                priorText="Copy Invite Link"
+                                copyText={`${process.env.FRONTEND_URL}/game?type=join&code='${currentGame}`}
+                                postText="Copied"
+                            />
+                        </h2>
+                    </div>
+                    <Button type={'submit'} onClick={joinHandler}>
+                        Join Game
+                    </Button>
+                </div>
+            </>
         );
     }
 
@@ -21,7 +88,13 @@ const Game: React.FC = () => {
         { top: '75%', left: '15%', transform: 'translate(-50%, -50%)' },
         { top: '75%', left: '85%', transform: 'translate(-50%, -50%)' },
     ];
-
+    if (!gameState) {
+        return (
+            <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
+                Loading...
+            </div>
+        );
+    }
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-700">
             <div className="relative w-full max-w-6xl h-[85vh] bg-cover bg-center bg-table-bg">

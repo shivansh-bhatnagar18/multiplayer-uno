@@ -60,17 +60,19 @@ export function throwCard(game: GameEngine, event: GameEvent): EventResult {
     game.thrownCards.push(card);
     game.lastThrownCard = card;
 
-    game.nextPlayer();
-
     // handle special cards
     if (card.type === 'special') {
         handleSpecialCard(game, card);
     }
 
+    game.nextPlayer();
+
     return { type: 'SUCCESS', message: 'Card thrown successfully' };
 }
 
 function handleSpecialCard(game: GameEngine, card: UNOCard) {
+    const nextPlayerIndex =
+        (game.currentPlayerIndex + game.direction) % game.players.length;
     switch (card.value) {
         case 'skip':
             game.nextPlayer();
@@ -80,13 +82,13 @@ function handleSpecialCard(game: GameEngine, card: UNOCard) {
             break;
         case 'draw2':
             {
-                const nextPlayer = game.players[game.currentPlayerIndex];
+                const nextPlayer = game.players[nextPlayerIndex];
                 game.drawCardFromDeck(nextPlayer, 2);
             }
             break;
         case 'draw4':
             {
-                const currentPlayer = game.players[game.currentPlayerIndex];
+                const currentPlayer = game.players[nextPlayerIndex];
                 game.drawCardFromDeck(currentPlayer, 4);
             }
             break;

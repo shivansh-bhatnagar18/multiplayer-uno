@@ -44,3 +44,11 @@ body {
     text-stroke-width: 1.5px;
     text-stroke-color: black;
 }
+
+.text-border {
+    text-shadow:
+        -1.35px -1.35px 0 black,
+        1.35px -1.35px 0 black,
+        -1.35px 1.35px 0 black,
+        1.35px 1.35px 0 black;
+}

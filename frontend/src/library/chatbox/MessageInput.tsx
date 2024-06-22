@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import Button from '../button';
-import { Message as MessageType } from '../../../../backend/src/types';
+import { ChatMessage as MessageType } from '../../../../backend/src/types';
 
 interface MessageInputProps {
     setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
@@ -13,14 +13,6 @@ const MessageInput: React.FC<MessageInputProps> = () => {
 
     const handleSend = async () => {
         if (content.trim() !== '') {
-            const newMessage: MessageType = {
-                content,
-                ref: null,
-                atMentions: [],
-                reactions: [],
-                playerName: 'Player 1',
-            };
-
             // Simulate an API call to send the message
             setContent('');
         }

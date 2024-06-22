@@ -1,31 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
-import { Message as MessageType } from '../../../../backend/src/types';
+import { ChatMessage as MessageType } from '../../../../backend/src/types';
 import { FaComments } from 'react-icons/fa';
 
 const Chatbox: React.FC = () => {
     const [messages, setMessages] = useState<MessageType[]>([]);
     const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-        const handleReact = (event: CustomEvent) => {
-            const { content, emoji } = event.detail;
-            setMessages((prevMessages) =>
-                prevMessages.map((message) =>
-                    message.content === content
-                        ? {
-                              ...message,
-                              reactions: [
-                                  ...message.reactions!,
-                                  [emoji, 'Player 1'],
-                              ],
-                          }
-                        : message
-                )
-            );
-        };
-    }, []);
 
     return (
         <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">

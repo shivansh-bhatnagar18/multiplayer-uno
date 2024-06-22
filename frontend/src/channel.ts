@@ -33,17 +33,14 @@ async function poll() {
     }
     abortController = new AbortController();
     console.log('Polling');
-    const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/game/events`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: authCreds.jwt,
-            },
-            signal: abortController.signal,
-        }
-    );
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/events`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: authCreds.jwt,
+        },
+        signal: abortController.signal,
+    });
     if (!res.ok) {
         throw new Error((await res.json()).error);
     }
@@ -100,7 +97,7 @@ export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
     if (!authCreds) {
         throw new Error('Auth credentials not set');
     }
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/game/events`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/events`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -108,7 +105,6 @@ export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
         },
         body: JSON.stringify({
             type: event.type,
-            playerId: authCreds.playerId,
             data: event.data,
         }),
     }).catch((e) => {

@@ -107,12 +107,14 @@ export type AppEventType = GameEventTypes | ChatEventTypes;
 // a workaround for now to make things work - this will be refactored later
 export type AppEvent = GameEvent;
 
-export type Message = {
+export type ChatMessage = {
     content: string;
     ref?: string | null;
     atMentions?: string[];
     reactions?: [string, string][];
     playerName: string;
 };
+
+export type ClientId = string;
 
 //todo: Add more events

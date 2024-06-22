@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import { Message as MessageType } from '../../../../backend/src/types';
+import { ChatMessage } from '../../../../backend/src/types';
 import { FaRegSmile } from 'react-icons/fa';
 
 interface MessageProps {
-    message: MessageType;
+    message: ChatMessage;
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     const handleEmojiClick = (emojiData: EmojiClickData) => {
-        const event = new CustomEvent('MESSAGE_REACT', {
-            detail: { content: message.content, emoji: emojiData.emoji },
-        });
-        window.dispatchEvent(event);
+        console.log(emojiData);
         setShowEmojiPicker(false);
     };
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import Message from './Message';
-import { Message as MessageType } from '../../../../backend/src/types';
+import { ChatMessage } from '../../../../backend/src/types';
 interface MessageListProps {
-    messages: MessageType[];
+    messages: ChatMessage[];
 }
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {

@@ -1,12 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
-import { ChatMessage as MessageType } from '../../../../backend/src/types';
+import { ChatEventTypes, ChatMessage } from '../../../../backend/src/types';
 import { FaComments } from 'react-icons/fa';
+import * as channel from '../../channel';
+import { useToast } from '../toast/toast-context';
+
+// todo: For better UX, we should temporarily display the message just sent and
+// then update the list with the message received from the server.
 
 const Chatbox: React.FC = () => {
-    const [messages, setMessages] = useState<MessageType[]>([]);
+    const [messages, setMessages] = useState<{ [k: string]: ChatMessage }>({});
     const [isVisible, setIsVisible] = useState(false);
+    const toast = useToast();
+
+    useEffect(() => {
+        channel.setChatEventsDispatcher((event) => {
+            console.log('Received chat event:', event);
+            switch (event.type) {
+                case ChatEventTypes.SEND_MESSAGE:
+                    if (!isVisible) {
+                        toast.open({
+                            message:
+                                event.data.playerName +
+                                ': ' +
+                                event.data.content,
+                        });
+                    }
+                    event.data.reactions = []; // should be done server-side
+                    setMessages((messages) => {
+                        return {
+                            ...messages,
+                            [event.data.id]: event.data,
+                        };
+                    });
+                    break;
+                case ChatEventTypes.REACT_TO_MESSAGE:
+                    setMessages((messages) => {
+                        const message = messages[event.data.ref];
+                        if (!message) {
+                            console.log(
+                                'Message not found for reaction:',
+                                event.data.ref
+                            );
+                            return messages;
+                        }
+                        const updatedMessage = {
+                            ...message,
+                            reactions: [
+                                ...(message.reactions || []),
+                                [event.data.reaction, ''],
+                            ],
+                        } as ChatMessage;
+                        return {
+                            ...messages,
+                            [event.data.ref]: updatedMessage,
+                        };
+                    });
+                    break;
+            }
+        });
+    }, [messages, isVisible, toast]);
 
     return (
         <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
@@ -24,10 +78,10 @@ const Chatbox: React.FC = () => {
             >
                 <div className="flex flex-col h-full">
                     <div className="flex-grow overflow-y-auto">
-                        <MessageList messages={messages} />
+                        <MessageList messages={Object.values(messages)} />
                     </div>
                     <div className="border-t border-gray-300">
-                        <MessageInput setMessages={setMessages} />
+                        <MessageInput />
                     </div>
                 </div>
             </div>

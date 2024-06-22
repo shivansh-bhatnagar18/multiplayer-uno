@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import Button from '../button';
-import { ChatMessage as MessageType } from '../../../../backend/src/types';
+import { ChatEventTypes } from '../../../../backend/src/types';
+import { triggerEvent } from '../../channel';
+import { useAuth } from '../../contexts/AuthContext';
 
-interface MessageInputProps {
-    setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
-}
-
-const MessageInput: React.FC<MessageInputProps> = () => {
+const MessageInput: React.FC = () => {
     const [content, setContent] = useState('');
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const auth = useAuth();
 
     const handleSend = async () => {
         if (content.trim() !== '') {
-            // Simulate an API call to send the message
+            triggerEvent({
+                type: ChatEventTypes.SEND_MESSAGE,
+                data: {
+                    id: Date.now().toString(),
+                    content: content.trim(),
+                    playerName: auth.getUser()?.name || 'Unknown user',
+                },
+            });
             setContent('');
         }
     };

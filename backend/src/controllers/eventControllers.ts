@@ -2,7 +2,13 @@ import { addClient, enqueueForSend } from '../eventRecipients';
 import { retrieveGame } from '../gameStore';
 import { AuthRequest } from '../middlewares/authMiddleware';
 import { Response } from 'express';
-import { AppEvent, ClientId, GameEvent, GameEventTypes } from '../types';
+import {
+    AppEvent,
+    ClientId,
+    GameEvent,
+    GameEventTypes,
+    isGameEvent,
+} from '../types';
 import { GameEngine } from '../uno-game-engine/engine';
 
 export function addEventClient(req: AuthRequest, res: Response) {
@@ -42,7 +48,6 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
                 event,
                 game.players.map((player) => player.id)
             );
-            res.status(200).send({ message: 'Event propagated to clients.' });
         }
     } else {
         // it is a message event etc
@@ -53,10 +58,7 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
             game.players.map((player) => player.id)
         );
     }
-}
-
-function isGameEvent(event: AppEvent): boolean {
-    return Object.values(GameEventTypes).includes(event.type);
+    res.status(200).send({ message: 'Event propagated to clients.' });
 }
 
 // temporarily here

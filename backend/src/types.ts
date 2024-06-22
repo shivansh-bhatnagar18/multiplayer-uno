@@ -101,14 +101,41 @@ export enum ChatEventTypes {
     EDIT_MESSAGE = 'EDIT_MESSAGE',
 }
 
+export type ChatEvent =
+    | {
+          type: ChatEventTypes.SEND_MESSAGE;
+          data: ChatMessage;
+      }
+    | {
+          type: ChatEventTypes.REACT_TO_MESSAGE;
+          data: {
+              ref: string;
+              reaction: string;
+          };
+      }
+    | {
+          type: ChatEventTypes.DELETE_MESSAGE;
+          data: {
+              ref: string;
+          };
+      }
+    | {
+          type: ChatEventTypes.EDIT_MESSAGE;
+          data: {
+              ref: string;
+              newContent: string;
+          };
+      };
+
 export type AppEventType = GameEventTypes | ChatEventTypes;
 
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later
-export type AppEvent = GameEvent;
+export type AppEvent = GameEvent | ChatEvent;
 
 export type ChatMessage = {
     content: string;
+    id: string;
     ref?: string | null;
     atMentions?: string[];
     reactions?: [string, string][];
@@ -118,3 +145,11 @@ export type ChatMessage = {
 export type ClientId = string;
 
 //todo: Add more events
+
+export function isGameEvent(event: AppEvent): boolean {
+    return Object.values(GameEventTypes).includes(event.type as GameEventTypes);
+}
+
+export function isChatEvent(event: AppEvent): boolean {
+    return Object.values(ChatEventTypes).includes(event.type as ChatEventTypes);
+}

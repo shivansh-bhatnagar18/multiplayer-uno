@@ -4,24 +4,24 @@
 // todo: extract the event types from the backend and use them here
 import * as types from './../../backend/src/types';
 
-const GAME_EVENTS = {
-    DRAW_CARD: 'DRAW_CARD',
-    THROW_CARD: 'THROW_CARD',
-    JOIN_GAME: 'JOIN_GAME',
-    LEAVE_GAME: 'LEAVE_GAME',
-    STATE_SYNC: 'STATE_SYNC',
-};
-
 let authCreds: { jwt: string; playerId: string } | null = null;
 let polling = false;
 
 let gameEventsDispatcher: (event: types.AppEvent) => void = () => {};
+let chatEventsDispatcher: (event: types.AppEvent) => void = () => {};
 
 export function setGameEventsDispatcher(
     dispatcher: (event: types.AppEvent) => void
 ) {
     gameEventsDispatcher = dispatcher;
 }
+
+export function setChatEventsDispatcher(
+    dispatcher: (event: types.AppEvent) => void
+) {
+    chatEventsDispatcher = dispatcher;
+}
+
 let abortController: AbortController | null = null;
 async function poll() {
     if (!authCreds) {
@@ -32,26 +32,24 @@ async function poll() {
     }
     abortController = new AbortController();
     console.log('Polling');
-    const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/game/events`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: authCreds.jwt,
-            },
-            signal: abortController.signal,
-        }
-    );
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/events`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: authCreds.jwt,
+        },
+        signal: abortController.signal,
+    });
     if (!res.ok) {
         throw new Error((await res.json()).error);
     }
     const data: { events: types.AppEvent[] } = await res.json();
     console.log('Received event:', data);
     for (const event of data.events) {
-        if (GAME_EVENTS[event.type]) {
-            // it is a game event
+        if (types.isGameEvent(event)) {
             gameEventsDispatcher(event);
+        } else if (types.isChatEvent(event)) {
+            chatEventsDispatcher(event);
         } else {
             console.log('No handler for event type: ', event.type);
         }
@@ -99,7 +97,7 @@ export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
     if (!authCreds) {
         throw new Error('Auth credentials not set');
     }
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/game/events`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/events`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -107,7 +105,6 @@ export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
         },
         body: JSON.stringify({
             type: event.type,
-            playerId: authCreds.playerId,
             data: event.data,
         }),
     }).catch((e) => {

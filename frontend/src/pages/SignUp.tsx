@@ -91,6 +91,14 @@ const SignUp: React.FC = () => {
                                             height="12"
                                         />
                                     </div>
+                                    <div className="flex-col justify-center text-center items-center font-kavoon text-white text-sm text-border mb-3">
+                                        <p>The password must contain</p>
+                                        <p>-atleast 6 characters</p>
+                                        <p>
+                                            -atleast one alphabet(A-Z,a-z), one
+                                            number(0-9)
+                                        </p>
+                                    </div>
                                     <div className="flex justify-center">
                                         <Button
                                             variant="accept"

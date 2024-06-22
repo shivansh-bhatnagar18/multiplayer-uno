@@ -11,6 +11,7 @@ export type SpecialCardName =
     | 'draw2'
     | 'draw4'
     | 'colchange';
+
 export type CardNumber =
     | '0'
     | '1'
@@ -37,6 +38,11 @@ export type Player = {
     cards: UNOCard[];
 };
 
+export type RunningEvents = {
+    vulnerableToUNO: Player | null;
+    hasAnnouncedUNO: Player | null;
+};
+
 export type EventResult = {
     type: 'SUCCESS' | 'ERROR';
     message: string;
@@ -47,16 +53,14 @@ export enum GameEventTypes {
     THROW_CARD = 'THROW_CARD',
     JOIN_GAME = 'JOIN_GAME',
     LEAVE_GAME = 'LEAVE_GAME',
+    ANNOUNCE_UNO = 'ANNOUNCE_UNO',
     STATE_SYNC = 'STATE_SYNC',
 }
-
 export type GameEvent =
     | {
           type: GameEventTypes.DRAW_CARD;
           playerId: string;
-          data: {
-              cardId: string;
-          };
+          data?: null;
       }
     | {
           type: GameEventTypes.THROW_CARD;
@@ -72,6 +76,11 @@ export type GameEvent =
       }
     | {
           type: GameEventTypes.LEAVE_GAME;
+          playerId: string;
+          data?: null;
+      }
+    | {
+          type: GameEventTypes.ANNOUNCE_UNO;
           playerId: string;
           data?: null;
       }
@@ -92,9 +101,55 @@ export enum ChatEventTypes {
     EDIT_MESSAGE = 'EDIT_MESSAGE',
 }
 
+export type ChatEvent =
+    | {
+          type: ChatEventTypes.SEND_MESSAGE;
+          data: ChatMessage;
+      }
+    | {
+          type: ChatEventTypes.REACT_TO_MESSAGE;
+          data: {
+              ref: string;
+              reaction: string;
+          };
+      }
+    | {
+          type: ChatEventTypes.DELETE_MESSAGE;
+          data: {
+              ref: string;
+          };
+      }
+    | {
+          type: ChatEventTypes.EDIT_MESSAGE;
+          data: {
+              ref: string;
+              newContent: string;
+          };
+      };
+
 export type AppEventType = GameEventTypes | ChatEventTypes;
 
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later
-export type AppEvent = GameEvent;
+export type AppEvent = GameEvent | ChatEvent;
+
+export type ChatMessage = {
+    content: string;
+    id: string;
+    ref?: string | null;
+    atMentions?: string[];
+    reactions?: [string, string][];
+    playerName: string;
+};
+
+export type ClientId = string;
+
 //todo: Add more events
+
+export function isGameEvent(event: AppEvent): boolean {
+    return Object.values(GameEventTypes).includes(event.type as GameEventTypes);
+}
+
+export function isChatEvent(event: AppEvent): boolean {
+    return Object.values(ChatEventTypes).includes(event.type as ChatEventTypes);
+}

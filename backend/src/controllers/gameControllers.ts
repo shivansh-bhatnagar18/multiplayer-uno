@@ -1,36 +1,11 @@
 import { Response } from 'express';
-import { enqueueForSend } from '../eventRecipients';
 import { AuthRequest } from '../middlewares/authMiddleware';
 import { createGame, retrieveGame } from '../gameStore';
-import { GameEngine } from '../uno-game-engine/engine';
 import { GameEventTypes } from '../types';
-
-export async function handleGameEvent(req: AuthRequest, res: Response) {
-    const event = req.body;
-    const activeGameId = req.user.activeGameId;
-    if (!activeGameId) {
-        res.status(404).send({
-            message: 'User is not actively playing any game',
-        });
-        return;
-    }
-    const game = retrieveGame(activeGameId);
-    if (!game) {
-        res.status(404).send({ message: 'Game not found' });
-        return;
-    }
-    console.log('handling event ', event);
-    //todo: When game data is retrieved from database, it is not an instance of GameEngine
-    // so we would need to convert it to an instance of GameEngine
-    const result = game.dispatchEvent(event);
-    if (result.type === 'ERROR') {
-        res.status(400).send({ message: result.message });
-        return;
-    } else {
-        propagateChanges(game);
-        res.status(200).send({ message: 'Event propagated to clients.' });
-    }
-}
+import {
+    makeStateSyncEvent,
+    propagateEventToClients,
+} from './eventControllers';
 
 export async function handleGameJoin(req: AuthRequest, res: Response) {
     const gameCode = req.body.code;
@@ -53,7 +28,10 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
         type: GameEventTypes.JOIN_GAME,
         playerId: req.user.id,
     });
-    propagateChanges(game);
+    propagateEventToClients(
+        makeStateSyncEvent(game),
+        game.players.map((p) => p.id)
+    );
     req.user.activeGameId = gameCode;
     await req.user.save();
     res.status(200).send({
@@ -78,23 +56,4 @@ export async function handleGameCreate(req: AuthRequest, res: Response) {
         message: 'Game created successfully',
         gameState: game,
     });
-}
-
-// temporarily here
-function propagateChanges(game: GameEngine) {
-    // the game state after a successful event is propagated to all clients
-    // we can choose to relay the event received, so that the clients apply the event
-    // to their local game state, but that would be an extra implementation burden.
-    // Instead, we can just send the new game state to the clients.
-    for (const player of game.players) {
-        enqueueForSend(player.id, {
-            type: GameEventTypes.STATE_SYNC,
-            data: {
-                players: game.players,
-                cards: game.cardDeck,
-                currentTurn: game.currentPlayerIndex,
-                lastThrownCard: game.lastThrownCard?.id || '',
-            },
-        });
-    }
 }

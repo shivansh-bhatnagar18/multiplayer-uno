@@ -5,6 +5,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import userRoutes from './routes/userRoutes';
 import gameRoutes from './routes/gameRoutes';
+import eventRoutes from './routes/eventRoutes';
 
 config();
 
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/game', gameRoutes);
+app.use('/api/v1/events', eventRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

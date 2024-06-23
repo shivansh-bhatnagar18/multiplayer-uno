@@ -1,17 +1,17 @@
 // some utility functions shared by event handlers
 
-import { Player, EventResult } from '../../types';
+import { GamePlayer, EventResult } from '../../types';
 import { GameEngine } from '../engine';
 
 export function getPlayer(game: GameEngine, playerId: string) {
     return game.players.find((p) => p.id === playerId);
 }
 
-export function getPlayerCard(player: Player, cardId: string) {
+export function getPlayerCard(player: GamePlayer, cardId: string) {
     return player.cards.find((c) => c.id === cardId);
 }
 
-export function getThrowableCards(game: GameEngine, player: Player) {
+export function getThrowableCards(game: GameEngine, player: GamePlayer) {
     // get the cards that the player can throw
     const { lastThrownCard } = game;
     const throwableCards = player.cards.filter((card) => {
@@ -28,7 +28,7 @@ export function getThrowableCards(game: GameEngine, player: Player) {
 
 export function checkCurrentPlayer(
     game: GameEngine,
-    player: Player
+    player: GamePlayer
 ): EventResult {
     const { currentPlayerIndex, players } = game;
     const currentPlayer = players[currentPlayerIndex];

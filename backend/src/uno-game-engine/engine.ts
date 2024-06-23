@@ -1,7 +1,7 @@
 import type {
     EventResult,
     GameEvent,
-    Player,
+    GamePlayer,
     RunningEvents,
     UNOCard,
 } from '../types';
@@ -14,7 +14,7 @@ export class GameEngine {
     id: string;
     cardDeck: UNOCard[];
     thrownCards: UNOCard[];
-    players: Player[];
+    players: GamePlayer[];
     currentPlayerIndex: number;
     lastThrownCard: UNOCard | null;
     currentColor: number;
@@ -43,12 +43,12 @@ export class GameEngine {
             throw new Error('Not enough cards to distribute');
         }
 
-        this.players = this.players.map((player: Player) => {
+        this.players = this.players.map((player: GamePlayer) => {
             player.cards = this.cardDeck.splice(0, NUM_CARDS_PER_PLAYER);
             return player;
         });
     }
-    addPlayer(player: Player) {
+    addPlayer(player: GamePlayer) {
         this.players.push(player);
     }
     startGame() {
@@ -62,14 +62,14 @@ export class GameEngine {
             (this.players.length + this.currentPlayerIndex + this.direction) %
             this.players.length;
     }
-    removePlayer(player: Player) {
+    removePlayer(player: GamePlayer) {
         this.cardDeck.push(...player.cards);
         shuffle(this.cardDeck);
         const index = this.players.indexOf(player);
         this.players.splice(index, 1);
     }
 
-    drawCardFromDeck(player: Player, numCards = 1): EventResult {
+    drawCardFromDeck(player: GamePlayer, numCards = 1): EventResult {
         try {
             if (this.cardDeck.length < numCards) {
                 this.cardDeck = [...this.thrownCards];
@@ -77,7 +77,7 @@ export class GameEngine {
                 shuffle(this.cardDeck);
             }
             const currentPlayer = this.players.find(
-                (p: Player) => p.id === player.id
+                (p: GamePlayer) => p.id === player.id
             );
             if (currentPlayer && this.cardDeck) {
                 const cards = this.cardDeck.splice(-numCards, numCards);

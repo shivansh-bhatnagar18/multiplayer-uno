@@ -1,11 +1,11 @@
-import { EventResult, Player } from '../src/types';
+import { EventResult, GamePlayer } from '../src/types';
 import {
     GameEngine,
     NUM_CARDS_PER_PLAYER,
 } from '../src/uno-game-engine/engine';
 
 export function generateMockPlayers(numPlayers: number) {
-    const players: Player[] = [];
+    const players: GamePlayer[] = [];
     for (let i = 0; i < numPlayers; i++) {
         players.push({ id: i.toString(), cards: [] });
     }

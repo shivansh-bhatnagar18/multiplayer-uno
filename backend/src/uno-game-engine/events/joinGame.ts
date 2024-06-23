@@ -1,10 +1,10 @@
 import assert from 'assert';
 import { GameEngine } from '../engine';
-import { EventResult, GameEvent, Player } from '../../types';
+import { EventResult, GameEvent, GamePlayer } from '../../types';
 
 export function joinGame(game: GameEngine, event: GameEvent): EventResult {
     assert(event.type === 'JOIN_GAME', 'Invalid event type');
-    const player: Player = {
+    const player: GamePlayer = {
         id: event.playerId,
         cards: [],
     };

@@ -33,14 +33,18 @@ export type UNOCard = {
     id: string;
 };
 
-export type Player = {
+export type GamePlayer = {
     id: string;
     cards: UNOCard[];
 };
 
+export type APIPlayer = GamePlayer & {
+    name: string;
+};
+
 export type RunningEvents = {
-    vulnerableToUNO: Player | null;
-    hasAnnouncedUNO: Player | null;
+    vulnerableToUNO: GamePlayer | null;
+    hasAnnouncedUNO: GamePlayer | null;
 };
 
 export type EventResult = {
@@ -87,7 +91,7 @@ export type GameEvent =
     | {
           type: GameEventTypes.STATE_SYNC;
           data: {
-              players: Player[];
+              players: APIPlayer[];
               cards: UNOCard[];
               currentTurn: number;
               lastThrownCard: string;

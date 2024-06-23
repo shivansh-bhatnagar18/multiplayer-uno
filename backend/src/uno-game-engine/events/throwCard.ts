@@ -1,6 +1,6 @@
 import { GameEngine } from '../engine';
 import assert from 'assert';
-import { EventResult, GameEvent, Player, UNOCard } from '../../types';
+import { EventResult, GameEvent, GamePlayer, UNOCard } from '../../types';
 import {
     checkCurrentPlayer,
     getPlayer,
@@ -10,7 +10,7 @@ import {
 
 export function canThrowCard(
     game: GameEngine,
-    player: Player,
+    player: GamePlayer,
     card: UNOCard
 ): EventResult {
     // check if the player is the current player

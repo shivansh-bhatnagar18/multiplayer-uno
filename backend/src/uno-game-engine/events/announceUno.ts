@@ -2,11 +2,11 @@
 // Once a player has two cards, they can announce "UNO!".
 // The announcement of "UNO" needs to be repeated every time the player is left with one or two cards.
 import assert from 'assert';
-import { EventResult, GameEvent, GameEventTypes, Player } from '../../types';
+import { EventResult, GameEvent, GameEventTypes, GamePlayer } from '../../types';
 import { GameEngine } from '../engine';
 import { getPlayer, getThrowableCards } from './eventHandlerUtils';
 
-export function canAnnounceUNO(game: GameEngine, player: Player): EventResult {
+export function canAnnounceUNO(game: GameEngine, player: GamePlayer): EventResult {
     const throwableCards = getThrowableCards(game, player);
     if (
         player.cards.length > 2 ||

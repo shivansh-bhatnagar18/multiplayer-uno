@@ -1,6 +1,13 @@
 // ModalContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useState,
+    ReactNode,
+    useEffect,
+} from 'react';
 import Modal from './Modal';
+import { useLocation } from 'react-router-dom';
 
 export type ModalButtonArgs = {
     text: string;
@@ -34,26 +41,31 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     const [modalButtons, setModalButtons] = useState<ModalButtonArgs[]>([]);
     const [modalSize, setModalSize] = useState<'small' | 'large'>('small');
     const [modalCloseOnBlurClick, setModalCloseOnBlurClick] = useState(true);
+    const location = useLocation();
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const show = (
+    useEffect(() => {
+        hide();
+    }, [location.pathname, location.search, location.hash, location.state]);
+
+    function show(
         content: ReactNode,
         size: 'small' | 'large' = 'small',
         buttons: ModalButtonArgs[] = [],
         closeOnBlurClick: boolean = true
-    ) => {
+    ) {
         setModalContent(content);
         setModalButtons(buttons);
         setModalSize(size);
         setModalCloseOnBlurClick(closeOnBlurClick);
         setIsVisible(true);
-    };
+    }
 
-    const hide = () => {
+    function hide() {
         setIsVisible(false);
         setModalContent(null);
-    };
+    }
 
     return (
         <ModalContext.Provider value={{ show, hide }}>

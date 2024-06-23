@@ -12,13 +12,13 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
     const activeGameId = req.user.activeGameId;
     if (activeGameId) {
         res.status(400).send({
-            message: 'User is already playing a game',
+            error: 'User is already playing a game',
         });
         return;
     }
     const game = retrieveGame(gameCode);
     if (!game) {
-        res.status(404).send({ message: 'Game not found' });
+        res.status(404).send({ error: 'Game not found' });
         return;
     }
     //note: when retrieving game from database, it is not an instance of GameEngine
@@ -47,7 +47,7 @@ export async function handleGameCreate(req: AuthRequest, res: Response) {
         playerId: req.user.id as string,
     });
     if (eventResult.type === 'ERROR') {
-        res.status(500).send({ message: 'Failed to create game' });
+        res.status(500).send({ error: 'Failed to create game' });
         return;
     }
     req.user.activeGameId = game.id;

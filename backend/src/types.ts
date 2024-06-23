@@ -38,8 +38,13 @@ export type GamePlayer = {
     cards: UNOCard[];
 };
 
-export type APIPlayer = GamePlayer & {
+export type GameStatus = 'READY' | 'STARTED' | 'FINISHED';
+
+export type APIPlayer = {
+    id: string;
+    // will store more info like profile pic etc of the player
     name: string;
+    cards: string[]; // only contains the card ids
 };
 
 export type RunningEvents = {
@@ -76,7 +81,10 @@ export type GameEvent =
     | {
           type: GameEventTypes.JOIN_GAME;
           playerId: string;
-          data?: null;
+          data?: {
+              // included by the server when propagating the event
+              joinedPlayer: APIPlayer;
+          };
       }
     | {
           type: GameEventTypes.LEAVE_GAME;
@@ -92,9 +100,14 @@ export type GameEvent =
           type: GameEventTypes.STATE_SYNC;
           data: {
               players: APIPlayer[];
-              cards: UNOCard[];
-              currentTurn: number;
-              lastThrownCard: string;
+              cardDeck: UNOCard[];
+              thrownCards: UNOCard[];
+              direction: number;
+              status: GameStatus;
+              runningEvents: RunningEvents;
+              id: string;
+              currentPlayerIndex: number;
+              lastThrownCard: UNOCard | null;
           };
       };
 

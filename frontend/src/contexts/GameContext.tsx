@@ -5,12 +5,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { useToast } from '../library/toast/toast-context';
 import * as channel from '../channel';
+import { APIPlayer, GameStatus, RunningEvents, UNOCard } from '../../../backend/src/types';
 
 interface GameState {
-    players: { id: string; cards: string[] }[];
-    cards: string[];
-    currentTurn: number;
-    lastThrownCard: string;
+    id: string;
+    cardDeck: UNOCard[];
+    thrownCards: UNOCard[];
+    players: APIPlayer[];
+    currentPlayerIndex: number;
+    lastThrownCard: UNOCard | null;
+    direction: number;
+    status: GameStatus;
+    runningEvents: RunningEvents;
 }
 
 interface GameContextProps {
@@ -20,9 +26,17 @@ interface GameContextProps {
 
 const defaultGameState: GameState = {
     players: [],
-    cards: [],
-    currentTurn: 0,
-    lastThrownCard: '',
+    cardDeck: [],
+    currentPlayerIndex: 0,
+    lastThrownCard: null,
+    thrownCards: [],
+    direction: 1,
+    id: '',
+    status: 'READY',
+    runningEvents: {
+        vulnerableToUNO: null,
+        hasAnnouncedUNO: null,
+    },
 };
 
 const GameContext = createContext<GameContextProps>({
@@ -114,17 +128,8 @@ export const GameProvider = () => {
             // todo: this callback will be replaced by the event dispatcher
             console.log('Handling event:', event);
             if (event.type === 'STATE_SYNC') {
-                setGameState({
-                    players: event.data.players.map((player) => {
-                        return {
-                            id: player.id,
-                            cards: player.cards.map((card) => card.id),
-                        };
-                    }),
-                    cards: event.data.cards.map((card) => card.id),
-                    currentTurn: event.data.currentTurn,
-                    lastThrownCard: event.data.lastThrownCard,
-                });
+                console.log(event.data)
+                setGameState(event.data);
             }
         });
     }, [gameState]);

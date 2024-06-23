@@ -2,6 +2,7 @@ import type {
     EventResult,
     GameEvent,
     GamePlayer,
+    GameStatus,
     RunningEvents,
     UNOCard,
 } from '../types';
@@ -17,9 +18,8 @@ export class GameEngine {
     players: GamePlayer[];
     currentPlayerIndex: number;
     lastThrownCard: UNOCard | null;
-    currentColor: number;
     direction: number;
-    status: 'READY' | 'STARTED';
+    status: GameStatus;
     runningEvents: RunningEvents;
 
     constructor(id: string) {
@@ -29,7 +29,6 @@ export class GameEngine {
         this.players = [];
         this.currentPlayerIndex = 0;
         this.lastThrownCard = null;
-        this.currentColor = 0;
         this.direction = 1;
         this.runningEvents = {
             vulnerableToUNO: null,

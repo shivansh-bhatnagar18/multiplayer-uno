@@ -29,7 +29,7 @@ export async function handleGameJoin(req: AuthRequest, res: Response) {
         playerId: req.user.id,
     });
     propagateEventToClients(
-        makeStateSyncEvent(game),
+        await makeStateSyncEvent(game),
         game.players.map((p) => p.id)
     );
     req.user.activeGameId = gameCode;

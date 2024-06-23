@@ -3,6 +3,7 @@ import { retrieveGame } from '../gameStore';
 import { AuthRequest } from '../middlewares/authMiddleware';
 import { Response } from 'express';
 import {
+    APIPlayer,
     AppEvent,
     ClientId,
     GameEvent,
@@ -10,6 +11,7 @@ import {
     isGameEvent,
 } from '../types';
 import { GameEngine } from '../uno-game-engine/engine';
+import { User } from '../models/userModel';
 
 export function addEventClient(req: AuthRequest, res: Response) {
     const clientId = req.user.id as string;
@@ -62,14 +64,26 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
 }
 
 // temporarily here
-export function makeStateSyncEvent(game: GameEngine): GameEvent {
+export async function makeStateSyncEvent(game: GameEngine): Promise<GameEvent> {
+    console.log(game.players);
+    const apiplayers = await User.find({
+        _id: { $in: game.players.map((player) => player.id) },
+    }).select('id username');
+    console.log('apiplayers', apiplayers);
+    // make a map of id vs all the additional data we send
+    const apiPlayers = apiplayers.reduce((acc, player) => {
+        acc[player.id] = { name: player.username };
+        return acc;
+    }, {});
+
     return {
         type: GameEventTypes.STATE_SYNC,
         data: {
-            players: game.players,
-            cards: game.cardDeck,
-            currentTurn: game.currentPlayerIndex,
-            lastThrownCard: game.lastThrownCard?.id || '',
+            ...game,
+            players: game.players.map((player) => ({
+                ...player,
+                ...apiPlayers[player.id],
+            })) as APIPlayer[],
         },
     };
 }

@@ -63,6 +63,7 @@ export enum GameEventTypes {
     JOIN_GAME = 'JOIN_GAME',
     LEAVE_GAME = 'LEAVE_GAME',
     ANNOUNCE_UNO = 'ANNOUNCE_UNO',
+    CHALLENGE_UNO = 'CHALLENGE_UNO',
     STATE_SYNC = 'STATE_SYNC',
     START_GAME = 'START_GAME',
 }
@@ -96,6 +97,13 @@ export type GameEvent =
           type: GameEventTypes.ANNOUNCE_UNO;
           playerId: string;
           data?: null;
+      }
+    | {
+          type: GameEventTypes.CHALLENGE_UNO;
+          playerId: string;
+          data: {
+              challengedPlayerId: string;
+          };
       }
     | {
           type: GameEventTypes.STATE_SYNC;

@@ -27,6 +27,7 @@ const Login: React.FC = () => {
         event.preventDefault();
         console.log('Form submitted');
         await auth.authenticate(username, password);
+        //todo: Check query params for a join game link
         navigate('/');
     };
 
@@ -88,6 +89,7 @@ const Login: React.FC = () => {
                                 <div className="font-kavoon flex justify-center items-center my-3">
                                     Don't have an account?{' '}
                                     <Link
+                                        // todo: also send the query params to the register page
                                         to="/register"
                                         className=" text-blue-700 "
                                     >

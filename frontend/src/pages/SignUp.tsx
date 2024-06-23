@@ -37,6 +37,7 @@ const SignUp: React.FC = () => {
             return;
         }
         await auth.authenticate(username, password, true);
+        //todo: Check query params for a join game link
         navigate('/');
     };
 
@@ -116,6 +117,7 @@ const SignUp: React.FC = () => {
                                 <div className="font-kavoon flex justify-center items-center my-3">
                                     Already have an account?{' '}
                                     <Link
+                                        //todo: also send the query params to the login page
                                         to="/login"
                                         className=" text-blue-700 "
                                     >

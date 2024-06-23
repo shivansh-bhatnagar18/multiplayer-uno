@@ -3,6 +3,7 @@
 import { EventResult, GameEvent, GameEventTypes } from '../types';
 import { type GameEngine } from './engine';
 import { announceUNO } from './events/announceUno';
+import { challengeUNO } from './events/challengeUno';
 import { drawCard } from './events/drawCard';
 import { joinGame } from './events/joinGame';
 import { leaveGame } from './events/leaveGame';
@@ -33,4 +34,5 @@ registerEventHandler(GameEventTypes.LEAVE_GAME, leaveGame);
 registerEventHandler(GameEventTypes.DRAW_CARD, drawCard);
 registerEventHandler(GameEventTypes.THROW_CARD, throwCard);
 registerEventHandler(GameEventTypes.ANNOUNCE_UNO, announceUNO);
+registerEventHandler(GameEventTypes.CHALLENGE_UNO, challengeUNO);
 registerEventHandler(GameEventTypes.START_GAME, startGame);

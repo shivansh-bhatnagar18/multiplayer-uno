@@ -59,7 +59,7 @@ export const GameProvider = () => {
 
     useEffect(() => {
         if (!auth.isLoggedIn()) {
-            navigate('/');
+            navigate('/login'+location.search);
             toast.open({
                 message: 'Please login to continue',
                 color: 'error',

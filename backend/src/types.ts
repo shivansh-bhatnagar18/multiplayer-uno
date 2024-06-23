@@ -64,6 +64,7 @@ export enum GameEventTypes {
     LEAVE_GAME = 'LEAVE_GAME',
     ANNOUNCE_UNO = 'ANNOUNCE_UNO',
     STATE_SYNC = 'STATE_SYNC',
+    START_GAME = 'START_GAME',
 }
 export type GameEvent =
     | {
@@ -109,6 +110,11 @@ export type GameEvent =
               currentPlayerIndex: number;
               lastThrownCard: UNOCard | null;
           };
+      }
+    | {
+          type: GameEventTypes.START_GAME;
+          playerId: string;
+          data?: null;
       };
 
 export enum ChatEventTypes {

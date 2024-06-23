@@ -6,6 +6,7 @@ import { announceUNO } from './events/announceUno';
 import { drawCard } from './events/drawCard';
 import { joinGame } from './events/joinGame';
 import { leaveGame } from './events/leaveGame';
+import { startGame } from './events/startGame';
 import { throwCard } from './events/throwCard';
 
 type GameEventHandler = (game: GameEngine, event: GameEvent) => EventResult;
@@ -32,3 +33,4 @@ registerEventHandler(GameEventTypes.LEAVE_GAME, leaveGame);
 registerEventHandler(GameEventTypes.DRAW_CARD, drawCard);
 registerEventHandler(GameEventTypes.THROW_CARD, throwCard);
 registerEventHandler(GameEventTypes.ANNOUNCE_UNO, announceUNO);
+registerEventHandler(GameEventTypes.START_GAME, startGame);

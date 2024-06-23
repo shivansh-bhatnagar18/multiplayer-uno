@@ -51,7 +51,7 @@ function Game() {
                             Invite More Players : &nbsp;
                             <CopyButton
                                 priorText="Copy Invite Link"
-                                copyText={`${process.env.FRONTEND_URL}/game?type=join&code='${gameState.id}`}
+                                copyText={`${window.location.origin}/game?type=join&code='${gameState.id}`}
                                 postText="Copied"
                             />
                         </h2>

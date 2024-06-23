@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from './library/button';
 import './index.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { useModal } from './library/modal/ModalContext';
 
@@ -35,14 +35,14 @@ const aboutUs = (
                 community, we welcome you with open arms. Let's connect, code,
                 and create together! For more information about COPS and our
                 initiatives, visit our{' '}
-                <a
+                <Link
                     className=" text-blue-700"
-                    href="https://www.copsiitbhu.co.in/"
+                    to="https://www.copsiitbhu.co.in/"
                 >
                     {' '}
                     official website &nbsp;
                     <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+                </Link>
                 . Thank you for visiting, and we hope you enjoy your time
                 playing UNO!
             </div>
@@ -114,13 +114,13 @@ const rules = (
                 </ul>
                 <p className="text-lg mt-4">
                     If you would like to learn more about the Rules of UNO click{' '}
-                    <a
-                        href="https://www.unorules.com"
+                    <Link
+                        to="https://www.unorules.com"
                         target="_blank"
                         className="underline"
                     >
                         here
-                    </a>
+                    </Link>
                     .
                 </p>
             </div>
@@ -156,13 +156,13 @@ const Navbar: React.FC = () => {
                             className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-9 lg:h-9"
                         />
                     </button>
-                    <a href="/">
+                    <Link to="/">
                         <img
                             src="/UNO_Logo.svg"
                             alt="logo"
                             className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28"
                         />
-                    </a>
+                    </Link>
                 </div>
                 {auth.isLoggedIn() ? (
                     <>

@@ -5,7 +5,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { useToast } from '../library/toast/toast-context';
 import * as channel from '../channel';
-import { APIPlayer, GameStatus, RunningEvents, UNOCard } from '../../../backend/src/types';
+import {
+    APIPlayer,
+    GameStatus,
+    RunningEvents,
+    UNOCard,
+} from '../../../backend/src/types';
 
 interface GameState {
     id: string;
@@ -15,13 +20,13 @@ interface GameState {
     currentPlayerIndex: number;
     lastThrownCard: UNOCard | null;
     direction: number;
-    status: GameStatus;
+    status: GameStatus | '';
     runningEvents: RunningEvents;
 }
 
 interface GameContextProps {
-    gameState: GameState | null;
-    setGameState: React.Dispatch<React.SetStateAction<GameState | null>>;
+    gameState: GameState;
+    setGameState: React.Dispatch<React.SetStateAction<GameState>>;
 }
 
 const defaultGameState: GameState = {
@@ -32,7 +37,7 @@ const defaultGameState: GameState = {
     thrownCards: [],
     direction: 1,
     id: '',
-    status: 'READY',
+    status: '',
     runningEvents: {
         vulnerableToUNO: null,
         hasAnnouncedUNO: null,
@@ -40,15 +45,12 @@ const defaultGameState: GameState = {
 };
 
 const GameContext = createContext<GameContextProps>({
-    gameState: null,
+    gameState: defaultGameState,
     setGameState: () => {},
 });
 
 export const GameProvider = () => {
-    const [gameState, setGameState] = useState<GameState | null>(
-        defaultGameState
-    );
-    const [currentGame, setCurrentGame] = useState<string>('');
+    const [gameState, setGameState] = useState<GameState>(defaultGameState);
     const location = useLocation();
     const navigate = useNavigate();
     const toast = useToast();
@@ -89,7 +91,6 @@ export const GameProvider = () => {
                         throw new Error('Game state not received');
                     }
                     setGameState(data.gameState);
-                    setCurrentGame(data.gameState.id);
                 } else if (gameType === 'create') {
                     const res = await fetch(`${backendUrl}/game/create`, {
                         method: 'POST',
@@ -108,7 +109,6 @@ export const GameProvider = () => {
                     setGameState(data.gameState);
                     // extract card and player data from the game state and store in maps
                     console.log(data.gameState.id);
-                    setCurrentGame(data.gameState.id);
                 }
             } catch (e) {
                 toast.open({
@@ -128,7 +128,7 @@ export const GameProvider = () => {
             // todo: this callback will be replaced by the event dispatcher
             console.log('Handling event:', event);
             if (event.type === 'STATE_SYNC') {
-                console.log(event.data)
+                console.log(event.data);
                 setGameState(event.data);
             }
         });
@@ -136,10 +136,10 @@ export const GameProvider = () => {
 
     return (
         <GameContext.Provider value={{ gameState, setGameState }}>
-            {gameState ? (
-                <Game currentGame={currentGame as string} />
+            {gameState !== defaultGameState ? (
+                <Game />
             ) : (
-                <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
+                <div className="flex justify-center items-center h-screen bg-gray-800 text-white text-5xl font-kavoon">
                     Loading...
                 </div>
             )}

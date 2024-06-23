@@ -1,41 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
-import { useToast } from '../library/toast/toast-context';
 import CopyButton from '../library/copyButton';
 import Chatbox from '../library/chatbox/Chatbox';
 
-interface GameProps {
-    currentGame: string;
-}
-
-const Game: React.FC<GameProps> = ({ currentGame }) => {
+function Game() {
     const { gameState } = useGameContext();
     const modal = useModal();
     useEffect(() => {
         if (gameState) {
-            modal.show(<CreateGameModalContent />, 'large', [], false);
+            modal.show(<GamePropertiesModal />, 'large', [], false);
         }
         // eslint-disable-next-line
     }, [gameState]);
 
-    function CreateGameModalContent() {
-        const { open } = useToast();
-
-        function joinHandler() {
-            if (currentGame.trim()) {
-                modal.hide();
-            } else {
-                open({
-                    message: 'Error In Game Creation',
-                    duration: 3000,
-                    position: 'top-center',
-                    color: 'warning',
-                });
-            }
-        }
-
+    function GamePropertiesModal() {
         return (
             <>
                 <div className="flex flex-col items-center justify-center p-4 space-y-6">
@@ -51,15 +31,18 @@ const Game: React.FC<GameProps> = ({ currentGame }) => {
                     <div className="flex justify-center px-5">
                         <h2 className="text-bold font-bold  font-[Kavoon]  text-[#333] text-[20px]">
                             Game Id :{' '}
-                            <span className="text-[#555] "> {currentGame}</span>
-                            &nbsp; <CopyButton copyText={currentGame} />
+                            <span className="text-[#555] ">
+                                {' '}
+                                {gameState.id}
+                            </span>
+                            &nbsp; <CopyButton copyText={gameState.id} />
                         </h2>
                     </div>
                     <div className="flex justify-center px-5">
                         <h2 className="text-bold font-bold  text-[#333]  font-[Kavoon] text-[20px]">
                             Players Joined :{' '}
                             <span className="text-[#555] font-[Roboto]">
-                                {gameState?.players.length}
+                                {gameState.players.length}
                             </span>
                         </h2>
                     </div>
@@ -68,12 +51,12 @@ const Game: React.FC<GameProps> = ({ currentGame }) => {
                             Invite More Players : &nbsp;
                             <CopyButton
                                 priorText="Copy Invite Link"
-                                copyText={`${process.env.FRONTEND_URL}/game?type=join&code='${currentGame}`}
+                                copyText={`${process.env.FRONTEND_URL}/game?type=join&code='${gameState.id}`}
                                 postText="Copied"
                             />
                         </h2>
                     </div>
-                    <Button type={'submit'} onClick={joinHandler}>
+                    <Button type={'submit'} onClick={() => modal.hide()}>
                         Join Game
                     </Button>
                 </div>
@@ -182,6 +165,6 @@ const Game: React.FC<GameProps> = ({ currentGame }) => {
             <Chatbox />
         </div>
     );
-};
+}
 
 export default Game;

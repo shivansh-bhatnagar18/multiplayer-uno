@@ -5,14 +5,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { useToast } from '../library/toast/toast-context';
 import * as channel from '../channel';
+import { clientDispatch } from '../clientDispatch';
 import {
     APIPlayer,
     GameStatus,
     RunningEvents,
     UNOCard,
+    AppEvent,
+    GameEvent,
+    GameEventTypes,
 } from '../../../backend/src/types';
 
-interface GameState {
+export interface GameState {
     id: string;
     cardDeck: UNOCard[];
     thrownCards: UNOCard[];
@@ -56,7 +60,14 @@ export const GameProvider = () => {
     const toast = useToast();
     const auth = useAuth();
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
+    const dispatchGameEvent = (event: AppEvent) => {
+        if (event.type in GameEventTypes) {
+            setGameState((prevState) =>
+                clientDispatch(prevState as GameState, event as GameEvent)
+            );
+        }
+        // Handle ChatEvents
+    };
     useEffect(() => {
         if (!auth.isLoggedIn()) {
             navigate('/login' + location.search);
@@ -125,12 +136,7 @@ export const GameProvider = () => {
     useEffect(() => {
         // add event listener to listen for the game state changes
         channel.setGameEventsDispatcher((event) => {
-            // todo: this callback will be replaced by the event dispatcher
-            console.log('Handling event:', event);
-            if (event.type === 'STATE_SYNC') {
-                console.log(event.data);
-                setGameState(event.data);
-            }
+            dispatchGameEvent(event);
         });
     }, [gameState]);
 

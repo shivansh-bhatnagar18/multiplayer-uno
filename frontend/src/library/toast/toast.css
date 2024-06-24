@@ -6,12 +6,15 @@
 }
 
 .toast {
-    color: black;
-    border-radius: 5px;
+    border-width: 5px;
+    border-color: black;
+    border-radius: 25px;
     padding: 10px 10px;
     width: 300px;
     position: relative;
     display: flex;
+    font-family: Kavoon;
+    font-size: small;
 }
 
 .top-right {
@@ -156,17 +159,21 @@
 }
 
 .info {
+    color: #000;
     background-color: cyan;
 }
 
 .success {
+    color: #fff;
     background-color: #5cb85c;
 }
 
 .error {
+    color: #fff;;
     background-color: #d9534f;
 }
 .warning {
+    color: #000;
     background-color: #f0ad4e;
 }
 
@@ -174,11 +181,13 @@
     position: absolute;
     right: 0px;
     top: 0px;
+    margin-top: 4px;
     padding: 0px 5px;
     background: none;
     cursor: pointer;
     border: transparent;
     color: black;
+    font-size: 23px;
 }
 
 @media (max-width: 640px) {

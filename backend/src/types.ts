@@ -163,7 +163,6 @@ export type AppEventType = GameEventTypes | ChatEventTypes;
 // Represent all the events that can be sent to the client
 // a workaround for now to make things work - this will be refactored later
 export type AppEvent = GameEvent | ChatEvent;
-
 export type ChatMessage = {
     content: string;
     id: string;

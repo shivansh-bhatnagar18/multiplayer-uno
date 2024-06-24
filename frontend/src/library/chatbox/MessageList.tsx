@@ -2,14 +2,23 @@ import React from 'react';
 import Message from './Message';
 import { ChatMessage } from '../../../../backend/src/types';
 interface MessageListProps {
-    messages: ChatMessage[];
+    messages: { [k: string]: ChatMessage };
+    setReplyMessage: React.Dispatch<React.SetStateAction<ChatMessage | null>>;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages }) => {
+const MessageList: React.FC<MessageListProps> = ({
+    messages,
+    setReplyMessage,
+}) => {
     return (
         <div className="flex-l p-2">
-            {messages.map((message, index) => (
-                <Message key={index} message={message} />
+            {Object.values(messages).map((message, index) => (
+                <Message
+                    key={index}
+                    id={message.id}
+                    messages={messages}
+                    replyCallback={(k) => setReplyMessage(k)}
+                />
             ))}
         </div>
     );

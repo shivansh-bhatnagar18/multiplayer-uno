@@ -12,6 +12,7 @@ import { useToast } from '../toast/toast-context';
 const Chatbox: React.FC = () => {
     const [messages, setMessages] = useState<{ [k: string]: ChatMessage }>({});
     const [isVisible, setIsVisible] = useState(false);
+    const [replyMessage, setReplyMessage] = useState<ChatMessage | null>(null);
     const toast = useToast();
 
     useEffect(() => {
@@ -78,10 +79,16 @@ const Chatbox: React.FC = () => {
             >
                 <div className="flex flex-col h-full">
                     <div className="flex-grow overflow-y-auto">
-                        <MessageList messages={Object.values(messages)} />
+                        <MessageList
+                            messages={messages}
+                            setReplyMessage={setReplyMessage}
+                        />
                     </div>
                     <div className="border-t border-gray-300">
-                        <MessageInput />
+                        <MessageInput
+                            replyMessage={replyMessage}
+                            setReplyMessage={setReplyMessage}
+                        />
                     </div>
                 </div>
             </div>

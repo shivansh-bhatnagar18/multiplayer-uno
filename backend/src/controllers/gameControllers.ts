@@ -9,13 +9,14 @@ import {
 
 export async function handleGameJoin(req: AuthRequest, res: Response) {
     const gameCode = req.body.code;
-    const activeGameId = req.user.activeGameId;
-    if (activeGameId) {
-        res.status(400).send({
-            error: 'User is already playing a game',
-        });
-        return;
-    }
+    //todo: uncomment this when we have the system to end games
+    // const activeGameId = req.user.activeGameId;
+    // if (activeGameId) {
+    //     res.status(400).send({
+    //         error: 'User is already playing a game',
+    //     });
+    //     return;
+    // }
     const game = retrieveGame(gameCode);
     if (!game) {
         res.status(404).send({ error: 'Game not found' });

@@ -41,6 +41,16 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
     if (isGameEvent(event)) {
         //todo: When game data is retrieved from database, it is not an instance of GameEngine
         // so we would need to convert it to an instance of GameEngine
+        // Populate joinedPlayer field if the event type is JOIN_GAME
+        if (event.type === 'JOIN_GAME') {
+            event.data = {
+                joinedPlayer: {
+                    id: req.user.id,
+                    name: req.user.username,
+                    cards: [],
+                },
+            };
+        }
         const result = game.dispatchEvent(event);
         if (result.type === 'ERROR') {
             res.status(400).send({ message: result.message });

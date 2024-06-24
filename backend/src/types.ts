@@ -130,6 +130,7 @@ export enum ChatEventTypes {
     REACT_TO_MESSAGE = 'REACT_TO_MESSAGE',
     DELETE_MESSAGE = 'DELETE_MESSAGE',
     EDIT_MESSAGE = 'EDIT_MESSAGE',
+    REPLY_MESSAGE = 'REPLY_MESSAGE',
 }
 
 export type ChatEvent =
@@ -156,6 +157,14 @@ export type ChatEvent =
               ref: string;
               newContent: string;
           };
+      }
+    | {
+          type: ChatEventTypes.REPLY_MESSAGE;
+          data: {
+              ref: string;
+              name: string;
+              data: string;
+          };
       };
 
 export type AppEventType = GameEventTypes | ChatEventTypes;
@@ -171,6 +180,12 @@ export type ChatMessage = {
     atMentions?: string[];
     reactions?: [string, string][];
     playerName: string;
+};
+
+export type replyMessage = {
+    id?: string;
+    name?: string;
+    data?: string;
 };
 
 export type ClientId = string;

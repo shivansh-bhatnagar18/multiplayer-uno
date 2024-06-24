@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
-import { ChatEventTypes, ChatMessage } from '../../../../backend/src/types';
+import {
+    ChatEventTypes,
+    ChatMessage,
+    replyMessage,
+} from '../../../../backend/src/types';
 import { FaComments } from 'react-icons/fa';
 import * as channel from '../../channel';
 import { useToast } from '../toast/toast-context';
@@ -12,6 +16,7 @@ import { useToast } from '../toast/toast-context';
 const Chatbox: React.FC = () => {
     const [messages, setMessages] = useState<{ [k: string]: ChatMessage }>({});
     const [isVisible, setIsVisible] = useState(false);
+    const [replyMessage, setReplyMessage] = useState<replyMessage | null>(null);
     const toast = useToast();
 
     useEffect(() => {
@@ -58,6 +63,25 @@ const Chatbox: React.FC = () => {
                         };
                     });
                     break;
+                case ChatEventTypes.REPLY_MESSAGE:
+                    if (event.data) {
+                        const message = messages[event.data.ref];
+                        if (message) {
+                            setReplyMessage({
+                                id: message.id,
+                                name: message.playerName,
+                                data: message.content,
+                            });
+                        } else {
+                            console.log(
+                                'Message not found for reply:',
+                                event.data.ref
+                            );
+                        }
+                    } else {
+                        setReplyMessage(null);
+                    }
+                    break;
             }
         });
     }, [messages, isVisible, toast]);
@@ -81,7 +105,7 @@ const Chatbox: React.FC = () => {
                         <MessageList messages={Object.values(messages)} />
                     </div>
                     <div className="border-t border-gray-300">
-                        <MessageInput />
+                        <MessageInput replyMessage={replyMessage} />
                     </div>
                 </div>
             </div>

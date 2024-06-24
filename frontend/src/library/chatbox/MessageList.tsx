@@ -9,7 +9,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
     return (
         <div className="flex-l p-2">
             {messages.map((message, index) => (
-                <Message key={index} message={message} />
+                <Message key={index} message={message} messages={messages} />
             ))}
         </div>
     );

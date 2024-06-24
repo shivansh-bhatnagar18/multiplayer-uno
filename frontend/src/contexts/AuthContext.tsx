@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useToast } from '../library/toast/toast-context';
 import * as channel from '../channel';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export type User = {
     name: string;
@@ -41,6 +42,21 @@ export function AuthProvider({ children }: { children: ReactElement }) {
     const [user, setUser] = useState<User | null>(null);
     const [jwt, setJwt] = useState<string>('');
     const toast = useToast();
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const authWith = useCallback(
+        function (token: string, userId: string) {
+            setJwt(token);
+            localStorage.setItem('jwt', token);
+            channel.setAuthCreds(token, userId);
+            channel.startPolling();
+            if (location.search) {
+                navigate('/game' + location.search);
+            }
+        },
+        [location.search, navigate]
+    );
 
     useEffect(() => {
         const localToken = localStorage.getItem('jwt');
@@ -66,9 +82,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                     setUser({
                         name: data.user.username,
                     });
-                    setJwt(localToken!);
-                    channel.setAuthCreds(localToken!, data.user._id);
-                    channel.startPolling();
+                    authWith(localToken!, data.user._id);
                 }
             } catch (e) {
                 console.info('deleting existing jwt');
@@ -76,6 +90,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             }
         }
         if (localToken) checkExistingJWT();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const authenticate = useCallback(
@@ -104,12 +119,9 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             setUser({
                 name: data.user.username,
             });
-            setJwt(data.token);
-            localStorage.setItem('jwt', data.token);
-            channel.setAuthCreds(data.token, data.user._id);
-            channel.startPolling();
+            authWith(data.token, data.user._id);
         },
-        [setUser, toast]
+        [setUser, toast, authWith]
     );
 
     const logout = useCallback(() => {

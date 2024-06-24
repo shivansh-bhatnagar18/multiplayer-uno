@@ -70,11 +70,10 @@ export const GameProvider = () => {
     };
     useEffect(() => {
         if (!auth.isLoggedIn()) {
+            // we gatekeep being able to join a game behind being logged in
+            // but if this component is mounted without being logged in, it means it is
+            // through an join link, so we silently redirect to login(no toasts etc)
             navigate('/login' + location.search);
-            toast.open({
-                message: 'Please login to continue',
-                color: 'error',
-            });
             return;
         }
         const queryParams = new URLSearchParams(location.search);

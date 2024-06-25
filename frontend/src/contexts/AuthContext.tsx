@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export type User = {
     name: string;
+    id: string;
 };
 
 export type AuthContextProps = {
@@ -81,6 +82,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                     // so the jwt was valid
                     setUser({
                         name: data.user.username,
+                        id: data.user._id,
                     });
                     authWith(localToken!, data.user._id);
                 }
@@ -118,6 +120,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
             console.log(data);
             setUser({
                 name: data.user.username,
+                id: data.user._id,
             });
             authWith(data.token, data.user._id);
         },

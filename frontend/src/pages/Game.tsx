@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
@@ -7,9 +7,15 @@ import Chatbox from '../library/chatbox/Chatbox';
 import { GameEventTypes } from '../../../backend/src/types';
 import * as channel from '../channel';
 import { IoSettings } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import { triggerEvent } from '../channel';
+import { useAuth } from '../contexts/AuthContext';
 
 function Game() {
     const { gameState } = useGameContext();
+    const { getUser } = useAuth();
+    const navigate = useNavigate();
+    const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
     useEffect(() => {
         if (gameState) {
@@ -23,7 +29,30 @@ function Game() {
         });
     };
 
+    function handleLeaveGame() {
+        triggerEvent({
+            type: GameEventTypes.LEAVE_GAME,
+            data: null,
+        });
+        navigate('/');
+    }
+
+    function handleStartGame() {
+        triggerEvent({
+            type: GameEventTypes.LEAVE_GAME,
+            data: null,
+        });
+        setFirstUser(false);
+        modal.hide();
+    }
+
     function GamePropertiesModal() {
+        const currentUser = getUser();
+        const isHost =
+            currentUser &&
+            gameState.players[0] &&
+            currentUser.id === gameState.players[0].id;
+
         return (
             <>
                 <div className="flex flex-col items-center justify-center p-4 space-y-6">
@@ -64,9 +93,16 @@ function Game() {
                             />
                         </h2>
                     </div>
-                    <Button type={'submit'} onClick={() => modal.hide()}>
-                        Join Game
-                    </Button>
+                    <div className="flex gap-5">
+                        {isHost && FirstUser && (
+                            <Button type={'submit'} onClick={handleStartGame}>
+                                Start Game
+                            </Button>
+                        )}
+                        <Button type={'button'} onClick={handleLeaveGame}>
+                            Leave Game
+                        </Button>
+                    </div>
                 </div>
             </>
         );

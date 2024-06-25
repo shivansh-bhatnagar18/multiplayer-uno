@@ -6,6 +6,7 @@ import CopyButton from '../library/copyButton';
 import Chatbox from '../library/chatbox/Chatbox';
 import { GameEventTypes } from '../../../backend/src/types';
 import * as channel from '../channel';
+import { IoSettings } from 'react-icons/io5';
 
 function Game() {
     const { gameState } = useGameContext();
@@ -171,6 +172,15 @@ function Game() {
             </div>
 
             <Chatbox />
+
+            <button
+                className="fixed bottom-5 left-5 p-3 bg-lime-500 text-gray-700 rounded-full focus:outline-none transform transition-transform duration-300 hover:scale-105 hover:bg-lime-400 active:bg-lime-600 shadow-md"
+                onClick={() =>
+                    modal.show(<GamePropertiesModal />, 'large', [], false)
+                }
+            >
+                <IoSettings className="w-7 h-7" />
+            </button>
         </div>
     );
 }

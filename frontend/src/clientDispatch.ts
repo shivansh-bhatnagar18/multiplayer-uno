@@ -1,4 +1,4 @@
-import { GameEvent, GameEventTypes } from '../../backend/src/types';
+import { APIPlayer, GameEvent, GameEventTypes } from '../../backend/src/types';
 import { GameState } from './contexts/GameContext';
 import assert from 'assert';
 
@@ -20,6 +20,9 @@ export const clientDispatch = (
             break;
         case GameEventTypes.THROW_CARD:
             newGameState = handleThrowCard(gameState, event);
+            break;
+        case GameEventTypes.ANNOUNCE_UNO:
+            newGameState = handleAnnounceUno(gameState, event);
             break;
         case GameEventTypes.STATE_SYNC:
             newGameState = handleStateSync(gameState, event);
@@ -123,5 +126,36 @@ const handleStateSync = (gameState: GameState, event: GameEvent): GameState => {
         direction: data.direction,
         status: data.status,
         runningEvents: data.runningEvents,
+    };
+};
+
+const handleAnnounceUno = (
+    gameState: GameState,
+    event: GameEvent
+): GameState => {
+    if (event.type !== GameEventTypes.ANNOUNCE_UNO) {
+        throw new Error(
+            `Invalid event type for handleStateSync: ${event.type}`
+        );
+    }
+    const { playerId } = event;
+    const player: APIPlayer = gameState.players.find(
+        (p) => p.id == playerId
+    ) as APIPlayer;
+    const gamePlayer = {
+        id: player.id,
+        cards: player.cards.map((cardId) => {
+            const card = gameState.cardDeck.find((c) => c.id === cardId);
+            if (!card)
+                throw new Error(`Card with id ${cardId} not found in deck`);
+            return card;
+        }),
+    };
+    return {
+        ...gameState,
+        runningEvents: {
+            hasAnnouncedUNO: gamePlayer,
+            vulnerableToUNO: null,
+        },
     };
 };

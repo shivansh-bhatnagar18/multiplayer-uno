@@ -18,14 +18,17 @@ function Game() {
     const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
     useEffect(() => {
-        if (gameState) {
-            modal.show(<GamePropertiesModal />, 'large', [], false);
-        }
+        modal.show(<GamePropertiesModal />, 'large', [], false);
         // eslint-disable-next-line
-    }, [gameState]);
+    }, []); // todo add the required dependencies
     const drawCard = () => {
         channel.triggerEvent({
             type: GameEventTypes.DRAW_CARD,
+        });
+    };
+    const announceUno = () => {
+        channel.triggerEvent({
+            type: GameEventTypes.ANNOUNCE_UNO,
         });
     };
 
@@ -178,6 +181,7 @@ function Game() {
                         className="border-2 active:bg-red-600 mt-4 hover:bg-purple-900"
                         backgroundColor="bg-purple-800"
                         buttonSize="w-18 h-10"
+                        onClick={announceUno}
                     >
                         UNO
                     </Button>

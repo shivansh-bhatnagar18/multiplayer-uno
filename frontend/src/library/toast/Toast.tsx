@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { ToastContext } from './toast-context';
 import './toast.css';
 
@@ -26,7 +32,9 @@ type ToastProperties = {
     color: 'info' | 'warning' | 'error' | 'success';
 };
 
-const getIconClass = (color: 'info' | 'warning' | 'error' | 'success'): string => {
+const getIconClass = (
+    color: 'info' | 'warning' | 'error' | 'success'
+): string => {
     switch (color) {
         case 'info':
             return 'fa-solid fa-circle-info';
@@ -81,7 +89,7 @@ type ToastType = {
 
 export function ToastProvider({ children }: ToastProviderProperties) {
     const [toasts, setToasts] = useState<ToastType[]>([]);
-    const [position, setPosition] = useState('top-left');
+    const [position, setPosition] = useState('top-center');
 
     type Options = {
         message?: string;

@@ -4,6 +4,8 @@ import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
 import CopyButton from '../library/copyButton';
 import Chatbox from '../library/chatbox/Chatbox';
+import { GameEventTypes } from '../../../backend/src/types';
+import * as channel from '../channel';
 
 function Game() {
     const { gameState } = useGameContext();
@@ -14,6 +16,11 @@ function Game() {
         }
         // eslint-disable-next-line
     }, [gameState]);
+    const drawCard = () => {
+        channel.triggerEvent({
+            type: GameEventTypes.DRAW_CARD,
+        });
+    };
 
     function GamePropertiesModal() {
         return (
@@ -114,7 +121,8 @@ function Game() {
                             <img
                                 src="/card_faces/back.jpeg"
                                 alt="Card 1"
-                                className="w-15 h-20"
+                                className="w-15 h-20 cursor-pointer"
+                                onClick={drawCard}
                             />
                             <img
                                 src={

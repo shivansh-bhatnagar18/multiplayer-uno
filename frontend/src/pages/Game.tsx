@@ -17,11 +17,67 @@ function Game() {
     const navigate = useNavigate();
     const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
-    const cards = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rp2', 'rx', 'rr', 'g0', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gp2', 'gx', 'gr', 'b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bp2', 'bx', 'br', 'o0', 'o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8', 'o9', 'op2', 'ox', 'or', 'zzzz', 'P4', 'CC'];
     const userCards = useMemo(() => {
+        const cards = [
+            'r0',
+            'r1',
+            'r2',
+            'r3',
+            'r4',
+            'r5',
+            'r6',
+            'r7',
+            'r8',
+            'r9',
+            'rp2',
+            'rx',
+            'rr',
+            'g0',
+            'g1',
+            'g2',
+            'g3',
+            'g4',
+            'g5',
+            'g6',
+            'g7',
+            'g8',
+            'g9',
+            'gp2',
+            'gx',
+            'gr',
+            'b0',
+            'b1',
+            'b2',
+            'b3',
+            'b4',
+            'b5',
+            'b6',
+            'b7',
+            'b8',
+            'b9',
+            'bp2',
+            'bx',
+            'br',
+            'o0',
+            'o1',
+            'o2',
+            'o3',
+            'o4',
+            'o5',
+            'o6',
+            'o7',
+            'o8',
+            'o9',
+            'op2',
+            'ox',
+            'or',
+            // 'zzzz',
+            'P4',
+            'CC',
+        ];
         const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
         return shuffledCards.slice(0, 7);
-    }, [cards]);
+    }, []);
     useEffect(() => {
         modal.show(<GamePropertiesModal />, 'large', [], false);
         // eslint-disable-next-line
@@ -194,20 +250,20 @@ function Game() {
 
                 {/* Player Mat */}
                 {/* <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20"> */}
-                    <div className="absolute top-[80%] flex z-30 flex-row w-full justify-center h-96">
-                        {userCards.map((card, index) => (
-                            <img
-                                key={index}
-                                src={`/card_faces/${card}.svg`}
-                                alt={`Card ${index}`}
-                                className="w-60 h-80 self-end"
-                                style={{
-                                    marginLeft: index === 0 ? 0 : '-6.4rem',
-                                    zIndex: 11 + index,
-                                }}
-                            />
-                        ))}
-                    </div>
+                <div className="absolute top-[80%] flex z-30 flex-row w-full justify-center h-96">
+                    {userCards.map((card, index) => (
+                        <img
+                            key={index}
+                            src={`/card_faces/${card}.svg`}
+                            alt={`Card ${index}`}
+                            className="w-60 h-80 self-end"
+                            style={{
+                                marginLeft: index === 0 ? 0 : '-6.4rem',
+                                zIndex: 11 + index,
+                            }}
+                        />
+                    ))}
+                </div>
                 {/* </div> */}
             </div>
 

@@ -1,7 +1,12 @@
 import { createContext, useContext } from 'react';
 
+type Message = {
+    heading: string;
+    content: string;
+};
+
 type Options = {
-    message?: string;
+    message?: Message;
     duration?: number;
     position?: string;
     color?: 'info' | 'warning' | 'error' | 'success';

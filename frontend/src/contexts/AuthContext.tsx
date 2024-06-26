@@ -113,7 +113,13 @@ export function AuthProvider({ children }: { children: ReactElement }) {
                 }
             );
             if (!response.ok) {
-                toast.open({ message: 'Invalid credentials', color: 'error' });
+                toast.open({
+                    message: {
+                        heading: 'Error',
+                        content: 'Invalid credentials',
+                    },
+                    color: 'error',
+                });
                 return;
             }
             const data = await response.json();

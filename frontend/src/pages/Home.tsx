@@ -17,7 +17,10 @@ function JoinGameModalContent() {
             navigate('/game?type=join&code=' + gameCode);
         } else {
             open({
-                message: 'Please Enter The Game Code',
+                message: {
+                    heading: 'Warning',
+                    content: 'Please Enter The Game Code',
+                },
                 duration: 3000,
                 position: 'top-center',
                 color: 'warning',

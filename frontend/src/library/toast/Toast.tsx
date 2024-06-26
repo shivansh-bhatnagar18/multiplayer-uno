@@ -24,8 +24,13 @@ function useTimeout(callback: () => void, duration: number) {
     }, [duration]);
 }
 
+type Message = {
+    heading: string;
+    content: string;
+};
+
 type ToastProperties = {
-    message: string;
+    message: Message;
     close: () => void;
     duration: number;
     position: string;
@@ -64,13 +69,18 @@ export function Toast({
 
     return (
         <div className={`toast ${position}-animation ${color}`}>
-            <p>
-                <i className={iconClass} style={{ marginRight: '8px' }}></i>
-                {message}
-            </p>
-            <button className="close-button" onClick={close}>
-                <i className="fa-regular fa-circle-xmark"></i>
-            </button>
+            <div className="toast-content">
+                <div className="toast-icon">
+                    <i className={`${iconClass} large-icon`}></i>
+                </div>
+                <div className="toast-message">
+                    <b>{message.heading}</b>
+                    <p>{message.content}</p>
+                </div>
+                <button className="close-button small-close" onClick={close}>
+                    <i className="fa-regular fa-circle-xmark"></i>
+                </button>
+            </div>
         </div>
     );
 }
@@ -80,7 +90,7 @@ type ToastProviderProperties = {
 };
 
 type ToastType = {
-    message: string;
+    message: Message;
     id: number;
     duration: number;
     position: string;
@@ -89,10 +99,10 @@ type ToastType = {
 
 export function ToastProvider({ children }: ToastProviderProperties) {
     const [toasts, setToasts] = useState<ToastType[]>([]);
-    const [position, setPosition] = useState('top-center');
+    const [position, setPosition] = useState('top-left');
 
     type Options = {
-        message?: string;
+        message?: Message;
         duration?: number;
         position?: string;
         color?: 'info' | 'warning' | 'error' | 'success';
@@ -100,7 +110,7 @@ export function ToastProvider({ children }: ToastProviderProperties) {
 
     const openToast = useCallback(
         ({
-            message = '',
+            message = { heading: '', content: '' },
             duration = 5000,
             position = 'top-center',
             color = 'info',
@@ -119,14 +129,8 @@ export function ToastProvider({ children }: ToastProviderProperties) {
     );
 
     const closeToast = useCallback((id: number) => {
-        setTimeout(() => {
-            setToasts((prevToasts) =>
-                prevToasts.filter((toast) => toast.id !== id)
-            );
-        }, 300);
-
-        setToasts((toasts) => {
-            return toasts.map((toast) => {
+        setToasts((prevToasts) =>
+            prevToasts.map((toast) => {
                 if (toast.id === id) {
                     if (toast.position === 'top-left')
                         toast.position = 'fade-out-left';
@@ -136,8 +140,14 @@ export function ToastProvider({ children }: ToastProviderProperties) {
                         toast.position = 'fade-out-center';
                 }
                 return toast;
-            });
-        });
+            })
+        );
+
+        setTimeout(() => {
+            setToasts((prevToasts) =>
+                prevToasts.filter((toast) => toast.id !== id)
+            );
+        }, 300);
     }, []);
 
     const contextValue = useMemo(
@@ -152,17 +162,16 @@ export function ToastProvider({ children }: ToastProviderProperties) {
         <ToastContext.Provider value={contextValue}>
             {children}
             <div className={`toasts ${position}`}>
-                {toasts &&
-                    toasts.map((toast) => (
-                        <Toast
-                            key={toast.id}
-                            message={toast.message}
-                            close={() => closeToast(toast.id)}
-                            duration={toast.duration}
-                            position={toast.position}
-                            color={toast.color}
-                        />
-                    ))}
+                {toasts.map((toast) => (
+                    <Toast
+                        key={toast.id}
+                        message={toast.message}
+                        close={() => closeToast(toast.id)}
+                        duration={toast.duration}
+                        position={toast.position}
+                        color={toast.color}
+                    />
+                ))}
             </div>
         </ToastContext.Provider>
     );

@@ -122,7 +122,10 @@ export const GameProvider = () => {
                 }
             } catch (e) {
                 toast.open({
-                    message: (e as Error).message,
+                    message: {
+                        heading: 'Error',
+                        content: (e as Error).message,
+                    },
                     color: 'error',
                 });
                 navigate('/');

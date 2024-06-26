@@ -22,10 +22,12 @@ const Chatbox: React.FC = () => {
                 case ChatEventTypes.SEND_MESSAGE:
                     if (!isVisible) {
                         toast.open({
-                            message:
-                                event.data.playerName +
-                                ': ' +
-                                event.data.content,
+                            message: {
+                                heading: event.data.playerName,
+                                content: event.data.content,
+                            },
+                            position: 'top-center',
+                            color: 'info',
                         });
                     }
                     event.data.reactions = []; // should be done server-side

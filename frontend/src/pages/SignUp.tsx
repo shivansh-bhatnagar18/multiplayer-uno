@@ -33,7 +33,13 @@ const SignUp: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (password !== confirmPass) {
-            toast.open({ message: 'Passwords do not match', color: 'error' });
+            toast.open({
+                message: {
+                    heading: 'Error',
+                    content: 'Passwords do not match',
+                },
+                color: 'error',
+            });
             return;
         }
         await auth.authenticate(username, password, true);

@@ -4,6 +4,7 @@ import '../index.css';
 import { useModal } from '../library/modal/ModalContext';
 import { useState } from 'react';
 import { useToast } from '../library/toast/toast-context';
+import { useAuth } from '../contexts/AuthContext';
 
 function JoinGameModalContent() {
     const [gameCode, setGameCode] = useState<string>('');
@@ -50,14 +51,27 @@ function JoinGameModalContent() {
         </>
     );
 }
+
 function Home() {
     const modal = useModal();
     const navigate = useNavigate();
+    const { isLoggedIn } = useAuth();
+    const { open } = useToast();
 
     const CreateGame = () => {
-        // Logic to create a game
-        console.log('Create Game');
-        navigate('/game?type=create');
+        if (isLoggedIn()) {
+            // Logic to create a game
+            console.log('Create Game');
+            navigate('/game?type=create');
+        } else {
+            open({
+                message: 'You need to log in to create a game',
+                duration: 3000,
+                position: 'top-center',
+                color: 'warning',
+            });
+            navigate('/login');
+        }
     };
 
     const JoinGame = () => {

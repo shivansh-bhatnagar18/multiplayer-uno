@@ -180,6 +180,11 @@ function Game() {
         { top: '75%', left: '15%', transform: 'translate(-50%, -50%)' },
         { top: '75%', left: '85%', transform: 'translate(-50%, -50%)' },
     ];
+
+    const cardStyles = {
+        filter: 'brightness(1)',
+    };
+
     if (!gameState) {
         return (
             <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
@@ -190,11 +195,15 @@ function Game() {
     return (
         <div className="flex justify-center items-center min-h-screen bg-table-bg bg-cover">
             <div className="relative w-full max-w-6xl h-[75vh]">
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-yellow-400 text-xl font-bold">
+                    {gameState.players[gameState.currentPlayerIndex].name}'s
+                    Turn
+                </div>
                 {/* Players */}
                 {gameState.players.slice(0, 6).map((player, index) => (
                     <div
                         key={index}
-                        className="absolute flex flex-col items-center justify-center bg-player-icon-bg"
+                        className={`absolute flex flex-col items-center justify-center bg-player-icon-bg`}
                         style={{
                             ...playerPositions[index],
                             backgroundSize: 'contain',
@@ -202,6 +211,10 @@ function Game() {
                             width: '70px',
                             height: '80px',
                             zIndex: 2,
+                            ...(index === gameState.currentPlayerIndex && {
+                                ...cardStyles,
+                                filter: 'brightness(1.5)',
+                            }),
                         }}
                     >
                         <div className="player-cards text-black mt-[61px]">

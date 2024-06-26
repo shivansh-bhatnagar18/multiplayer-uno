@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
@@ -17,6 +17,11 @@ function Game() {
     const navigate = useNavigate();
     const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
+    const cards = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rp2', 'rx', 'rr', 'g0', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gp2', 'gx', 'gr', 'b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bp2', 'bx', 'br', 'o0', 'o1', 'o2', 'o3', 'o4', 'o5', 'o6', 'o7', 'o8', 'o9', 'op2', 'ox', 'or', 'zzzz', 'P4', 'CC'];
+    const userCards = useMemo(() => {
+        const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
+        return shuffledCards.slice(0, 7);
+    }, [cards]);
     useEffect(() => {
         modal.show(<GamePropertiesModal />, 'large', [], false);
         // eslint-disable-next-line
@@ -127,8 +132,8 @@ function Game() {
         );
     }
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-700">
-            <div className="relative w-full max-w-6xl h-[85vh] bg-cover bg-center bg-table-bg">
+        <div className="flex justify-center items-center min-h-screen bg-table-bg bg-cover">
+            <div className="relative w-full max-w-6xl h-[75vh]">
                 {/* Players */}
                 {gameState.players.slice(0, 6).map((player, index) => (
                     <div
@@ -188,27 +193,22 @@ function Game() {
                 </div>
 
                 {/* Player Mat */}
-                <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20">
-                    <img
-                        src="/deckMat.png"
-                        alt="Deck Mat"
-                        className="w-[calc(7*2.5rem)] h-20 relative z-10"
-                    />
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex z-30">
-                        {Array.from({ length: 7 }).map((_, index) => (
+                {/* <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20"> */}
+                    <div className="absolute top-[80%] flex z-30 flex-row w-full justify-center h-96">
+                        {userCards.map((card, index) => (
                             <img
                                 key={index}
-                                src="/card_faces/g8.svg"
+                                src={`/card_faces/${card}.svg`}
                                 alt={`Card ${index}`}
-                                className="w-12 h-16"
+                                className="w-60 h-80 self-end"
                                 style={{
-                                    marginLeft: index === 0 ? 0 : '-1.2rem',
+                                    marginLeft: index === 0 ? 0 : '-6.4rem',
                                     zIndex: 11 + index,
                                 }}
                             />
                         ))}
                     </div>
-                </div>
+                {/* </div> */}
             </div>
 
             <Chatbox />

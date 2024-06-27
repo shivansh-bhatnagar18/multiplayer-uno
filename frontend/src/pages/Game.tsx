@@ -10,9 +10,11 @@ import { IoSettings } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { triggerEvent } from '../channel';
 import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../library/toast/toast-context';
 
 function Game() {
     const { gameState } = useGameContext();
+    const toast = useToast();
     const { getUser } = useAuth();
     const navigate = useNavigate();
     const [FirstUser, setFirstUser] = useState(true);
@@ -81,7 +83,7 @@ function Game() {
     useEffect(() => {
         modal.show(<GamePropertiesModal />, 'large', [], false);
         // eslint-disable-next-line
-    }, []); // todo add the required dependencies
+    }, [gameState.players.length, gameState.id]); // todo add the required dependencies
     const drawCard = () => {
         channel.triggerEvent({
             type: GameEventTypes.DRAW_CARD,
@@ -102,8 +104,17 @@ function Game() {
     }
 
     function handleStartGame() {
+        if (gameState.players.length < 2) {
+            return toast.open({
+                message: {
+                    heading: 'Error',
+                    content: 'Not Enough players to Start Game',
+                },
+                color: 'error',
+            });
+        }
         triggerEvent({
-            type: GameEventTypes.LEAVE_GAME,
+            type: GameEventTypes.START_GAME,
             data: null,
         });
         setFirstUser(false);

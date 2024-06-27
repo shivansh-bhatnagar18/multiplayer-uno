@@ -27,6 +27,10 @@ export const clientDispatch = (
         case GameEventTypes.STATE_SYNC:
             newGameState = handleStateSync(gameState, event);
             break;
+        case GameEventTypes.START_GAME:
+            newGameState = handleStartGame(gameState, event);
+            break;
+
         default:
             throw new Error(`Unhandled event type: ${event}`);
     }
@@ -158,4 +162,13 @@ const handleAnnounceUno = (
             vulnerableToUNO: null,
         },
     };
+};
+
+const handleStartGame = (gameState: GameState, event: GameEvent): GameState => {
+    if (event.type !== GameEventTypes.START_GAME) {
+        throw new Error(
+            `Invalid event type for handleStateSync: ${event.type}`
+        );
+    }
+    return { ...gameState, status: 'STARTED' };
 };

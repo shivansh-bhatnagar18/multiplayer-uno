@@ -60,6 +60,14 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
                 event,
                 game.players.map((player) => player.id)
             );
+            // Emit state synchronization event
+            if (event.type === 'DRAW_CARD' || event.type === 'START_GAME') {
+                const stateSyncEvent = await makeStateSyncEvent(game);
+                propagateEventToClients(
+                    stateSyncEvent,
+                    game.players.map((player) => player.id)
+                );
+            }
         }
     } else {
         // it is a message event etc

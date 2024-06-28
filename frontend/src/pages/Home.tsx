@@ -82,7 +82,7 @@ function Home() {
 
     const JoinGame = () => {
         // Logic to join a game
-        modal.show(<JoinGameModalContent />, 'small');
+        modal.show('joinModal', <JoinGameModalContent />, 'small');
         console.log('Join Game with code');
     };
 

@@ -99,7 +99,10 @@ const handleThrowCard = (gameState: GameState, event: GameEvent): GameState => {
         ...gameState,
         players: gameState.players.map((player) =>
             player.id === playerId
-                ? { ...player, cards: player.cards.filter((c) => c !== cardId) }
+                ? {
+                      ...player,
+                      cards: player.cards.filter((c) => c.id !== cardId),
+                  }
                 : player
         ),
         lastThrownCard:
@@ -130,7 +133,10 @@ const handleStateSync = (gameState: GameState, event: GameEvent): GameState => {
         lastThrownCard: data.lastThrownCard,
         direction: data.direction,
         status: data.status,
-        runningEvents: data.runningEvents,
+        runningEvents: {
+            vulnerableToUNO: data.runningEvents.vulnerableToUNO?.id || null,
+            hasAnnouncedUNO: data.runningEvents.hasAnnouncedUNO?.id || null,
+        },
     };
 };
 
@@ -147,19 +153,11 @@ const handleAnnounceUno = (
     const player: APIPlayer = gameState.players.find(
         (p) => p.id == playerId
     ) as APIPlayer;
-    const gamePlayer = {
-        id: player.id,
-        cards: player.cards.map((cardId) => {
-            const card = gameState.cardDeck.find((c) => c.id === cardId);
-            if (!card)
-                throw new Error(`Card with id ${cardId} not found in deck`);
-            return card;
-        }),
-    };
+
     return {
         ...gameState,
         runningEvents: {
-            hasAnnouncedUNO: gamePlayer,
+            hasAnnouncedUNO: player.id,
             vulnerableToUNO: null,
         },
     };

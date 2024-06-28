@@ -44,7 +44,7 @@ export type APIPlayer = {
     id: string;
     // will store more info like profile pic etc of the player
     name: string;
-    cards: string[]; // only contains the card ids
+    cards: UNOCard[]; // todo: change to card ids
 };
 
 export type RunningEvents = {

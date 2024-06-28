@@ -1,16 +1,58 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
 import CopyButton from '../library/copyButton';
 import Chatbox from '../library/chatbox/Chatbox';
-import { GameEventTypes } from '../../../backend/src/types';
+import { CardColor, GameEventTypes, UNOCard } from '../../../backend/src/types';
 import * as channel from '../channel';
 import { IoSettings } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { triggerEvent } from '../channel';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../library/toast/toast-context';
+
+function getCardImageName(card: UNOCard): string {
+    function getColorAbbreviation(color: CardColor): string {
+        switch (color) {
+            case 'red':
+                return 'r';
+            case 'blue':
+                return 'b';
+            case 'green':
+                return 'g';
+            case 'yellow':
+                return 'o';
+            default:
+                return '';
+        }
+    }
+    if (card.type === 'wild') {
+        if (card.value === 'colchange') {
+            return 'CC';
+        } else {
+            return 'P4';
+        }
+    } else if (card.type === 'special') {
+        let value: string;
+        switch (card.value) {
+            case 'skip':
+                value = 'r';
+                break;
+            case 'reverse':
+                value = 'x';
+                break;
+            case 'draw2':
+                value = 'p2';
+                break;
+            default:
+                value = '';
+        }
+        return `${getColorAbbreviation(card.color)}${value}`;
+    } else {
+        return `${getColorAbbreviation(card.color)}${card.value}`;
+    }
+}
 
 function Game() {
     const { gameState } = useGameContext();
@@ -19,67 +61,6 @@ function Game() {
     const navigate = useNavigate();
     const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
-    const userCards = useMemo(() => {
-        const cards = [
-            'r0',
-            'r1',
-            'r2',
-            'r3',
-            'r4',
-            'r5',
-            'r6',
-            'r7',
-            'r8',
-            'r9',
-            'rp2',
-            'rx',
-            'rr',
-            'g0',
-            'g1',
-            'g2',
-            'g3',
-            'g4',
-            'g5',
-            'g6',
-            'g7',
-            'g8',
-            'g9',
-            'gp2',
-            'gx',
-            'gr',
-            'b0',
-            'b1',
-            'b2',
-            'b3',
-            'b4',
-            'b5',
-            'b6',
-            'b7',
-            'b8',
-            'b9',
-            'bp2',
-            'bx',
-            'br',
-            'o0',
-            'o1',
-            'o2',
-            'o3',
-            'o4',
-            'o5',
-            'o6',
-            'o7',
-            'o8',
-            'o9',
-            'op2',
-            'ox',
-            'or',
-            // 'zzzz',
-            'P4',
-            'CC',
-        ];
-        const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
-        return shuffledCards.slice(0, 7);
-    }, []);
     useEffect(() => {
         modal.show(<GamePropertiesModal />, 'large', [], false);
         // eslint-disable-next-line
@@ -203,6 +184,12 @@ function Game() {
             </div>
         );
     }
+
+    const myCards = (
+        gameState.players.find((player) => player.id === getUser()!.id)
+            ?.cards ?? []
+    ).map(getCardImageName);
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-table-bg bg-cover">
             <div className="relative w-full max-w-6xl h-[75vh]">
@@ -275,7 +262,7 @@ function Game() {
                 {/* Player Mat */}
                 {/* <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20"> */}
                 <div className="absolute top-[80%] flex z-30 flex-row w-full justify-center h-96">
-                    {userCards.map((card, index) => (
+                    {myCards.map((card, index) => (
                         <img
                             key={index}
                             src={`/card_faces/${card}.svg`}

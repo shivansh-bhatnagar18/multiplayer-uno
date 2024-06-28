@@ -9,7 +9,6 @@ import { clientDispatch } from '../clientDispatch';
 import {
     APIPlayer,
     GameStatus,
-    RunningEvents,
     UNOCard,
     AppEvent,
     GameEvent,
@@ -25,7 +24,10 @@ export interface GameState {
     lastThrownCard: UNOCard | null;
     direction: number;
     status: GameStatus | '';
-    runningEvents: RunningEvents;
+    runningEvents: {
+        vulnerableToUNO: string | null;
+        hasAnnouncedUNO: string | null;
+    };
 }
 
 interface GameContextProps {

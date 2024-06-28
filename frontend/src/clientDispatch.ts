@@ -122,6 +122,7 @@ const handleStateSync = (gameState: GameState, event: GameEvent): GameState => {
 
     return {
         ...gameState,
+        id: data.id,
         players: mappedPlayers,
         cardDeck: data.cardDeck,
         thrownCards: data.thrownCards,

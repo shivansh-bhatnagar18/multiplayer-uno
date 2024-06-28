@@ -53,6 +53,10 @@ export async function handleGameCreate(req: AuthRequest, res: Response) {
     }
     req.user.activeGameId = game.id;
     await req.user.save();
+    propagateEventToClients(
+        await makeStateSyncEvent(game),
+        game.players.map((p) => p.id)
+    );
     res.status(200).send({
         message: 'Game created successfully',
         gameState: game,

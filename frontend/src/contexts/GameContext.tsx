@@ -63,7 +63,7 @@ export const GameProvider = () => {
     const dispatchGameEvent = (event: AppEvent) => {
         if (event.type in GameEventTypes) {
             setGameState((prevState) =>
-                clientDispatch(prevState as GameState, event as GameEvent)
+                clientDispatch(prevState, event as GameEvent)
             );
         }
         // Handle ChatEvents
@@ -100,7 +100,7 @@ export const GameProvider = () => {
                     if (!data.gameState) {
                         throw new Error('Game state not received');
                     }
-                    setGameState(data.gameState);
+                    // setGameState(data.gameState);
                 } else if (gameType === 'create') {
                     const res = await fetch(`${backendUrl}/game/create`, {
                         method: 'POST',
@@ -116,9 +116,9 @@ export const GameProvider = () => {
                     if (!data.gameState) {
                         throw new Error('Game state not received');
                     }
-                    setGameState(data.gameState);
+                    // setGameState(data.gameState);
                     // extract card and player data from the game state and store in maps
-                    console.log(data.gameState.id);
+                    // console.log(data.gameState.id);
                 }
             } catch (e) {
                 toast.open({

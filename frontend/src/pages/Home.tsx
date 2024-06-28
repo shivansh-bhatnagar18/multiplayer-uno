@@ -68,7 +68,10 @@ function Home() {
             navigate('/game?type=create');
         } else {
             open({
-                message: 'You need to log in to create a game',
+                message: {
+                    heading: 'Warning',
+                    content: 'Please login to create a game',
+                },
                 duration: 3000,
                 position: 'top-center',
                 color: 'warning',

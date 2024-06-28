@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { triggerEvent } from '../channel';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../library/toast/toast-context';
+import Player from '../library/Player';
 
 function getCardImageName(card: UNOCard): string {
     function getColorAbbreviation(color: CardColor): string {
@@ -173,10 +174,6 @@ function Game() {
         { top: '75%', left: '85%', transform: 'translate(-50%, -50%)' },
     ];
 
-    const cardStyles = {
-        filter: 'brightness(1)',
-    };
-
     if (!gameState) {
         return (
             <div className="bg-gray-800 h-screen text-white text-5xl font-kavoon text-center">
@@ -199,26 +196,12 @@ function Game() {
                 </div>
                 {/* Players */}
                 {gameState.players.slice(0, 6).map((player, index) => (
-                    <div
+                    <Player
                         key={index}
-                        className={`absolute flex flex-col items-center justify-center bg-player-icon-bg`}
-                        style={{
-                            ...playerPositions[index],
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            width: '70px',
-                            height: '80px',
-                            zIndex: 2,
-                            ...(index === gameState.currentPlayerIndex && {
-                                ...cardStyles,
-                                filter: 'brightness(1.5)',
-                            }),
-                        }}
-                    >
-                        <div className="player-cards text-black mt-[61px]">
-                            {player.cards.length}
-                        </div>
-                    </div>
+                        player={player}
+                        highlighted={index === gameState.currentPlayerIndex}
+                        positionStyle={playerPositions[index]}
+                    />
                 ))}
 
                 {/* Center Deck and UNO Button */}

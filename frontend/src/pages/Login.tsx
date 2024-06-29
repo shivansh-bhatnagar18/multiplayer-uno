@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../library/button';
 import Input from '../library/input';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../index.css';
 
@@ -10,6 +10,7 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
     const auth = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleUsernameChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -27,8 +28,9 @@ const Login: React.FC = () => {
         event.preventDefault();
         console.log('Form submitted');
         await auth.authenticate(username, password);
-        //todo: Check query params for a join game link
-        navigate('/');
+        //Check query params for a join game link
+        const navigateTo = location.search;
+        navigateTo ? navigate(navigateTo) : navigate('/');
     };
 
     return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 import Button from '../library/button';
 import { useModal } from '../library/modal/ModalContext';
@@ -62,8 +62,23 @@ function Game() {
     const navigate = useNavigate();
     const [FirstUser, setFirstUser] = useState(true);
     const modal = useModal();
+    const initialMount = useRef(true);
     useEffect(() => {
-        modal.show(<GamePropertiesModal />, 'large', [], false);
+        if (initialMount.current) {
+            modal.show(
+                'gameModal',
+                <GamePropertiesModal playerCount={gameState.players.length} />,
+                'large',
+                [],
+                false
+            );
+            initialMount.current = false;
+        } else {
+            modal.updateContent(
+                'gameModal',
+                <GamePropertiesModal playerCount={gameState.players.length} />
+            );
+        }
         // eslint-disable-next-line
     }, [gameState.players.length, gameState.id]); // todo add the required dependencies
     const drawCard = () => {
@@ -103,7 +118,7 @@ function Game() {
         modal.hide();
     }
 
-    function GamePropertiesModal() {
+    function GamePropertiesModal({ playerCount }: { playerCount: number }) {
         const currentUser = getUser();
         const isHost =
             currentUser &&
@@ -136,7 +151,7 @@ function Game() {
                         <h2 className="text-bold font-bold  text-[#333]  font-[Kavoon] text-[20px]">
                             Players Joined :{' '}
                             <span className="text-[#555] font-[Roboto]">
-                                {gameState.players.length}
+                                {playerCount}
                             </span>
                         </h2>
                     </div>
@@ -266,7 +281,15 @@ function Game() {
             <button
                 className="fixed bottom-5 left-5 p-3 bg-lime-500 text-gray-700 rounded-full focus:outline-none transform transition-transform duration-300 hover:scale-105 hover:bg-lime-400 active:bg-lime-600 shadow-md"
                 onClick={() =>
-                    modal.show(<GamePropertiesModal />, 'large', [], false)
+                    modal.show(
+                        'gameModal',
+                        <GamePropertiesModal
+                            playerCount={gameState.players.length}
+                        />,
+                        'large',
+                        [],
+                        false
+                    )
                 }
             >
                 <IoSettings className="w-7 h-7" />

@@ -16,17 +16,20 @@ export type ModalButtonArgs = {
 };
 type ModalContextType = {
     show: (
+        id: string,
         content: ReactNode,
         size: 'small' | 'large',
         buttons?: ModalButtonArgs[],
         closeOnBlurClick?: boolean
     ) => void;
     hide: () => void;
+    updateContent: (id: string, content: ReactNode) => void;
 };
 
 const ModalContext = createContext<ModalContextType>({
     show: () => {},
     hide: () => {},
+    updateContent: () => {},
 });
 
 // eslint-disable-next-line
@@ -40,6 +43,9 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     const [modalContent, setModalContent] = useState<ReactNode>(null);
     const [modalButtons, setModalButtons] = useState<ModalButtonArgs[]>([]);
     const [modalSize, setModalSize] = useState<'small' | 'large'>('small');
+    const [currentlyActiveModalId, setcurrentlyActiveModalId] = useState<
+        string | null
+    >(null);
     const [modalCloseOnBlurClick, setModalCloseOnBlurClick] = useState(true);
     const location = useLocation();
 
@@ -50,11 +56,13 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     }, [location.pathname, location.search, location.hash, location.state]);
 
     function show(
+        id: string,
         content: ReactNode,
         size: 'small' | 'large' = 'small',
         buttons: ModalButtonArgs[] = [],
         closeOnBlurClick: boolean = true
     ) {
+        setcurrentlyActiveModalId(id);
         setModalContent(content);
         setModalButtons(buttons);
         setModalSize(size);
@@ -63,12 +71,18 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     }
 
     function hide() {
+        setcurrentlyActiveModalId(null);
         setIsVisible(false);
         setModalContent(null);
     }
+    function updateContent(id: string, content: ReactNode) {
+        if (id === currentlyActiveModalId) {
+            setModalContent(content);
+        }
+    }
 
     return (
-        <ModalContext.Provider value={{ show, hide }}>
+        <ModalContext.Provider value={{ show, hide, updateContent }}>
             {children}
             {isVisible && (
                 <Modal

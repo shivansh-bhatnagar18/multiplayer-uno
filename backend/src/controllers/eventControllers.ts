@@ -17,6 +17,7 @@ export function addEventClient(req: AuthRequest, res: Response) {
     const clientId = req.user.id as string;
     // note: we might need to use a different client id if the user is allowed to have multiple clients
     // ie, the user is allowed to play multiple games on multiple devices at the same time
+    // console.log('adding client', clientId);
     addClient(clientId, res);
 }
 
@@ -56,18 +57,25 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
             res.status(400).send({ message: result.message });
             return;
         } else {
+            // propagateEventToClients(
+            //     event,
+            //     game.players.map((player) => player.id)
+            // );
+            // Emit state synchronization event
+            const stateSyncEvent = await makeStateSyncEvent(game);
             propagateEventToClients(
-                event,
+                stateSyncEvent,
                 game.players.map((player) => player.id)
             );
-            // Emit state synchronization event
-            if (event.type === 'DRAW_CARD' || event.type === 'START_GAME') {
-                const stateSyncEvent = await makeStateSyncEvent(game);
-                propagateEventToClients(
-                    stateSyncEvent,
-                    game.players.map((player) => player.id)
-                );
-            }
+            // if (
+            //     event.type === 'DRAW_CARD' ||
+            //     event.type === 'START_GAME'
+            // ) {
+            // }
+            res.status(200).send({
+                message: 'Event propagated to clients.',
+                result,
+            });
         }
     } else {
         // it is a message event etc
@@ -77,8 +85,8 @@ export async function handleAppEvent(req: AuthRequest, res: Response) {
             event,
             game.players.map((player) => player.id)
         );
+        res.status(200).send({ message: 'Chat Event propagated to clients.' });
     }
-    res.status(200).send({ message: 'Event propagated to clients.' });
 }
 
 // temporarily here
@@ -87,7 +95,6 @@ export async function makeStateSyncEvent(game: GameEngine): Promise<GameEvent> {
     const apiplayers = await User.find({
         _id: { $in: game.players.map((player) => player.id) },
     }).select('id username');
-    console.log('apiplayers', apiplayers);
     // make a map of id vs all the additional data we send
     const apiPlayers = apiplayers.reduce((acc, player) => {
         acc[player.id] = { name: player.username };
@@ -108,6 +115,7 @@ export async function makeStateSyncEvent(game: GameEngine): Promise<GameEvent> {
 
 export function propagateEventToClients(event: AppEvent, targets: ClientId[]) {
     for (const target of targets) {
+        console.log(event.type, 'propagated to', target);
         enqueueForSend(target, event);
     }
 }

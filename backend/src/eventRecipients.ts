@@ -16,6 +16,7 @@ export function addClient(clientId: ClientId, res: Response) {
     // if there are new events for this client, we will send them immediately
     // else we will withhold the response object until there are new events
     clients.set(clientId, res);
+    console.log('added client', clientId);
     doSendEvents(clientId);
 }
 
@@ -51,6 +52,7 @@ export function doSendEvents(clientId: ClientId) {
     if (res && events.length > 0) {
         res.json({ events });
         eventQueue.set(clientId, []);
+        console.log('sent events to client', clientId);
         clients.delete(clientId);
     }
 }

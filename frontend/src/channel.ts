@@ -97,6 +97,7 @@ export function triggerEvent(event: Omit<types.AppEvent, 'playerId'>) {
     if (!authCreds) {
         throw new Error('Auth credentials not set');
     }
+    console.log('Triggering event:', event);
     fetch(`${process.env.REACT_APP_BACKEND_URL}/events`, {
         method: 'POST',
         headers: {

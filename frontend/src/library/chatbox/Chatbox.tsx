@@ -70,8 +70,8 @@ const Chatbox: React.FC = () => {
             <div
                 className={`w-80 h-96 bg-lime-400 rounded-lg overflow-hidden mb-2 transition-all duration-300 ${
                     isVisible
-                        ? 'opacity-100 shadow-2xl'
-                        : 'opacity-0 pointer-events-none shadow-none'
+                        ? 'shadow-2xl'
+                        : 'hidden pointer-events-none shadow-none'
                 }`}
                 style={{
                     boxShadow: isVisible

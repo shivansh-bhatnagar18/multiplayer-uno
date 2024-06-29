@@ -69,8 +69,7 @@ function Game() {
                 'gameModal',
                 <GamePropertiesModal playerCount={gameState.players.length} />,
                 'large',
-                [],
-                false
+                []
             );
             initialMount.current = false;
         } else {
@@ -197,10 +196,9 @@ function Game() {
         );
     }
 
-    const myCards = (
+    const myCards =
         gameState.players.find((player) => player.id === getUser()!.id)
-            ?.cards ?? []
-    ).map(getCardImageName);
+            ?.cards ?? [];
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-table-bg bg-cover">
@@ -237,7 +235,7 @@ function Game() {
                             <img
                                 src={
                                     gameState.lastThrownCard
-                                        ? `/card_faces/${gameState.lastThrownCard}.svg`
+                                        ? `/card_faces/${getCardImageName(gameState.lastThrownCard)}.svg`
                                         : '/card_faces/back.jpeg'
                                 }
                                 alt="Last Thrown Card"
@@ -260,7 +258,7 @@ function Game() {
                 {/* Player Mat */}
                 {/* <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20"> */}
                 <div className="absolute top-[80%] flex z-30 flex-row w-full justify-center h-96">
-                    {myCards.map((card, index) => (
+                    {myCards.map(getCardImageName).map((card, index) => (
                         <img
                             key={index}
                             src={`/card_faces/${card}.svg`}
@@ -269,6 +267,14 @@ function Game() {
                             style={{
                                 marginLeft: index === 0 ? 0 : '-6.4rem',
                                 zIndex: 11 + index,
+                            }}
+                            onClick={() => {
+                                triggerEvent({
+                                    type: GameEventTypes.THROW_CARD,
+                                    data: {
+                                        cardId: myCards[index].id,
+                                    },
+                                });
                             }}
                         />
                     ))}

@@ -127,15 +127,43 @@ const rules = (
         </div>
     </>
 );
+
 const Navbar: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const links = [
+        {
+            text: 'Login',
+            type: 'link',
+            callback: () => navigate('/login'),
+        },
+        {
+            text: 'Logout',
+            type: 'link',
+            callback: () => auth.logout,
+        },
+        {
+            text: 'About Us',
+            type: 'modal',
+            callback: () =>
+                modal.show('aboutUsModal', aboutUs, 'large', [
+                    { text: 'Close', type: 'submit' },
+                ]),
+        },
+        {
+            text: 'Rules',
+            type: 'modal',
+            callback: () =>
+                modal.show('rulesModal', rules, 'large', [
+                    { text: 'Close', type: 'submit' },
+                ]),
+        },
+    ];
     const auth = useAuth();
     const modal = useModal();
     const navigate = useNavigate();
     const location = useLocation();
     const showLoginBtn =
         location.pathname !== '/login' && location.pathname !== '/signup';
-
     const toggleMenu = () => {
         setSidebarOpen(!sidebarOpen);
     };
@@ -219,67 +247,61 @@ const Navbar: React.FC = () => {
                             <div className="mb-2 mt-20 text-2xl font-kavoon align-center text-stroke-2 text-white font-bold">
                                 {auth.getUser()?.name}
                             </div>
-                            <Button
-                                variant="accept"
-                                size="medium"
-                                fontSize="text-2xl"
-                                onClick={auth.logout}
-                                className={`mb-2 mt-5 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
-                            >
-                                Logout
-                            </Button>
+                            <div className="my-10">
+                                {links.map((link, index) => {
+                                    if (
+                                        link.text === 'Logout' ||
+                                        link.type === 'modal'
+                                    ) {
+                                        return (
+                                            <div className="mt-4" key={index}>
+                                                <Button
+                                                    variant="accept"
+                                                    size="medium"
+                                                    fontSize="text-2xl"
+                                                    onClick={() => {
+                                                        link.callback();
+                                                        setSidebarOpen(false);
+                                                    }}
+                                                    className="mb-2"
+                                                >
+                                                    {link.text}
+                                                </Button>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
                         </>
                     ) : (
                         <>
-                            <Button
-                                variant="accept"
-                                size="medium"
-                                fontSize="text-2xl"
-                                onClick={() => navigate('/login')}
-                                className={`mb-2 mt-20 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
-                            >
-                                Login
-                            </Button>
+                            <div className="my-10">
+                                {links.map((link, index) => {
+                                    if (
+                                        link.text === 'Login' ||
+                                        link.type === 'modal'
+                                    ) {
+                                        return (
+                                            <div className="mt-4" key={index}>
+                                                <Button
+                                                    variant="accept"
+                                                    size="medium"
+                                                    fontSize="text-2xl"
+                                                    onClick={() => {
+                                                        link.callback();
+                                                        setSidebarOpen(false);
+                                                    }}
+                                                    className="mb-2"
+                                                >
+                                                    {link.text}
+                                                </Button>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
                         </>
                     )}
-                    <div className="mt-4">
-                        <Button
-                            variant="accept"
-                            size="medium"
-                            fontSize="text-2xl"
-                            onClick={() => {
-                                modal.show('aboutUsModal', aboutUs, 'large', [
-                                    {
-                                        text: 'Close',
-                                        type: 'submit',
-                                    },
-                                ]);
-                                toggleMenu();
-                            }}
-                            className={`mb-2 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
-                        >
-                            About Us
-                        </Button>
-                    </div>
-                    <div className="mt-4">
-                        <Button
-                            variant="accept"
-                            size="medium"
-                            fontSize="text-2xl"
-                            onClick={() => {
-                                modal.show('rulesModal', rules, 'large', [
-                                    {
-                                        text: 'Close',
-                                        type: 'submit',
-                                    },
-                                ]);
-                                toggleMenu();
-                            }}
-                            className={`${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
-                        >
-                            Rules
-                        </Button>
-                    </div>
                 </div>
                 <div
                     className="flex-grow bg-black bg-opacity-50 transition-opacity duration-700"

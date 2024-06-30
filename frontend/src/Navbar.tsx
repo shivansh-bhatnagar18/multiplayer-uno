@@ -129,7 +129,6 @@ const rules = (
 );
 const Navbar: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-
     const auth = useAuth();
     const modal = useModal();
     const navigate = useNavigate();
@@ -194,96 +193,99 @@ const Navbar: React.FC = () => {
                     </>
                 )}
             </div>
-            {sidebarOpen && (
-                <div className="fixed inset-0 flex z-20">
-                    <div className="bg-gray-300 text-black border-gray-600 w-64 p-4 shadow-lg pl-10 rounded-r-lg relative z-30">
-                        <button
-                            onClick={toggleMenu}
-                            className="absolute top-3 right-3"
-                        >
-                            <img
-                                src="/close.png"
-                                alt="Close menu"
-                                className="w-7 h-7 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-10 lg:h-10"
-                            />
-                        </button>
-                        {auth.isLoggedIn() ? (
-                            <>
-                                <div className="mb-2 mt-20 text-2xl font-kavoon align-center text-stroke-2 text-white font-bold">
-                                    {auth.getUser()?.name}
-                                </div>
-                                <Button
-                                    variant="accept"
-                                    size="medium"
-                                    fontSize="text-2xl"
-                                    onClick={auth.logout}
-                                    className="mb-2 mt-5"
-                                >
-                                    Logout
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Button
-                                    variant="accept"
-                                    size="medium"
-                                    fontSize="text-2xl"
-                                    onClick={() => navigate('/login')}
-                                    className="mb-2 mt-20"
-                                >
-                                    Login
-                                </Button>
-                            </>
-                        )}
-                        <div className="mt-4">
-                            <Button
-                                variant="accept"
-                                size="medium"
-                                fontSize="text-2xl"
-                                onClick={() => {
-                                    modal.show(
-                                        'aboutUsModal',
-                                        aboutUs,
-                                        'large',
-                                        [
-                                            {
-                                                text: 'Close',
-                                                type: 'submit',
-                                            },
-                                        ]
-                                    );
-                                    setSidebarOpen(false);
-                                }}
-                                className="mb-2"
-                            >
-                                About Us
-                            </Button>
-                        </div>
-                        <div className="mt-4">
-                            <Button
-                                variant="accept"
-                                size="medium"
-                                fontSize="text-2xl"
-                                onClick={() => {
-                                    modal.show('rulesModal', rules, 'large', [
-                                        {
-                                            text: 'Close',
-                                            type: 'submit',
-                                        },
-                                    ]);
-                                    setSidebarOpen(false);
-                                }}
-                            >
-                                Rules
-                            </Button>
-                        </div>
-                    </div>
-                    <div
-                        className="flex-grow bg-black bg-opacity-50"
+            <div
+                className={`fixed inset-0 flex z-20 transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            >
+                <div
+                    className={`bg-gray-300 text-black border-gray-600 ${sidebarOpen ? 'w-64' : 'w-0'} p-4 shadow-lg pl-10 rounded-r-lg relative z-30 transform transition-width duration-300 `}
+                    style={{
+                        boxShadow: sidebarOpen
+                            ? '0px 0px 20px rgba(0, 0, 0, 0.3)'
+                            : 'none',
+                    }}
+                >
+                    <button
                         onClick={toggleMenu}
-                    ></div>
+                        className="absolute top-3 right-3"
+                    >
+                        <img
+                            src="/close.png"
+                            alt="Close menu"
+                            className="w-7 h-7 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-10 lg:h-10"
+                        />
+                    </button>
+                    {auth.isLoggedIn() ? (
+                        <>
+                            <div className="mb-2 mt-20 text-2xl font-kavoon align-center text-stroke-2 text-white font-bold">
+                                {auth.getUser()?.name}
+                            </div>
+                            <Button
+                                variant="accept"
+                                size="medium"
+                                fontSize="text-2xl"
+                                onClick={auth.logout}
+                                className={`mb-2 mt-5 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
+                            >
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button
+                                variant="accept"
+                                size="medium"
+                                fontSize="text-2xl"
+                                onClick={() => navigate('/login')}
+                                className={`mb-2 mt-20 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
+                            >
+                                Login
+                            </Button>
+                        </>
+                    )}
+                    <div className="mt-4">
+                        <Button
+                            variant="accept"
+                            size="medium"
+                            fontSize="text-2xl"
+                            onClick={() => {
+                                modal.show('aboutUsModal', aboutUs, 'large', [
+                                    {
+                                        text: 'Close',
+                                        type: 'submit',
+                                    },
+                                ]);
+                                toggleMenu();
+                            }}
+                            className={`mb-2 ${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
+                        >
+                            About Us
+                        </Button>
+                    </div>
+                    <div className="mt-4">
+                        <Button
+                            variant="accept"
+                            size="medium"
+                            fontSize="text-2xl"
+                            onClick={() => {
+                                modal.show('rulesModal', rules, 'large', [
+                                    {
+                                        text: 'Close',
+                                        type: 'submit',
+                                    },
+                                ]);
+                                toggleMenu();
+                            }}
+                            className={`${sidebarOpen ? '' : 'transform -translate-x-full duration-700'}`}
+                        >
+                            Rules
+                        </Button>
+                    </div>
                 </div>
-            )}
+                <div
+                    className="flex-grow bg-black bg-opacity-50 transition-opacity duration-700"
+                    onClick={toggleMenu}
+                ></div>
+            </div>
         </div>
     );
 };

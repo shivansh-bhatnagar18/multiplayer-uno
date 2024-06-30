@@ -7,6 +7,7 @@ type ModalContainerProps = {
     buttons: ModalButtonArgs[];
     size: 'small' | 'large';
     closeOnBlurClick?: boolean; // Add close prop
+    isVisible: boolean;
 };
 
 const Modal: React.FC<ModalContainerProps> = ({
@@ -14,6 +15,7 @@ const Modal: React.FC<ModalContainerProps> = ({
     buttons,
     size,
     closeOnBlurClick = true,
+    isVisible,
 }) => {
     const { hide } = useModal();
     const modalRef = useRef<HTMLDivElement>(null);
@@ -35,7 +37,7 @@ const Modal: React.FC<ModalContainerProps> = ({
         return () => document.removeEventListener('keydown', handleEscape);
     }, [hide, closeOnBlurClick]);
     let modalClass =
-        'bg-[rgb(222,209,209)] p-5 rounded-xl border-4 border-black shadow-md flex flex-col gap-10 items-center justify-center';
+        'bg-[rgb(222,209,209)] p-5 rounded-xl border-4 border-black shadow-md flex flex-col gap-10 items-center justify-center transition-all duration-500 transform';
 
     if (size === 'small') {
         modalClass += ' w-11/12 h-1/2 sm:w-1/2 sm:h-1/2 md:w-1/3 md:h-1/3';
@@ -47,9 +49,11 @@ const Modal: React.FC<ModalContainerProps> = ({
             <div
                 ref={modalRef}
                 onClick={closeModal}
-                className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto z-30 "
+                className={`fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto z-30 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
             >
-                <div className={modalClass}>
+                <div
+                    className={`${modalClass} ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                >
                     {content}
                     {buttons.map((button) => {
                         return (

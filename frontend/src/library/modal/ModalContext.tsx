@@ -73,7 +73,9 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     function hide() {
         setcurrentlyActiveModalId(null);
         setIsVisible(false);
-        setModalContent(null);
+        setTimeout(() => {
+            setModalContent(null);
+        }, 500);
     }
     function updateContent(id: string, content: ReactNode) {
         if (id === currentlyActiveModalId) {
@@ -84,12 +86,13 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     return (
         <ModalContext.Provider value={{ show, hide, updateContent }}>
             {children}
-            {isVisible && (
+            {modalContent && (
                 <Modal
                     content={modalContent}
                     buttons={modalButtons}
                     size={modalSize}
                     closeOnBlurClick={modalCloseOnBlurClick}
+                    isVisible={isVisible}
                 />
             )}
         </ModalContext.Provider>

@@ -50,6 +50,9 @@ const Modal: React.FC<ModalContainerProps> = ({
                 ref={modalRef}
                 onClick={closeModal}
                 className={`fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto z-30 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                    filter: 'drop-shadow(0 0 20px rgb(0, 0, 0))',
+                }}
             >
                 <div
                     className={`${modalClass} ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
